@@ -284,6 +284,9 @@ export function compareCanonical(a: string, b: string): -1 | 0 | 1;
 export function compareDecimal(a: DecimalString, b: DecimalString): -1 | 0 | 1;
 
 // @public
+export function compareValues(a: unknown, b: unknown, collator: Intl.Collator): number;
+
+// @public
 export function computePosition(anchor: Rect, floating: {
     width: number;
     height: number;
@@ -593,6 +596,17 @@ export const en: {
     readonly 'sideNavigation.collapse': "Collapse navigation";
     readonly 'tabs.scrollStart': "Earlier tabs";
     readonly 'tabs.scrollEnd': "Later tabs";
+    readonly 'table.selectAll': "Select all rows";
+    readonly 'table.selectRow': "Select row";
+    readonly 'table.rowActions': "Actions";
+    readonly 'table.resizeColumn': "Resize column {column}";
+    readonly 'table.loadingRow': "Loading";
+    readonly 'table.rowCount': {
+        readonly one: "{count} row";
+        readonly other: "{count} rows";
+    };
+    readonly 'list.loadMore': "Load more";
+    readonly 'list.shown': "{shown} of {total}";
     readonly 'list.itemCount': {
         readonly one: "{count} item";
         readonly other: "{count} items";
@@ -873,6 +887,29 @@ export interface LinkRenderProps {
 }
 
 // @public
+export function List(input: ListProps): JSX.Element;
+
+// @public
+export interface ListEntry {
+    avatar?: ReactNode;
+    description?: ReactNode;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    icon?: IconDefinition;
+    info?: ReactNode;
+    // (undocumented)
+    key: string;
+    status?: {
+        label: string;
+        tone: Tone;
+    };
+    textValue?: string;
+    // (undocumented)
+    title: ReactNode;
+}
+
+// @public
 export interface ListItem {
     description?: string;
     // (undocumented)
@@ -881,6 +918,33 @@ export interface ListItem {
     icon?: IconDefinition;
     label: string;
     value: string;
+}
+
+// @public
+export interface ListProps {
+    'aria-label'?: string;
+    // (undocumented)
+    'aria-labelledby'?: string;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    defaultSelectedKeys?: ReadonlySet<string>;
+    // (undocumented)
+    items: readonly ListEntry[];
+    loading?: boolean;
+    navigable?: boolean;
+    onItemPress?: (item: ListEntry) => void;
+    onLoadMore?: () => void;
+    // (undocumented)
+    onSelectionChange?: (keys: ReadonlySet<string>) => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    renderEmpty?: () => ReactNode;
+    // (undocumented)
+    selectedKeys?: ReadonlySet<string>;
+    // (undocumented)
+    selectionMode?: 'none' | 'single' | 'multiple';
+    total?: number;
 }
 
 // @public
@@ -1585,6 +1649,93 @@ export interface TabItem {
     key: string;
     // (undocumented)
     label: string;
+}
+
+// @public
+export function Table<T>(input: TableProps<T>): JSX.Element;
+
+// @public
+export interface TableColumn<T> {
+    align?: 'start' | 'center' | 'end';
+    compare?: (a: T, b: T) => number;
+    header: string;
+    key: string;
+    minWidth?: number;
+    renderCell?: (row: T, rowIndex: number) => ReactNode;
+    resizable?: boolean;
+    // (undocumented)
+    sortable?: boolean;
+    sortValue?: (row: T) => unknown;
+    width?: number;
+}
+
+// @public
+export interface TablePage<T> {
+    // (undocumented)
+    rows: readonly T[];
+    // (undocumented)
+    total: number;
+}
+
+// @public
+export interface TablePageRequest {
+    // (undocumented)
+    limit: number;
+    // (undocumented)
+    offset: number;
+    signal: AbortSignal;
+    // (undocumented)
+    sort: TableSort | null;
+}
+
+// @public
+export interface TableProps<T> {
+    'aria-label'?: string;
+    // (undocumented)
+    'aria-labelledby'?: string;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    columns: readonly TableColumn<T>[];
+    // (undocumented)
+    defaultSelectedKeys?: ReadonlySet<string>;
+    // (undocumented)
+    defaultSort?: TableSort | null;
+    getRowKey: (row: T) => string;
+    height?: number | string;
+    loading?: boolean;
+    loadPage?: (request: TablePageRequest) => Promise<TablePage<T>>;
+    manualSort?: boolean;
+    onColumnResize?: (key: string, width: number) => void;
+    // (undocumented)
+    onRowAction?: (key: string, row: T) => void;
+    onRowPress?: (row: T) => void;
+    // (undocumented)
+    onSelectionChange?: (keys: ReadonlySet<string>) => void;
+    // (undocumented)
+    onSortChange?: (sort: TableSort | null) => void;
+    pageSize?: number;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    renderEmpty?: () => ReactNode;
+    rowActions?: (row: T) => readonly MenuItem[];
+    rows?: readonly T[];
+    // (undocumented)
+    selectedKeys?: ReadonlySet<string>;
+    // (undocumented)
+    selectionMode?: 'none' | 'single' | 'multiple';
+    // (undocumented)
+    sort?: TableSort | null;
+    // (undocumented)
+    style?: CSSProperties;
+}
+
+// @public
+export interface TableSort {
+    // (undocumented)
+    column: string;
+    // (undocumented)
+    direction: 'ascending' | 'descending';
 }
 
 // @public

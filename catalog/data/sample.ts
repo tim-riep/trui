@@ -80,3 +80,38 @@ export function loadCountries(query: string, signal: AbortSignal) {
     });
   });
 }
+
+/** A purchase order of the samples. */
+export interface Order {
+  id: string;
+  supplier: string;
+  city: string;
+  /** Exact decimal. */
+  amount: string;
+  currency: string;
+  /** `YYYY-MM-DD`. */
+  date: string;
+  status: 'open' | 'released' | 'delivered' | 'blocked';
+  quantity: string;
+}
+
+const orderStatuses: Order['status'][] = ['open', 'released', 'delivered', 'blocked'];
+
+/** `count` purchase orders, the same on every call. */
+export function makeOrders(count: number): Order[] {
+  return Array.from({ length: count }, (_, i) => {
+    const supplier = suppliers[i % suppliers.length]!;
+    const cents = ((i * 7919) % 2_000_000) + 1999;
+    const day = (i % 28) + 1;
+    return {
+      id: String(4500010000 + i),
+      supplier: supplier.label,
+      city: supplier.description!.split(' · ')[1]!,
+      amount: `${Math.floor(cents / 100)}.${String(cents % 100).padStart(2, '0')}`,
+      currency: 'EUR',
+      date: `2026-${String((i % 12) + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+      status: orderStatuses[i % 4]!,
+      quantity: String((i % 40) + 1),
+    };
+  });
+}

@@ -18,6 +18,10 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Data: `Table` with sorting (exact for decimals), single and multiple selection with
+  ranges, row actions, resizable columns, loading and empty states, rows given as array
+  or loaded page by page, rendering of visible rows only and grid keyboard navigation
+  with editable cells; `List` with selection, navigation and loading more.
 - Layout and navigation: `Page` and `PageHeader` with a title row that stays while the
   facts scroll away, `Breadcrumbs`, `Toolbar` with an overflow menu, `Panel`, `Card`,
   `Tabs`, `SplitLayout`, `SideNavigation` and `AppHeader`; icons `pin` and `sidebar`.

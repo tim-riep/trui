@@ -1,0 +1,188 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@layer trui.components {
+  .trui-table {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--trui-color-surface);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-radius: var(--trui-radius-m);
+  }
+
+  .trui-table__scroller {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    border-radius: inherit;
+  }
+
+  .trui-table__grid {
+    min-width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+
+  .trui-table__header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: var(--trui-row-height);
+    padding: 0 var(--trui-space-s);
+    font-size: var(--trui-font-size-s);
+    font-weight: var(--trui-font-weight-semibold);
+    color: var(--trui-color-text-secondary);
+    text-align: start;
+    white-space: nowrap;
+    background: var(--trui-color-surface-subtle);
+    border-bottom: var(--trui-border-width) solid var(--trui-color-border);
+  }
+
+  .trui-table__header--sortable {
+    cursor: pointer;
+  }
+
+  .trui-table__header--sortable:hover {
+    color: var(--trui-color-text);
+  }
+
+  .trui-table__header-content {
+    display: inline-flex;
+    gap: var(--trui-space-xxs);
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .trui-table__header-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .trui-table__resize {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-end: 0;
+    width: var(--trui-space-s);
+    cursor: col-resize;
+    touch-action: none;
+  }
+
+  .trui-table__resize::after {
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    inset-inline-end: 0;
+    width: var(--trui-border-width);
+    content: '';
+    background: var(--trui-color-border);
+  }
+
+  .trui-table__resize:hover::after {
+    top: 0;
+    bottom: 0;
+    width: var(--trui-border-width-strong);
+    background: var(--trui-color-accent);
+  }
+
+  .trui-table__row {
+    height: var(--trui-row-height);
+  }
+
+  .trui-table__cell {
+    height: var(--trui-row-height);
+    padding: 0 var(--trui-space-s);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
+  }
+
+  .trui-table__cell--end {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  .trui-table__cell--center {
+    text-align: center;
+  }
+
+  .trui-table__cell .trui-field {
+    vertical-align: middle;
+  }
+
+  .trui-table__cell .trui-field__message:empty {
+    display: none;
+  }
+
+  .trui-table__row--interactive {
+    cursor: pointer;
+  }
+
+  .trui-table__row:hover .trui-table__cell {
+    background: var(--trui-color-surface-hover);
+  }
+
+  .trui-table__row--selected .trui-table__cell,
+  .trui-table__row--selected:hover .trui-table__cell {
+    background: var(--trui-color-selected);
+  }
+
+  .trui-table__cell:focus-visible,
+  .trui-table__header:focus-visible {
+    outline-offset: calc(var(--trui-focus-width) * -1);
+  }
+
+  .trui-table__check {
+    width: var(--trui-icon-size-s);
+    height: var(--trui-icon-size-s);
+    margin: 0;
+    vertical-align: middle;
+    accent-color: var(--trui-color-accent);
+  }
+
+  .trui-table__skeleton {
+    display: block;
+    width: 70%;
+    height: var(--trui-space-s);
+    background: var(--trui-color-surface-subtle);
+    border-radius: var(--trui-radius-s);
+  }
+
+  .trui-table__spacer td {
+    padding: 0;
+    border: 0;
+  }
+
+  .trui-table__empty {
+    padding: var(--trui-space-xxl) var(--trui-space-l);
+    color: var(--trui-color-text-secondary);
+    text-align: center;
+  }
+
+  .trui-table__busy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--trui-color-surface) 60%, transparent);
+    border-radius: inherit;
+  }
+}

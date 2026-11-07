@@ -97,6 +97,14 @@ export const en = {
   'sideNavigation.collapse': 'Collapse navigation',
   'tabs.scrollStart': 'Earlier tabs',
   'tabs.scrollEnd': 'Later tabs',
+  'table.selectAll': 'Select all rows',
+  'table.selectRow': 'Select row',
+  'table.rowActions': 'Actions',
+  'table.resizeColumn': 'Resize column {column}',
+  'table.loadingRow': 'Loading',
+  'table.rowCount': { one: '{count} row', other: '{count} rows' },
+  'list.loadMore': 'Load more',
+  'list.shown': '{shown} of {total}',
   'list.itemCount': { one: '{count} item', other: '{count} items' },
 } as const satisfies Record<string, TextValue>;
 

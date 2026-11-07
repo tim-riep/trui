@@ -95,5 +95,13 @@ export const de: TextPackage = {
   'sideNavigation.collapse': 'Navigation zuklappen',
   'tabs.scrollStart': 'Vorherige Registerkarten',
   'tabs.scrollEnd': 'Weitere Registerkarten',
+  'table.selectAll': 'Alle Zeilen auswählen',
+  'table.selectRow': 'Zeile auswählen',
+  'table.rowActions': 'Aktionen',
+  'table.resizeColumn': 'Breite der Spalte {column} ändern',
+  'table.loadingRow': 'Wird geladen',
+  'table.rowCount': { one: '{count} Zeile', other: '{count} Zeilen' },
+  'list.loadMore': 'Mehr laden',
+  'list.shown': '{shown} von {total}',
   'list.itemCount': { one: '{count} Eintrag', other: '{count} Einträge' },
 };

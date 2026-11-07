@@ -64,3 +64,5 @@
 @import './components/split-layout/SplitLayout.css';
 @import './components/side-navigation/SideNavigation.css';
 @import './components/app-header/AppHeader.css';
+@import './components/table/Table.css';
+@import './components/list/List.css';
