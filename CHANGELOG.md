@@ -15,9 +15,14 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
   `useIcon`; `IconProvider` and `Portal`.
 - Design tokens as CSS custom properties, the Inter typeface and base styles in one
   stylesheet `@tim-riep/trui/styles.css`.
-- Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
+- Icon set, one module per icon (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Home page and shell: `Tile`, `MetricTile` (exact figures with scaling, trend and
+  rating) and `ContentTile`, `TileGroup` and `TileGroups` with a jump bar, `ShellHeader`
+  with search, notifications, area switch and user menu, `NotificationPanel`,
+  `SettingsDialog` and `ShellLayout`; the icon set grows to 163 icons in eleven categories.
+- `ComboBox` takes `startContent` and can hide its list button (`showButton`).
 - Data: `Table` with sorting (exact for decimals), single and multiple selection with
   ranges, row actions, resizable columns, loading and empty states, rows given as array
   or loaded page by page, rendering of visible rows only and grid keyboard navigation

@@ -1,0 +1,124 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@layer trui.components {
+  .trui-notifications {
+    display: flex;
+    flex-direction: column;
+    gap: var(--trui-space-s);
+    width: min(calc(var(--trui-space-xxxl) * 8), 90vw);
+  }
+
+  .trui-notifications__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--trui-space-xs);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .trui-notifications__group-by {
+    display: flex;
+    gap: var(--trui-space-xxs);
+  }
+
+  .trui-notifications__empty {
+    margin: 0;
+    padding: var(--trui-space-l) 0;
+    color: var(--trui-color-text-secondary);
+    text-align: center;
+  }
+
+  .trui-notifications__group-title {
+    margin: var(--trui-space-s) 0 var(--trui-space-xs);
+    font-size: var(--trui-font-size-xs);
+    font-weight: var(--trui-font-weight-semibold);
+    color: var(--trui-color-text-secondary);
+  }
+
+  .trui-notifications__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--trui-space-xs);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .trui-notification {
+    display: flex;
+    flex-direction: column;
+    gap: var(--trui-space-xxs);
+    padding: var(--trui-space-s) var(--trui-space-m);
+    background: var(--trui-color-surface);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-radius: var(--trui-radius-m);
+  }
+
+  .trui-notification--unread {
+    border-inline-start: var(--trui-border-width-strong) solid var(--trui-color-accent);
+  }
+
+  .trui-notification__header {
+    display: flex;
+    gap: var(--trui-space-xs);
+    align-items: center;
+  }
+
+  .trui-notification__dot {
+    flex: none;
+    width: var(--trui-space-s);
+    height: var(--trui-space-s);
+    background: var(--trui-color-accent);
+    border-radius: var(--trui-radius-round);
+  }
+
+  .trui-notification__title {
+    flex: 1;
+    min-width: 0;
+    font-weight: var(--trui-font-weight-semibold);
+  }
+
+  .trui-notification--unread .trui-notification__title {
+    font-weight: var(--trui-font-weight-bold);
+  }
+
+  .trui-notification__dismiss.trui-button {
+    height: var(--trui-control-height-s);
+    min-width: var(--trui-control-height-s);
+    width: var(--trui-control-height-s);
+    color: var(--trui-color-text-secondary);
+  }
+
+  .trui-notification__text {
+    color: var(--trui-color-text-secondary);
+  }
+
+  .trui-notification__meta {
+    display: flex;
+    gap: var(--trui-space-s);
+    align-items: center;
+    font-size: var(--trui-font-size-xs);
+    color: var(--trui-color-text-secondary);
+  }
+
+  .trui-notification__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--trui-space-xs);
+    margin-top: var(--trui-space-xs);
+  }
+}

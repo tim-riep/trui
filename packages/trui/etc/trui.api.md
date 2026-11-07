@@ -243,6 +243,8 @@ export interface ComboBoxBaseProps extends Omit<InputHTMLAttributes<HTMLInputEle
     loadItems?: LoadItems;
     // (undocumented)
     ref?: Ref<HTMLInputElement>;
+    showButton?: boolean;
+    startContent?: ReactNode;
     // (undocumented)
     style?: CSSProperties;
     valueLabel?: string;
@@ -291,6 +293,15 @@ export function computePosition(anchor: Rect, floating: {
     width: number;
     height: number;
 }, viewport: Rect, options: PositionOptions_2): Position;
+
+// @public
+export function ContentTile(input: ContentTileProps): JSX.Element;
+
+// @public
+export interface ContentTileProps extends Omit<TileBaseProps, 'size'> {
+    children: ReactNode;
+    size?: TileSize | '2x2';
+}
 
 // @public
 export function currencyScale(currency: string, locale?: string): number;
@@ -607,6 +618,45 @@ export const en: {
     };
     readonly 'list.loadMore': "Load more";
     readonly 'list.shown': "{shown} of {total}";
+    readonly 'tile.failed': "Could not be loaded";
+    readonly 'tile.loading': "Loading";
+    readonly 'metric.thousand': "K";
+    readonly 'metric.million': "M";
+    readonly 'metric.billion': "B";
+    readonly 'metric.trendUp': "rising";
+    readonly 'metric.trendDown': "falling";
+    readonly 'metric.trendFlat': "steady";
+    readonly 'metric.good': "good";
+    readonly 'metric.critical': "critical";
+    readonly 'metric.bad': "bad";
+    readonly 'tileGroups.jumpTo': "Groups";
+    readonly 'shell.back': "Back";
+    readonly 'shell.home': "Home";
+    readonly 'shell.search': "Search";
+    readonly 'shell.notifications': "Notifications";
+    readonly 'shell.notificationsUnread': {
+        readonly one: "Notifications, {count} unread";
+        readonly other: "Notifications, {count} unread";
+    };
+    readonly 'shell.switchArea': "Switch area";
+    readonly 'shell.userMenu': "User menu of {name}";
+    readonly 'notifications.title': "Notifications";
+    readonly 'notifications.markAllRead': "Mark all as read";
+    readonly 'notifications.markRead': "Mark as read";
+    readonly 'notifications.dismiss': "Dismiss";
+    readonly 'notifications.empty': "No notifications";
+    readonly 'notifications.unread': "unread";
+    readonly 'notifications.today': "Today";
+    readonly 'notifications.yesterday': "Yesterday";
+    readonly 'notifications.earlier': "Earlier";
+    readonly 'notifications.groupByDate': "By date";
+    readonly 'notifications.groupByPriority': "By priority";
+    readonly 'priority.high': "High priority";
+    readonly 'priority.medium': "Medium priority";
+    readonly 'priority.low': "Low priority";
+    readonly 'settings.title': "Settings";
+    readonly 'settings.sections': "Sections";
+    readonly 'shell.skipToContent': "Skip to content";
     readonly 'list.itemCount': {
         readonly one: "{count} item";
         readonly other: "{count} items";
@@ -1165,6 +1215,23 @@ export interface MessagesButtonProps extends MessageListProps {
 }
 
 // @public
+export type MetricScale = 'auto' | 'none' | 'thousand' | 'million' | 'billion';
+
+// @public
+export function MetricTile(input: MetricTileProps): JSX.Element;
+
+// @public
+export interface MetricTileProps extends TileBaseProps {
+    fractionDigits?: number;
+    scale?: MetricScale;
+    tone?: 'neutral' | 'good' | 'critical' | 'bad';
+    // (undocumented)
+    trend?: 'up' | 'down' | 'flat';
+    unit?: string;
+    value: DecimalString;
+}
+
+// @public
 export function monthNames(locale: string, width?: 'short' | 'long'): string[];
 
 // @public
@@ -1231,6 +1298,47 @@ export interface NavigationItem {
 
 // @public
 export function negateDecimal(value: DecimalString): DecimalString;
+
+// @public
+interface Notification_2 {
+    actions?: readonly {
+        key: string;
+        label: string;
+    }[];
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    priority: 'high' | 'medium' | 'low';
+    // (undocumented)
+    read: boolean;
+    // (undocumented)
+    text?: ReactNode;
+    timestamp: TimestampString;
+    // (undocumented)
+    title: string;
+}
+export { Notification_2 as Notification }
+
+// @public
+export function NotificationPanel(input: NotificationPanelProps): JSX.Element;
+
+// @public
+export interface NotificationPanelProps {
+    // (undocumented)
+    className?: string;
+    defaultGroupBy?: 'date' | 'priority';
+    // (undocumented)
+    notifications: readonly Notification_2[];
+    now?: number;
+    // (undocumented)
+    onAction?: (key: string, notification: Notification_2) => void;
+    // (undocumented)
+    onDismiss?: (notification: Notification_2) => void;
+    // (undocumented)
+    onMarkAllRead?: () => void;
+    // (undocumented)
+    onMarkRead?: (notification: Notification_2) => void;
+}
 
 // @public
 export function nowTimestamp(now?: number): TimestampString;
@@ -1555,6 +1663,92 @@ export interface SelectNullable {
 
 // @public
 export type SelectProps = SelectBaseProps & (SelectNotNullable | SelectNullable);
+
+// @public
+export function SettingsDialog(input: SettingsDialogProps): JSX.Element;
+
+// @public
+export interface SettingsDialogProps {
+    // (undocumented)
+    defaultSelectedKey?: string;
+    footer?: ReactNode;
+    // (undocumented)
+    onClose: () => void;
+    // (undocumented)
+    onSelectionChange?: (key: string) => void;
+    // (undocumented)
+    open: boolean;
+    // (undocumented)
+    sections: readonly SettingsSection[];
+    // (undocumented)
+    selectedKey?: string;
+    title?: string;
+}
+
+// @public
+export interface SettingsSection {
+    content: ReactNode;
+    // (undocumented)
+    icon?: IconDefinition;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+}
+
+// @public
+export function ShellHeader(input: ShellHeaderProps): JSX.Element;
+
+// @public
+export interface ShellHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    actions?: ReactNode;
+    areas?: readonly MenuItem[];
+    // (undocumented)
+    logo?: ReactNode;
+    notificationHandlers?: Omit<NotificationPanelProps, 'notifications'>;
+    notifications?: readonly Notification_2[];
+    // (undocumented)
+    onAreaChange?: (key: string) => void;
+    onBack?: () => void;
+    onHome?: () => void;
+    // (undocumented)
+    onUserMenuAction?: (key: string) => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    // (undocumented)
+    search?: ShellSearch;
+    title: ReactNode;
+    // (undocumented)
+    user?: {
+        name: string;
+        picture?: string;
+    };
+    userMenu?: readonly MenuItem[];
+}
+
+// @public
+export function ShellLayout(input: ShellLayoutProps): JSX.Element;
+
+// @public
+export interface ShellLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    app?: ReactNode;
+    header: ReactNode;
+    home: ReactNode;
+    keepAppMounted?: boolean;
+    navigation?: ReactNode;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    view: 'home' | 'app';
+}
+
+// @public
+export interface ShellSearch {
+    loadSuggestions?: LoadItems;
+    onSearch: (query: string) => void;
+    onSuggestionSelect?: (item: ListItem) => void;
+    // (undocumented)
+    placeholder?: string;
+}
 
 // @public
 export function shiftDecimal(value: DecimalString, places: number): DecimalString;
@@ -1911,6 +2105,71 @@ export interface ThemeState {
     // (undocumented)
     theme: Theme;
 }
+
+// @public
+export function Tile(props: TileProps): JSX.Element;
+
+// @public
+export interface TileBaseProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    badge?: number;
+    footer?: ReactNode;
+    href?: string;
+    // (undocumented)
+    icon?: IconDefinition;
+    onPress?: (event: MouseEvent_2) => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    // (undocumented)
+    size?: TileSize;
+    state?: TileState;
+    // (undocumented)
+    subtitle?: string;
+    tileId?: string;
+    title: string;
+}
+
+// @public
+export function TileGroup(input: TileGroupProps): JSX.Element;
+
+// @public
+export interface TileGroupData {
+    id: string;
+    // (undocumented)
+    tiles: ReactNode;
+    // (undocumented)
+    title: string;
+}
+
+// @public
+export interface TileGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    children: ReactNode;
+    headingLevel?: 2 | 3 | 4;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    // (undocumented)
+    title?: ReactNode;
+}
+
+// @public
+export function TileGroups(input: TileGroupsProps): JSX.Element;
+
+// @public
+export interface TileGroupsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    // (undocumented)
+    groups: readonly TileGroupData[];
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    showJumpBar?: boolean;
+}
+
+// @public
+export type TileProps = TileBaseProps;
+
+// @public
+export type TileSize = '1x1' | '2x1';
+
+// @public
+export type TileState = 'normal' | 'loading' | 'failed' | 'disabled';
 
 // @public
 export function TimePicker(props: TimePickerProps): JSX.Element;

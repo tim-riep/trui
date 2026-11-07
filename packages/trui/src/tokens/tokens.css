@@ -107,6 +107,7 @@
     --trui-row-height: 32px;
     --trui-font-size-body: var(--trui-font-size-s);
     --trui-target-size: 24px;
+    --trui-tile-size: calc(var(--trui-space-xxxl) * 3.5);
   }
 
   [data-trui-density='comfortable'] {
@@ -117,6 +118,7 @@
     --trui-row-height: 44px;
     --trui-font-size-body: var(--trui-font-size-m);
     --trui-target-size: 44px;
+    --trui-tile-size: calc(var(--trui-space-xxxl) * 3.75);
   }
 
   :root,

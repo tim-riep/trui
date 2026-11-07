@@ -115,3 +115,47 @@ export function makeOrders(count: number): Order[] {
     };
   });
 }
+
+/** Notifications of the samples, relative to `now`. */
+export function makeNotifications(now: number) {
+  const at = (minutesAgo: number) => {
+    const d = new Date(now - minutesAgo * 60_000);
+    return `${d.toISOString().slice(0, 19)}.000000Z`;
+  };
+  return [
+    {
+      id: 'n1',
+      title: 'Purchase order 4500012345 waits for approval',
+      text: 'Net amount 18,990.50 EUR, requested by Ben Okafor.',
+      timestamp: at(12),
+      priority: 'high' as const,
+      read: false,
+      actions: [
+        { key: 'approve', label: 'Approve' },
+        { key: 'reject', label: 'Reject' },
+      ],
+    },
+    {
+      id: 'n2',
+      title: 'Delivery 80001234 arrived',
+      text: 'Goods receipt was posted at gate 4.',
+      timestamp: at(150),
+      priority: 'medium' as const,
+      read: false,
+    },
+    {
+      id: 'n3',
+      title: 'Monthly report is ready',
+      timestamp: at(60 * 26),
+      priority: 'low' as const,
+      read: true,
+    },
+    {
+      id: 'n4',
+      title: 'Supplier Acme Corp was blocked',
+      timestamp: at(60 * 24 * 5),
+      priority: 'medium' as const,
+      read: true,
+    },
+  ];
+}

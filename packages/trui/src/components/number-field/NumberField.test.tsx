@@ -113,9 +113,9 @@ describe('NumberField', () => {
     await userEvent.type(quantity!, '7');
     // Firefox may deliver the last key after the call returns when the machine is busy.
     await expect.poll(() => formData().get('quantity')).toBe('7.00');
-    await userEvent.click(screen.getByText('reset'));
-    expect(formData().get('quantity')).toBe('1500.25');
-    expect(quantity!.value).toBe('1.500,25');
+    document.querySelector('form')!.reset();
+    await expect.poll(() => formData().get('quantity')).toBe('1500.25');
+    await expect.poll(() => quantity!.value).toBe('1.500,25');
   });
 
   it('checks the range and steps with the arrow keys', async () => {

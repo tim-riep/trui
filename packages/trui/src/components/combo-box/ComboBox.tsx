@@ -69,6 +69,10 @@ export interface ComboBoxBaseProps
   allowCustomValue?: boolean;
   /** Label of the initial value when the options are loaded and not yet known. */
   valueLabel?: string;
+  /** Content before the text, e.g. a search icon. */
+  startContent?: ReactNode;
+  /** Shows the button that opens the list. On by default; off e.g. for a search field. */
+  showButton?: boolean;
   valueState?: ValueState;
   valueStateMessage?: ReactNode;
   className?: string;
@@ -110,6 +114,8 @@ export function ComboBox(props: ComboBoxProps) {
     debounce = 250,
     allowCustomValue = false,
     valueLabel,
+    startContent,
+    showButton = true,
     nullable = false,
     value,
     defaultValue,
@@ -214,8 +220,10 @@ export function ComboBox(props: ComboBoxProps) {
       style={style}
       focusTarget={inputRef}
       controlRef={controlRef}
+      startContent={startContent}
       endContent={
-        interactive && (
+        interactive &&
+        showButton && (
           <Button
             variant="text"
             icon={chevronDownIcon}
