@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vitest/browser"],
+    "paths": {
+      "@tim-riep/trui/core": ["./src/core/index.ts"],
+      "@tim-riep/trui": ["./src/index.ts"]
+    }
+  },
+  "include": ["src", "test"]
+}

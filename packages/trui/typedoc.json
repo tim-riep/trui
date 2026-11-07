@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "tsconfig": "tsconfig.json",
+  "out": "../../dist/catalog/api",
+  "name": "TRUI API",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "readme": "none",
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*.stories.tsx"]
+}
