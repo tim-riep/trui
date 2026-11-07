@@ -151,3 +151,13 @@
     color: var(--trui-color-information);
   }
 }
+
+@layer trui.components {
+  .trui-field__button.trui-button {
+    min-width: 0;
+    width: calc(var(--trui-control-height) - 2 * var(--trui-space-xs));
+    height: calc(var(--trui-control-height) - 2 * var(--trui-space-xs));
+    margin-inline-end: calc(var(--trui-control-padding-inline) * -1 + var(--trui-space-xxs));
+    color: var(--trui-color-text-secondary);
+  }
+}

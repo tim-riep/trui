@@ -1,0 +1,91 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@layer trui.components {
+  .trui-listbox {
+    padding: var(--trui-space-xs) 0;
+    margin: 0;
+    list-style: none;
+    outline: none;
+  }
+
+  .trui-listbox__option {
+    display: flex;
+    gap: var(--trui-space-s);
+    align-items: center;
+    min-height: var(--trui-row-height);
+    padding: var(--trui-space-xs) var(--trui-control-padding-inline);
+    cursor: pointer;
+  }
+
+  .trui-listbox__option--active {
+    background: var(--trui-color-surface-hover);
+    box-shadow: inset var(--trui-border-width-strong) 0 0 var(--trui-color-focus);
+  }
+
+  .trui-listbox__option--selected {
+    background: var(--trui-color-selected);
+  }
+
+  .trui-listbox__option[aria-disabled='true'] {
+    color: var(--trui-color-text-disabled);
+    cursor: default;
+  }
+
+  .trui-listbox__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .trui-listbox__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .trui-listbox__description {
+    font-size: var(--trui-font-size-xs);
+    color: var(--trui-color-text-secondary);
+  }
+
+  .trui-listbox__check {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--trui-icon-size-s);
+    height: var(--trui-icon-size-s);
+    color: var(--trui-color-on-accent);
+    border: var(--trui-border-width) solid var(--trui-color-border-strong);
+    border-radius: var(--trui-radius-s);
+  }
+
+  .trui-listbox__option--selected .trui-listbox__check {
+    background: var(--trui-color-accent);
+    border-color: var(--trui-color-accent);
+  }
+
+  .trui-listbox__selected-icon {
+    color: var(--trui-color-accent-text);
+  }
+
+  .trui-listbox__status {
+    padding: var(--trui-space-s) var(--trui-control-padding-inline);
+    color: var(--trui-color-text-secondary);
+  }
+}

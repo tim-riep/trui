@@ -27,9 +27,9 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { cx } from '../../internal/class-names';
+import { FieldFrame } from '../../internal/field/FieldFrame';
+import { useFieldProps } from '../../internal/field/use-field-props';
 import { useValueState } from '../../internal/field/use-value-state';
-import { ValueStateMessage } from '../../internal/field/ValueStateMessage';
 
 export interface TextFieldBaseProps
   extends Omit<
@@ -104,12 +104,15 @@ export function TextField(props: TextFieldProps) {
     style,
     name,
     form,
-    disabled,
     readOnly,
     ref,
-    'aria-describedby': describedBy,
+    id: _id,
+    required: _required,
+    disabled: _disabled,
+    'aria-describedby': _describedBy,
     ...inputProps
   } = props;
+  const field = useFieldProps(props);
   const initial = defaultValue !== undefined ? defaultValue : nullable ? null : '';
   const [current, setCurrent] = useControllableState<
     string | null,
@@ -124,7 +127,7 @@ export function TextField(props: TextFieldProps) {
   useFormReset(inputRef, () => {
     if (value === undefined) setCurrent(initial);
   });
-  const info = useValueState(valueState, valueStateMessage, describedBy);
+  const info = useValueState(valueState, valueStateMessage, field.describedBy);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
@@ -132,42 +135,39 @@ export function TextField(props: TextFieldProps) {
   };
 
   return (
-    <div
-      className={cx(
-        'trui-field',
-        'trui-text-field',
-        info.state !== 'none' && `trui-field--${info.state}`,
-        disabled && 'trui-field--disabled',
-        readOnly && 'trui-field--readonly',
-        className,
-      )}
+    <FieldFrame
+      kind="trui-text-field"
+      info={info}
+      disabled={field.disabled}
+      readOnly={readOnly}
+      className={className}
       style={style}
+      focusTarget={inputRef}
+      startContent={startContent}
+      endContent={endContent}
+      after={
+        nullable && (
+          <HiddenValue name={name} value={current} form={form} disabled={field.disabled} />
+        )
+      }
     >
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: a click on the box focuses the input; the input itself is the control */}
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: keyboard users reach the input directly */}
-      <div className="trui-field__control" onClick={() => inputRef.current?.focus()}>
-        {startContent !== undefined && (
-          <span className="trui-field__adornment">{startContent}</span>
-        )}
-        <input
-          ref={inputRef}
-          className="trui-field__input"
-          type={type}
-          // With nullable, a hidden input carries the value so that null can be left out.
-          name={nullable ? undefined : name}
-          form={form}
-          value={current ?? ''}
-          disabled={disabled}
-          readOnly={readOnly}
-          aria-invalid={info.invalid}
-          aria-describedby={info.describedBy}
-          onChange={handleChange}
-          {...inputProps}
-        />
-        {endContent !== undefined && <span className="trui-field__adornment">{endContent}</span>}
-      </div>
-      {nullable && <HiddenValue name={name} value={current} form={form} disabled={disabled} />}
-      <ValueStateMessage info={info} />
-    </div>
+      <input
+        ref={inputRef}
+        id={field.id}
+        className="trui-field__input"
+        type={type}
+        // With nullable, a hidden input carries the value so that null can be left out.
+        name={nullable ? undefined : name}
+        form={form}
+        value={current ?? ''}
+        required={field.required}
+        disabled={field.disabled}
+        readOnly={readOnly}
+        aria-invalid={info.invalid}
+        aria-describedby={info.describedBy}
+        onChange={handleChange}
+        {...inputProps}
+      />
+    </FieldFrame>
   );
 }

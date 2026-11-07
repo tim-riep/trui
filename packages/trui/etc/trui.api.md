@@ -5,9 +5,11 @@
 ```ts
 
 import type { AnchorHTMLAttributes } from 'react';
-import type { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import { ChangeEvent } from 'react';
+import { Context } from 'react';
 import { CSSProperties } from 'react';
+import { FormHTMLAttributes } from 'react';
 import { HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 import { JSX } from 'react';
@@ -18,6 +20,7 @@ import { ReactPortal } from 'react';
 import { Ref } from 'react';
 import { RefObject } from 'react';
 import { SVGProps } from 'react';
+import { TextareaHTMLAttributes } from 'react';
 
 // @public
 export function addDays(value: DateString, days: number): DateString;
@@ -30,6 +33,14 @@ export function addMonths(value: DateString, months: number): DateString;
 
 // @public
 export type Align = 'start' | 'center' | 'end';
+
+// @public
+export function AmountField(input: AmountFieldProps): JSX.Element;
+
+// @public
+export type AmountFieldProps = NumberFieldProps & {
+    currency: string;
+};
 
 // @public
 export function Avatar(input: AvatarProps): JSX.Element;
@@ -98,7 +109,94 @@ export type ButtonProps = ButtonBaseProps & ({
 export type ButtonVariant = 'primary' | 'secondary' | 'text' | 'danger';
 
 // @public
+export function Calendar(input: CalendarProps): JSX.Element;
+
+// @public
+export interface CalendarProps {
+    autoFocus?: boolean;
+    // (undocumented)
+    className?: string;
+    max?: DateString | undefined;
+    min?: DateString | undefined;
+    onEscape?: () => void;
+    onSelect: (date: DateString) => void;
+    value: DateString | null;
+}
+
+// @public
+export function Checkbox(props: CheckboxProps): JSX.Element;
+
+// @public
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'checked' | 'defaultChecked' | 'onChange' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    checked?: boolean;
+    children?: ReactNode;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    defaultChecked?: boolean;
+    indeterminate?: boolean;
+    // (undocumented)
+    onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public
 export function checkLimits(value: DecimalString, options?: DecimalOptions): DecimalParseResult;
+
+// @public
+export function ComboBox(props: ComboBoxProps): JSX.Element;
+
+// @public (undocumented)
+export interface ComboBoxBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    allowCustomValue?: boolean;
+    // (undocumented)
+    className?: string;
+    debounce?: number;
+    items?: readonly ListItem[];
+    loadItems?: LoadItems;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    valueLabel?: string;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface ComboBoxNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string, item: ListItem | null) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface ComboBoxNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null, item: ListItem | null) => void;
+    // (undocumented)
+    value?: string | null;
+}
+
+// @public
+export type ComboBoxProps = ComboBoxBaseProps & (ComboBoxNotNullable | ComboBoxNullable);
 
 // @public
 export function compareCanonical(a: string, b: string): -1 | 0 | 1;
@@ -129,6 +227,49 @@ export function dateParts(value: DateString): {
 };
 
 // @public
+export function DatePicker(props: DatePickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DatePickerBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'min' | 'max' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    className?: string;
+    max?: DateString;
+    min?: DateString;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface DatePickerNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface DatePickerNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null) => void;
+    value?: string | null;
+}
+
+// @public
+export type DatePickerProps = DatePickerBaseProps & (DatePickerNotNullable | DatePickerNullable);
+
+// @public
 export function datePlaceholder(locale: string, letters?: {
     day: string;
     month: string;
@@ -137,6 +278,64 @@ export function datePlaceholder(locale: string, letters?: {
 
 // @public
 export type DateString = string;
+
+// @public
+export function DateTimePicker(props: DateTimePickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface DateTimePickerBaseProps {
+    // (undocumented)
+    'aria-describedby'?: string;
+    // (undocumented)
+    'aria-label'?: string;
+    // (undocumented)
+    'aria-labelledby'?: string;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    form?: string;
+    // (undocumented)
+    id?: string;
+    minuteStep?: number;
+    // (undocumented)
+    name?: string;
+    // (undocumented)
+    readOnly?: boolean;
+    // (undocumented)
+    required?: boolean;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface DateTimePickerNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface DateTimePickerNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null) => void;
+    value?: string | null;
+}
+
+// @public
+export type DateTimePickerProps = DateTimePickerBaseProps & (DateTimePickerNotNullable | DateTimePickerNullable);
 
 // @public
 export function daysInMonth(year: number, month: number): number;
@@ -189,6 +388,28 @@ export function defineIcon(name: string, shapes: readonly IconShape[], options?:
 export type Density = 'compact' | 'comfortable';
 
 // @public
+export function Dialog(input: DialogProps): JSX.Element | null;
+
+// @public
+export type DialogCloseReason = 'escape' | 'closeButton' | 'backdrop';
+
+// @public
+export interface DialogProps extends Omit<HTMLAttributes<HTMLDialogElement>, 'title' | 'onClose'> {
+    closeOnBackdrop?: boolean;
+    footer?: ReactNode;
+    headerContent?: ReactNode;
+    initialFocus?: RefObject<HTMLElement | null>;
+    onClose: (reason: DialogCloseReason) => void;
+    open: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLDialogElement>;
+    role?: 'dialog' | 'alertdialog';
+    showCloseButton?: boolean;
+    size?: 's' | 'm' | 'l' | 'fullscreen';
+    title: ReactNode;
+}
+
+// @public
 export type Direction = 'ltr' | 'rtl';
 
 // @public
@@ -218,6 +439,47 @@ export const en: {
     readonly 'input.tooManyFractionDigits': "Enter at most {digits} digits after the decimal separator";
     readonly 'input.invalidDate': "Enter a valid date";
     readonly 'input.invalidTime': "Enter a valid time";
+    readonly 'input.belowMinimum': "Enter a value of at least {min}";
+    readonly 'input.aboveMaximum': "Enter a value of at most {max}";
+    readonly 'input.dateBeforeMinimum': "Enter a date on or after {min}";
+    readonly 'input.dateAfterMaximum': "Enter a date on or before {max}";
+    readonly 'input.placeholderDay': "DD";
+    readonly 'input.placeholderMonth': "MM";
+    readonly 'input.placeholderYear': "YYYY";
+    readonly 'input.time': "Time";
+    readonly 'input.date': "Date";
+    readonly 'input.increase': "Increase";
+    readonly 'input.decrease': "Decrease";
+    readonly 'select.placeholder': "Select";
+    readonly 'select.noSelection': "(none)";
+    readonly 'select.noResults': "No matches";
+    readonly 'select.showOptions': "Show options";
+    readonly 'select.removeValue': "Remove {label}";
+    readonly 'select.moreValues': "+{count}";
+    readonly 'select.selectedValues': {
+        readonly one: "{count} value selected";
+        readonly other: "{count} values selected";
+    };
+    readonly 'calendar.open': "Open calendar";
+    readonly 'calendar.previousMonth': "Previous month";
+    readonly 'calendar.nextMonth': "Next month";
+    readonly 'calendar.today': "Today";
+    readonly 'calendar.week': "Week";
+    readonly 'file.browse': "Browse…";
+    readonly 'file.remove': "Remove {name}";
+    readonly 'file.none': "No file selected";
+    readonly 'file.count': {
+        readonly one: "{count} file";
+        readonly other: "{count} files";
+    };
+    readonly 'lookup.open': "Open value help";
+    readonly 'lookup.title': "Select a value";
+    readonly 'lookup.search': "Search";
+    readonly 'lookup.loadMore': "Load more";
+    readonly 'lookup.results': {
+        readonly one: "{count} result";
+        readonly other: "{count} results";
+    };
     readonly 'input.characterCount': {
         readonly one: "{count} character";
         readonly other: "{count} characters";
@@ -236,10 +498,52 @@ export const en: {
 };
 
 // @public
+export type FetchLookupItems = (request: LookupRequest) => Promise<LookupPage>;
+
+// @public
+export const FieldContext: Context<FieldContextValue | null>;
+
+// @public
+export interface FieldContextValue {
+    describedBy: string | undefined;
+    // (undocumented)
+    disabled: boolean;
+    id: string;
+    labelId: string;
+    // (undocumented)
+    required: boolean;
+}
+
+// @public
+export function FileInput(props: FileInputProps): JSX.Element;
+
+// @public
+export interface FileInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'onChange' | 'children' | 'className' | 'style'> {
+    buttonText?: ReactNode;
+    // (undocumented)
+    className?: string;
+    multiple?: boolean;
+    // (undocumented)
+    onChange?: (files: File[]) => void;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    value?: readonly File[];
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public
 export function firstDayOfWeek(locale: string): number;
 
 // @public
 export function focusFirst(container: HTMLElement): void;
+
+// @public
+export function Form(input: FormProps): JSX.Element;
 
 // @public
 export function formatDate(value: DateString, locale: string, style?: 'short' | 'medium' | 'long' | 'full'): string;
@@ -279,6 +583,42 @@ export function formatTimestamp(value: TimestampString, locale: string, timeZone
     dateStyle?: 'short' | 'medium' | 'long';
     seconds?: boolean;
 }): string;
+
+// @public
+export function FormField(input: FormFieldProps): JSX.Element;
+
+// @public
+export interface FormFieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    children: ReactNode;
+    disabled?: boolean;
+    help?: ReactNode;
+    inputId?: string;
+    label: ReactNode;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    required?: boolean;
+}
+
+// @public
+export function FormGroup(input: FormGroupProps): JSX.Element;
+
+// @public
+export interface FormGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    headingLevel?: 2 | 3 | 4 | 5 | 6;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    span?: 1 | 2 | 3 | 4;
+    title?: ReactNode;
+}
+
+// @public
+export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+    columns?: 1 | 2 | 3 | 4;
+    // (undocumented)
+    labelPosition?: LabelPosition;
+    // (undocumented)
+    ref?: Ref<HTMLFormElement>;
+}
 
 // @public
 export function fromZoned(date: DateString, time: TimeString, timeZone: string, micros?: string): TimestampString;
@@ -365,6 +705,9 @@ export function isTimestamp(value: string): boolean;
 export function Label(input: LabelProps): JSX.Element;
 
 // @public
+export type LabelPosition = 'auto' | 'top' | 'side';
+
+// @public
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
     disabled?: boolean;
     // (undocumented)
@@ -399,6 +742,20 @@ export interface LinkRenderProps {
     ref?: Ref<HTMLAnchorElement> | undefined;
 }
 
+// @public
+export interface ListItem {
+    description?: string;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    icon?: IconDefinition;
+    label: string;
+    value: string;
+}
+
+// @public
+export type LoadItems = (query: string, signal: AbortSignal) => Promise<readonly ListItem[]>;
+
 // @public (undocumented)
 export interface LocaleState {
     // (undocumented)
@@ -408,16 +765,196 @@ export interface LocaleState {
 }
 
 // @public
+export function LookupDialog(input: LookupDialogProps): JSX.Element;
+
+// @public
+export interface LookupDialogProps {
+    debounce?: number;
+    // (undocumented)
+    fetchItems: FetchLookupItems;
+    initialQuery?: string;
+    multiple?: boolean;
+    // (undocumented)
+    onClose: () => void;
+    onConfirm: (items: ListItem[]) => void;
+    // (undocumented)
+    open: boolean;
+    pageSize?: number;
+    selected?: readonly string[];
+    title?: string;
+}
+
+// @public
+export function LookupField(props: LookupFieldProps): JSX.Element;
+
+// @public (undocumented)
+export interface LookupFieldBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    className?: string;
+    description?: string;
+    dialogTitle?: string;
+    fetchItems: FetchLookupItems;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface LookupFieldNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    onChange?: (value: string, item: ListItem | null) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface LookupFieldNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null, item: ListItem | null) => void;
+    // (undocumented)
+    value?: string | null;
+}
+
+// @public
+export type LookupFieldProps = LookupFieldBaseProps & (LookupFieldNotNullable | LookupFieldNullable);
+
+// @public
+export interface LookupPage {
+    // (undocumented)
+    items: readonly ListItem[];
+    // (undocumented)
+    total: number;
+}
+
+// @public
+export interface LookupRequest {
+    // (undocumented)
+    limit: number;
+    // (undocumented)
+    offset: number;
+    // (undocumented)
+    query: string;
+    signal: AbortSignal;
+}
+
+// @public
 export function makeDate(year: number, month: number, day: number): DateString | null;
 
 // @public
 export function monthNames(locale: string, width?: 'short' | 'long'): string[];
 
 // @public
+export function MultiSelect(props: MultiSelectProps): JSX.Element;
+
+// @public (undocumented)
+export interface MultiSelectBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    className?: string;
+    debounce?: number;
+    items?: readonly ListItem[];
+    loadItems?: LoadItems;
+    maxVisibleTokens?: number;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    valueLabels?: Readonly<Record<string, string>>;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface MultiSelectNotNullable {
+    // (undocumented)
+    defaultValue?: readonly string[];
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string[]) => void;
+    value?: readonly string[];
+}
+
+// @public (undocumented)
+export interface MultiSelectNullable {
+    // (undocumented)
+    defaultValue?: readonly string[] | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string[] | null) => void;
+    // (undocumented)
+    value?: readonly string[] | null;
+}
+
+// @public
+export type MultiSelectProps = MultiSelectBaseProps & (MultiSelectNotNullable | MultiSelectNullable);
+
+// @public
 export function negateDecimal(value: DecimalString): DecimalString;
 
 // @public
 export function nowTimestamp(now?: number): TimestampString;
+
+// @public
+export function NumberField(props: NumberFieldProps): JSX.Element;
+
+// @public (undocumented)
+export interface NumberFieldBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'min' | 'max' | 'step' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    endContent?: ReactNode;
+    grouping?: boolean;
+    integerDigits?: number;
+    max?: DecimalString;
+    min?: DecimalString;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    scale?: number;
+    // (undocumented)
+    startContent?: ReactNode;
+    step?: DecimalString;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface NumberFieldNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface NumberFieldNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null) => void;
+    value?: string | null;
+}
+
+// @public
+export type NumberFieldProps = NumberFieldBaseProps & (NumberFieldNotNullable | NumberFieldNullable);
 
 // @public
 export interface NumberSymbols {
@@ -432,6 +969,12 @@ export interface NumberSymbols {
 
 // @public
 export function numberSymbols(locale: string): NumberSymbols;
+
+// @public
+export function OverlayContainerProvider(input: {
+    container: HTMLElement | null;
+    children: ReactNode;
+}): JSX.Element;
 
 // @public
 export function parseLocalizedDate(input: string, locale: string, referenceDate: DateString): DateString | null;
@@ -501,6 +1044,57 @@ export interface ProgressBarProps extends Omit<HTMLAttributes<HTMLDivElement>, '
     value?: number;
 }
 
+// @public
+export function RadioGroup(props: RadioGroupProps): JSX.Element;
+
+// @public
+export interface RadioGroupProps {
+    // (undocumented)
+    'aria-describedby'?: string;
+    // (undocumented)
+    'aria-label'?: string;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    defaultValue?: string | null;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    form?: string;
+    // (undocumented)
+    id?: string;
+    label?: ReactNode;
+    name?: string;
+    // (undocumented)
+    onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
+    // (undocumented)
+    options: readonly RadioOption[];
+    // (undocumented)
+    orientation?: 'vertical' | 'horizontal';
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    // (undocumented)
+    required?: boolean;
+    // (undocumented)
+    style?: CSSProperties;
+    value?: string | null;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public
+export interface RadioOption {
+    description?: ReactNode;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    label: ReactNode;
+    // (undocumented)
+    value: string;
+}
+
 // @public (undocumented)
 export interface Rect {
     // (undocumented)
@@ -512,6 +1106,57 @@ export interface Rect {
     // (undocumented)
     y: number;
 }
+
+// @public
+export function Select(props: SelectProps): JSX.Element;
+
+// @public (undocumented)
+export interface SelectBaseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'children' | 'className' | 'style' | 'name' | 'form'> {
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    form?: string;
+    items: readonly ListItem[];
+    // (undocumented)
+    name?: string;
+    placeholder?: string;
+    // (undocumented)
+    readOnly?: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLButtonElement>;
+    // (undocumented)
+    required?: boolean;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface SelectNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string, item: ListItem) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface SelectNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null, item: ListItem | null) => void;
+    value?: string | null;
+}
+
+// @public
+export type SelectProps = SelectBaseProps & (SelectNotNullable | SelectNullable);
 
 // @public
 export function shiftDecimal(value: DecimalString, places: number): DecimalString;
@@ -539,6 +1184,26 @@ export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'chi
 export function subtractDecimal(a: DecimalString, b: DecimalString): DecimalString;
 
 // @public
+export function Switch(props: SwitchProps): JSX.Element;
+
+// @public
+export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'checked' | 'defaultChecked' | 'onChange' | 'children' | 'className' | 'style' | 'role'> {
+    // (undocumented)
+    checked?: boolean;
+    children?: ReactNode;
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    defaultChecked?: boolean;
+    // (undocumented)
+    onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    // (undocumented)
+    style?: CSSProperties;
+}
+
+// @public
 export function tabbableElements(container: Element): HTMLElement[];
 
 // @public
@@ -556,6 +1221,53 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
 // @public
 function Text_2(input: TextProps): JSX.Element;
 export { Text_2 as Text }
+
+// @public
+export function TextArea(props: TextAreaProps): JSX.Element;
+
+// @public (undocumented)
+export interface TextAreaBaseProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'defaultValue' | 'onChange' | 'children' | 'className' | 'style'> {
+    autoGrow?: boolean;
+    // (undocumented)
+    className?: string;
+    maxRows?: number;
+    // (undocumented)
+    ref?: Ref<HTMLTextAreaElement>;
+    rows?: number;
+    showCount?: boolean;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface TextAreaNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string, event: ChangeEvent<HTMLTextAreaElement>) => void;
+    // (undocumented)
+    value?: string;
+}
+
+// @public (undocumented)
+export interface TextAreaNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null, event: ChangeEvent<HTMLTextAreaElement>) => void;
+    // (undocumented)
+    value?: string | null;
+}
+
+// @public
+export type TextAreaProps = TextAreaBaseProps & (TextAreaNotNullable | TextAreaNullable);
 
 // @public
 export function TextField(props: TextFieldProps): JSX.Element;
@@ -646,6 +1358,49 @@ export interface ThemeState {
 }
 
 // @public
+export function TimePicker(props: TimePickerProps): JSX.Element;
+
+// @public (undocumented)
+export interface TimePickerBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'step' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    // (undocumented)
+    className?: string;
+    minuteStep?: number;
+    // (undocumented)
+    ref?: Ref<HTMLInputElement>;
+    showSeconds?: boolean;
+    // (undocumented)
+    style?: CSSProperties;
+    // (undocumented)
+    valueState?: ValueState;
+    // (undocumented)
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface TimePickerNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    // (undocumented)
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string) => void;
+    value?: string;
+}
+
+// @public (undocumented)
+export interface TimePickerNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null) => void;
+    value?: string | null;
+}
+
+// @public
+export type TimePickerProps = TimePickerBaseProps & (TimePickerNotNullable | TimePickerNullable);
+
+// @public
 export type TimestampString = string;
 
 // @public
@@ -719,6 +1474,9 @@ export function useControllableState<T, A extends unknown[] = []>(value: T | und
 
 // @public
 export function useDensity(): Density;
+
+// @public
+export function useField(): FieldContextValue | null;
 
 // @public
 export function useFocusTrap(ref: RefObject<HTMLElement | null>, active: boolean, restoreFocus?: boolean): void;

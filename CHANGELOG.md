@@ -18,6 +18,10 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Inputs `TextArea`, `NumberField` and `AmountField` (exact decimals), `DatePicker`,
+  `TimePicker`, `DateTimePicker`, `Calendar`, `Checkbox`, `Switch`, `RadioGroup`, `Select`,
+  `ComboBox` (fixed or loaded options), `MultiSelect`, `FileInput`, `LookupField` and
+  `LookupDialog`; form layout with `Form`, `FormGroup` and `FormField`; `Dialog`.
 - Components `Link`, `Title`, `Tag`, `Badge`, `Avatar`, `Spinner` and `ProgressBar`;
   decorative color tokens for avatars.
 - Build for browsers without bundler (`npm run build:browser`): fixed entry points

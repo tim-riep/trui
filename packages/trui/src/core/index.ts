@@ -81,7 +81,9 @@ export {
 } from './decimal/localized';
 export { focusFirst, isTabbable, tabbableElements } from './focus/focusable';
 export { useFocusTrap } from './focus/use-focus-trap';
+export { FieldContext, type FieldContextValue, useField } from './form/field-context';
 export { HiddenValue, type HiddenValueProps } from './form/hidden-value';
+export type { ListItem, LoadItems } from './form/list-item';
 export { useFormReset } from './form/use-form-reset';
 export type { ValueState } from './form/value-state';
 export { type Direction, directionOf } from './i18n/direction';
@@ -115,7 +117,7 @@ export {
   useTheme,
 } from './provider/hooks';
 export { IconProvider, type IconProviderProps } from './provider/icon-provider';
-export { Portal } from './provider/portal';
+export { OverlayContainerProvider, Portal } from './provider/portal';
 export {
   builtInTextPackages,
   TruiProvider,

@@ -172,7 +172,7 @@ export function uses12HourClock(locale: string): boolean {
 export function formatTime(value: TimeString, locale: string, seconds = false): string {
   const [h, m, s] = value.split(':').map(Number);
   return new Intl.DateTimeFormat(locale, {
-    hour: '2-digit',
+    hour: uses12HourClock(locale) ? 'numeric' : '2-digit',
     minute: '2-digit',
     ...(seconds ? { second: '2-digit' } : {}),
     timeZone: 'UTC',

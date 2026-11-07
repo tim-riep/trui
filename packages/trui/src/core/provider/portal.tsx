@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { type ReactNode, useContext } from 'react';
+import { type ReactNode, useContext, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { ProviderPresentContext } from './contexts';
+import { OverlayContext, ProviderPresentContext } from './contexts';
 import { useOverlayContainer } from './hooks';
 
 /**
@@ -29,4 +29,19 @@ export function Portal({ children }: { children: ReactNode }) {
   // Inside a provider the container exists after its first commit.
   if (inProvider && !container) return null;
   return createPortal(children, container ?? document.body);
+}
+
+/**
+ * Makes overlays below it render into `container` instead of the container of
+ * the provider, e.g. into a modal dialog, outside of which everything is inert.
+ */
+export function OverlayContainerProvider({
+  container,
+  children,
+}: {
+  container: HTMLElement | null;
+  children: ReactNode;
+}) {
+  const value = useMemo(() => ({ container }), [container]);
+  return <OverlayContext.Provider value={value}>{children}</OverlayContext.Provider>;
 }
