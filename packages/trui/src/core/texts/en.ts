@@ -42,6 +42,9 @@ export const en = {
   'input.invalidTime': 'Enter a valid time',
   'input.characterCount': { one: '{count} character', other: '{count} characters' },
   'input.charactersLeft': { one: '{count} character left', other: '{count} characters left' },
+  'badge.overflow': '{max}+',
+  'progress.value': '{value} percent',
+  'link.external': 'opens in a new window',
   'list.itemCount': { one: '{count} item', other: '{count} items' },
 } as const satisfies Record<string, TextValue>;
 

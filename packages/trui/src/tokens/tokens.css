@@ -148,12 +148,20 @@
 
     --trui-color-error: #c0352b;
     --trui-color-on-error: #fff;
-    --trui-color-warning: #a65a00;
+    --trui-color-warning: #9a5200;
     --trui-color-on-warning: #fff;
     --trui-color-success: #1f7a3a;
     --trui-color-on-success: #fff;
     --trui-color-information: #2563a8;
     --trui-color-on-information: #fff;
+
+    /* Hues without meaning, e.g. for avatars and charts. */
+    --trui-color-decorative-1: #2f5fd0;
+    --trui-color-decorative-2: #1f7a3a;
+    --trui-color-decorative-3: #9a5200;
+    --trui-color-decorative-4: #8e3fb8;
+    --trui-color-decorative-5: #0f7c86;
+    --trui-color-decorative-6: #b5375e;
 
     --trui-color-backdrop: rgb(29 35 41 / 40%);
     --trui-shadow-s: 0 1px 2px rgb(29 35 41 / 12%);
@@ -201,6 +209,13 @@
     --trui-color-information: #6cb2ff;
     --trui-color-on-information: #04111f;
 
+    --trui-color-decorative-1: #7aa0ff;
+    --trui-color-decorative-2: #4cc27a;
+    --trui-color-decorative-3: #e3a043;
+    --trui-color-decorative-4: #c78bf0;
+    --trui-color-decorative-5: #4fc6cf;
+    --trui-color-decorative-6: #f08aa8;
+
     --trui-color-backdrop: rgb(0 0 0 / 55%);
     --trui-shadow-s: 0 1px 2px rgb(0 0 0 / 40%);
     --trui-shadow-m: 0 2px 8px rgb(0 0 0 / 45%), 0 1px 2px rgb(0 0 0 / 30%);
@@ -245,6 +260,36 @@
       var(--trui-color-surface)
     );
     --trui-color-danger-hover: color-mix(in oklab, var(--trui-color-error) 88%, var(--trui-mix-shade));
+    --trui-color-decorative-1-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-1) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
+    --trui-color-decorative-2-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-2) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
+    --trui-color-decorative-3-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-3) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
+    --trui-color-decorative-4-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-4) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
+    --trui-color-decorative-5-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-5) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
+    --trui-color-decorative-6-subtle: color-mix(
+      in srgb,
+      var(--trui-color-decorative-6) calc(var(--trui-mix-subtle) * 2),
+      var(--trui-color-surface)
+    );
   }
 
   @media (prefers-reduced-motion: reduce) {

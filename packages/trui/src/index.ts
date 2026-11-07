@@ -15,8 +15,15 @@
 // The public entry point: the core and all components.
 
 export * from '@tim-riep/trui/core';
+export * from './components/avatar';
+export * from './components/badge';
 export * from './components/button';
 export * from './components/icon';
 export * from './components/label';
+export * from './components/link';
+export * from './components/progress-bar';
+export * from './components/spinner';
+export * from './components/tag';
 export * from './components/text';
 export * from './components/text-field';
+export * from './components/title';

@@ -40,5 +40,8 @@ export const de: TextPackage = {
   'input.invalidTime': 'Geben Sie eine gültige Uhrzeit ein',
   'input.characterCount': { one: '{count} Zeichen', other: '{count} Zeichen' },
   'input.charactersLeft': { one: 'Noch {count} Zeichen', other: 'Noch {count} Zeichen' },
+  'badge.overflow': '{max}+',
+  'progress.value': '{value} Prozent',
+  'link.external': 'öffnet in einem neuen Fenster',
   'list.itemCount': { one: '{count} Eintrag', other: '{count} Einträge' },
 };

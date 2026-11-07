@@ -4,13 +4,15 @@
 
 ```ts
 
+import type { AnchorHTMLAttributes } from 'react';
 import type { ButtonHTMLAttributes } from 'react';
 import { ChangeEvent } from 'react';
 import { CSSProperties } from 'react';
-import type { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 import { JSX } from 'react';
 import type { LabelHTMLAttributes } from 'react';
+import type { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { ReactPortal } from 'react';
 import { Ref } from 'react';
@@ -28,6 +30,40 @@ export function addMonths(value: DateString, months: number): DateString;
 
 // @public
 export type Align = 'start' | 'center' | 'end';
+
+// @public
+export function Avatar(input: AvatarProps): JSX.Element;
+
+// @public
+export interface AvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children' | 'color'> {
+    color?: 1 | 2 | 3 | 4 | 5 | 6;
+    decorative?: boolean;
+    icon?: IconDefinition;
+    name?: string;
+    // (undocumented)
+    ref?: Ref<HTMLSpanElement>;
+    shape?: 'circle' | 'square';
+    // (undocumented)
+    size?: AvatarSize;
+    src?: string;
+}
+
+// @public
+export type AvatarSize = 's' | 'm' | 'l' | 'xl';
+
+// @public
+export function Badge(input: BadgeProps): JSX.Element | null;
+
+// @public
+export interface BadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+    count: number;
+    label?: string;
+    max?: number;
+    // (undocumented)
+    ref?: Ref<HTMLSpanElement>;
+    showZero?: boolean;
+    tone?: 'accent' | 'error' | 'neutral';
+}
 
 // @public
 export const builtInTextPackages: Readonly<Record<string, TextPackage>>;
@@ -190,6 +226,9 @@ export const en: {
         readonly one: "{count} character left";
         readonly other: "{count} characters left";
     };
+    readonly 'badge.overflow': "{max}+";
+    readonly 'progress.value': "{value} percent";
+    readonly 'link.external': "opens in a new window";
     readonly 'list.itemCount': {
         readonly one: "{count} item";
         readonly other: "{count} items";
@@ -305,6 +344,9 @@ export type IconShape = string | {
 export type IconSize = 's' | 'm' | 'l' | 'xl';
 
 // @public
+export function initials(name: string): string;
+
+// @public
 export function isDate(value: string): boolean;
 
 // @public
@@ -330,6 +372,31 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
     required?: boolean;
     showColon?: boolean;
     truncate?: boolean;
+}
+
+// @public
+export function Link(input: LinkProps): JSX.Element;
+
+// @public
+export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+    disabled?: boolean;
+    external?: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLAnchorElement>;
+    render?: (props: LinkRenderProps) => ReactElement;
+    variant?: 'default' | 'subtle';
+}
+
+// @public
+export interface LinkRenderProps {
+    // (undocumented)
+    'aria-disabled'?: true;
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    className: string;
+    // (undocumented)
+    ref?: Ref<HTMLAnchorElement> | undefined;
 }
 
 // @public (undocumented)
@@ -420,6 +487,20 @@ interface PositionOptions_2 {
 }
 export { PositionOptions_2 as PositionOptions }
 
+// @public
+export function ProgressBar(input: ProgressBarProps): JSX.Element;
+
+// @public
+export interface ProgressBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    label?: ReactNode;
+    max?: number;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    showValue?: boolean;
+    tone?: 'accent' | 'success' | 'warning' | 'error';
+    value?: number;
+}
+
 // @public (undocumented)
 export interface Rect {
     // (undocumented)
@@ -442,10 +523,35 @@ export type Side = 'top' | 'bottom' | 'start' | 'end';
 export function signDecimal(value: DecimalString): -1 | 0 | 1;
 
 // @public
+export function Spinner(input: SpinnerProps): JSX.Element | null;
+
+// @public
+export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+    delay?: number;
+    label?: string;
+    // (undocumented)
+    ref?: Ref<HTMLSpanElement>;
+    // (undocumented)
+    size?: 's' | 'm' | 'l';
+}
+
+// @public
 export function subtractDecimal(a: DecimalString, b: DecimalString): DecimalString;
 
 // @public
 export function tabbableElements(container: Element): HTMLElement[];
+
+// @public
+export function Tag(input: TagProps): JSX.Element;
+
+// @public
+export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
+    icon?: IconDefinition | string;
+    // (undocumented)
+    ref?: Ref<HTMLSpanElement>;
+    // (undocumented)
+    tone?: Tone;
+}
 
 // @public
 function Text_2(input: TextProps): JSX.Element;
@@ -552,7 +658,25 @@ export type TimeString = string;
 export function timeZoneOffset(timeZone: string, ms: number): number;
 
 // @public
+export function Title(input: TitleProps): JSX.Element;
+
+// @public
+export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
+    level?: 1 | 2 | 3 | 4 | 5 | 6;
+    // (undocumented)
+    ref?: Ref<HTMLHeadingElement>;
+    size?: TitleSize;
+    truncate?: boolean;
+}
+
+// @public
+export type TitleSize = 's' | 'm' | 'l' | 'xl' | 'xxl';
+
+// @public
 export function today(timeZone: string, now?: number): DateString;
+
+// @public
+export type Tone = 'neutral' | 'accent' | 'success' | 'warning' | 'error' | 'information';
 
 // @public
 export function toScale(value: DecimalString, scale: number): DecimalString;

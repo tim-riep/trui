@@ -27,3 +27,10 @@
 @import './components/button/Button.css';
 @import './components/text/Text.css';
 @import './components/label/Label.css';
+@import './components/link/Link.css';
+@import './components/title/Title.css';
+@import './components/tag/Tag.css';
+@import './components/badge/Badge.css';
+@import './components/avatar/Avatar.css';
+@import './components/spinner/Spinner.css';
+@import './components/progress-bar/ProgressBar.css';
