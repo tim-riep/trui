@@ -18,5 +18,11 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Build for browsers without bundler (`npm run build:browser`): fixed entry points
+  `trui.js`, `core.js`, `icons.js`, `trui.css` and React under `vendor/`, all other files
+  with content hash.
+- The go-runtime package `TRUI` (`npm run build:package`) with the asset repository `lib`
+  and the anonymous service node `/trui/lib`, and a demo page.
+- Module federation example with host and remote sharing React and the library.
 - Core utilities for exact decimals, dates, times and timestamps, localized input,
   form integration and positioning of floating elements.

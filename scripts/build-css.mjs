@@ -15,13 +15,21 @@
 // Builds the stylesheet of the library: inlines the imports of
 // packages/trui/src/styles.css in order, rewrites relative URLs and copies
 // the files they reference. Run from packages/trui; writes dist/trui.css.
+//
+// Options: --out <dir> writes to another directory; --hash names the
+// referenced files after their content (fonts/<name>-<hash>.woff2), so that
+// they can be cached for good while trui.css keeps its name.
 
+import { createHash } from 'node:crypto';
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { headerFor } from './license-header.mjs';
 
 const src = resolve('src');
-const out = resolve('dist');
+const args = process.argv.slice(2);
+const outIndex = args.indexOf('--out');
+const out = resolve(outIndex >= 0 ? args[outIndex + 1] : 'dist');
+const hash = args.includes('--hash');
 const header = headerFor('.css');
 const assets = new Map();
 
@@ -37,7 +45,10 @@ function inline(file) {
     .replace(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g, (match, url) => {
       if (/^(data:|https?:|#|\/)/.test(url)) return match;
       const source = resolve(dir, url);
-      const target = `fonts/${basename(source)}`;
+      const name = basename(source);
+      const target = hash
+        ? `fonts/${name.replace(/(\.[^.]+)$/, `-${createHash('sha256').update(readFileSync(source)).digest('hex').slice(0, 10)}$1`)}`
+        : `fonts/${name}`;
       assets.set(source, target);
       return `url('./${target}')`;
     })

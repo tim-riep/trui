@@ -8,6 +8,8 @@
   "include": [
     "aliases.ts",
     "vitest.config.ts",
+    "vitest.e2e.config.ts",
+    "tests/**/*.ts",
     "packages/trui/vite.config.ts",
     ".storybook/*.ts",
     ".storybook/*.tsx",

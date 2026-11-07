@@ -41,9 +41,10 @@
     "react-dom": "^19.0.0"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json && node ../../scripts/build-css.mjs",
+    "build": "NODE_ENV=production vite build && tsc -p tsconfig.build.json && node ../../scripts/build-css.mjs",
     "api": "api-extractor run",
     "api:update": "api-extractor run --local",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "build:browser": "NODE_ENV=production vite build -c vite.browser.config.ts && node ../../scripts/build-css.mjs --out dist-browser --hash"
   }
 }

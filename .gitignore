@@ -9,3 +9,4 @@ playwright-report/
 .DS_Store
 __screenshots__/
 .claude/
+dist-browser/

@@ -8,13 +8,15 @@
     "node": ">=22"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/federation/host",
+    "examples/federation/remote"
   ],
   "scripts": {
     "build": "npm -w @tim-riep/trui run build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -p packages/trui/tsconfig.json --noEmit && tsc -p tsconfig.tools.json --noEmit",
+    "typecheck": "tsc -p packages/trui/tsconfig.json --noEmit && tsc -p tsconfig.tools.json --noEmit && tsc -p examples/federation/tsconfig.json --noEmit",
     "lint": "biome check . && stylelint --allow-empty-input \"packages/*/src/**/*.css\"",
     "format": "biome format --write .",
     "check:headers": "node scripts/check-headers.mjs",
@@ -27,11 +29,18 @@
     "check:api": "npm run build && npm -w @tim-riep/trui run api",
     "api:update": "npm run build && npm -w @tim-riep/trui run api:update",
     "docs:api": "npm -w @tim-riep/trui run docs",
-    "check:icons": "node scripts/gen-icons.mjs --check"
+    "check:icons": "node scripts/gen-icons.mjs --check",
+    "build:browser": "npm -w @tim-riep/trui run build:browser",
+    "build:package": "npm run build:browser && node scripts/build-package.mjs",
+    "test:package": "vitest run -c vitest.e2e.config.ts --project package",
+    "test:federation": "vitest run -c vitest.e2e.config.ts --project federation"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.6",
     "@microsoft/api-extractor": "7.60.1",
+    "@module-federation/rsbuild-plugin": "2.9.3",
+    "@rsbuild/core": "2.3.1",
+    "@rsbuild/plugin-react": "2.1.1",
     "@storybook/addon-a11y": "10.6.6",
     "@storybook/addon-docs": "10.6.6",
     "@storybook/addon-vitest": "10.6.6",
@@ -43,6 +52,7 @@
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.2.1",
     "@vitest/browser-playwright": "5.1.0",
+    "ajv": "8.20.0",
     "axe-core": "4.14.0",
     "playwright": "1.65.0",
     "react": "19.3.1",
