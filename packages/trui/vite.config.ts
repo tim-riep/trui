@@ -30,6 +30,11 @@ function entries(): Record<string, string> {
     if (dir.isDirectory())
       result[`components/${dir.name}/index`] = `${src}components/${dir.name}/index.ts`;
   }
+  // Every icon is an entry point as well, and the index of all icons.
+  result['icons/index'] = `${src}icons/index.ts`;
+  for (const file of readdirSync(`${src}icons/set`)) {
+    result[`icons/set/${file.replace(/\.ts$/, '')}`] = `${src}icons/set/${file}`;
+  }
   return result;
 }
 

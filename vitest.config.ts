@@ -12,10 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 import { sourceAliases } from './aliases.ts';
+
+// Every story is rendered and checked with axe in each theme and density.
+const storyMatrix = [
+  { theme: 'light', density: 'compact' },
+  { theme: 'dark', density: 'compact' },
+  { theme: 'light', density: 'comfortable' },
+  { theme: 'dark', density: 'comfortable' },
+];
 
 const browsers = (process.env.TRUI_BROWSERS ?? 'chromium,firefox,webkit').split(',');
 
@@ -46,6 +55,24 @@ export default defineConfig({
           },
         },
       },
+      ...storyMatrix.map(({ theme, density }) => ({
+        plugins: [
+          storybookTest({
+            configDir: '.storybook',
+            initialGlobals: { theme, density, locale: 'en' },
+          }),
+        ],
+        resolve: { alias: sourceAliases },
+        test: {
+          name: `stories-${theme}-${density}`,
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: 'chromium' as const }],
+          },
+        },
+      })),
     ],
   },
 });

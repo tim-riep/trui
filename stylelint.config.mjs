@@ -14,7 +14,8 @@
 
 // Classes carry the prefix trui-, custom properties --trui-. Outside the token
 // files, colors, shadows and lengths come from tokens only.
-const literalLength = /^(?!0$)-?\d*\.?\d+(px|rem|em|pt)$/;
+// A length with a nonzero number anywhere in the value, e.g. 4px in "0 4px".
+const literalLength = /(^|[\s(,])-?\d*\.?\d*[1-9]\d*(px|rem|em|pt)\b/;
 
 export default {
   rules: {
@@ -31,7 +32,7 @@ export default {
   },
   overrides: [
     {
-      files: ['packages/trui/src/components/**/*.css', 'packages/trui/src/icons/**/*.css'],
+      files: ['packages/trui/src/components/**/*.css', 'packages/trui/src/internal/**/*.css'],
       rules: {
         'color-no-hex': true,
         'color-named': 'never',

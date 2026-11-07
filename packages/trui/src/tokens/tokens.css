@@ -1,0 +1,257 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Design tokens. Components use only the semantic tokens below, never the
+ * palette or literal values. Light values apply to the document by default
+ * and to [data-trui-theme='light']; dark values to [data-trui-theme='dark'].
+ * Applications change the accent through --trui-color-accent (and
+ * --trui-color-on-accent if the text on it needs another color).
+ */
+
+@layer trui.tokens {
+  @font-face {
+    font-family: 'Inter Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('./fonts/inter-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range:
+      U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+      U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+      U+A720-A7FF;
+  }
+
+  @font-face {
+    font-family: 'Inter Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('./fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+      U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  :root,
+  [data-trui-theme] {
+    /* Typography */
+    --trui-font-family:
+      'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+    --trui-font-family-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    --trui-font-size-xs: 12px;
+    --trui-font-size-s: 13px;
+    --trui-font-size-m: 14px;
+    --trui-font-size-l: 16px;
+    --trui-font-size-xl: 20px;
+    --trui-font-size-xxl: 24px;
+    --trui-font-size-xxxl: 32px;
+    --trui-font-weight-regular: 400;
+    --trui-font-weight-medium: 500;
+    --trui-font-weight-semibold: 600;
+    --trui-font-weight-bold: 700;
+    --trui-line-height-tight: 1.25;
+    --trui-line-height-normal: 1.45;
+
+    /* Spacing */
+    --trui-space-xxs: 2px;
+    --trui-space-xs: 4px;
+    --trui-space-s: 8px;
+    --trui-space-m: 12px;
+    --trui-space-l: 16px;
+    --trui-space-xl: 24px;
+    --trui-space-xxl: 32px;
+    --trui-space-xxxl: 48px;
+
+    /* Shapes */
+    --trui-radius-s: 4px;
+    --trui-radius-m: 6px;
+    --trui-radius-l: 8px;
+    --trui-radius-xl: 12px;
+    --trui-radius-round: 9999px;
+    --trui-border-width: 1px;
+    --trui-border-width-strong: 2px;
+    --trui-focus-width: 2px;
+    --trui-focus-offset: 2px;
+
+    /* Icons */
+    --trui-icon-size-s: 16px;
+    --trui-icon-size-m: 20px;
+    --trui-icon-size-l: 24px;
+    --trui-icon-size-xl: 32px;
+    --trui-icon-stroke-width: 1.5;
+
+    /* Motion */
+    --trui-duration-fast: 100ms;
+    --trui-duration-normal: 200ms;
+    --trui-easing: cubic-bezier(0.2, 0, 0, 1);
+
+    /* Density: compact by default */
+    --trui-control-height: 28px;
+    --trui-control-height-s: 22px;
+    --trui-control-padding-inline: var(--trui-space-s);
+    --trui-control-gap: var(--trui-space-xs);
+    --trui-row-height: 32px;
+    --trui-font-size-body: var(--trui-font-size-s);
+    --trui-target-size: 24px;
+  }
+
+  [data-trui-density='comfortable'] {
+    --trui-control-height: 36px;
+    --trui-control-height-s: 28px;
+    --trui-control-padding-inline: var(--trui-space-m);
+    --trui-control-gap: var(--trui-space-s);
+    --trui-row-height: 44px;
+    --trui-font-size-body: var(--trui-font-size-m);
+    --trui-target-size: 44px;
+  }
+
+  :root,
+  [data-trui-theme='light'] {
+    color-scheme: light;
+
+    --trui-palette-neutral-0: #fff;
+    --trui-palette-neutral-50: #f5f6f7;
+    --trui-palette-neutral-100: #eef0f2;
+    --trui-palette-neutral-200: #e2e5e9;
+    --trui-palette-neutral-300: #d5d9de;
+    --trui-palette-neutral-500: #7d8791;
+    --trui-palette-neutral-600: #56606b;
+    --trui-palette-neutral-900: #1d2329;
+
+    --trui-color-background: var(--trui-palette-neutral-50);
+    --trui-color-surface: var(--trui-palette-neutral-0);
+    --trui-color-surface-subtle: var(--trui-palette-neutral-100);
+    --trui-color-surface-raised: var(--trui-palette-neutral-0);
+    --trui-color-border: var(--trui-palette-neutral-300);
+    --trui-color-border-subtle: var(--trui-palette-neutral-200);
+    --trui-color-border-strong: var(--trui-palette-neutral-500);
+    --trui-color-text: var(--trui-palette-neutral-900);
+    --trui-color-text-secondary: var(--trui-palette-neutral-600);
+    --trui-color-text-disabled: var(--trui-palette-neutral-500);
+
+    --trui-color-accent: #2f5fd0;
+    --trui-color-on-accent: #fff;
+
+    --trui-color-error: #c0352b;
+    --trui-color-on-error: #fff;
+    --trui-color-warning: #a65a00;
+    --trui-color-on-warning: #fff;
+    --trui-color-success: #1f7a3a;
+    --trui-color-on-success: #fff;
+    --trui-color-information: #2563a8;
+    --trui-color-on-information: #fff;
+
+    --trui-color-backdrop: rgb(29 35 41 / 40%);
+    --trui-shadow-s: 0 1px 2px rgb(29 35 41 / 12%);
+    --trui-shadow-m: 0 2px 8px rgb(29 35 41 / 14%), 0 1px 2px rgb(29 35 41 / 8%);
+    --trui-shadow-l: 0 8px 28px rgb(29 35 41 / 18%), 0 2px 6px rgb(29 35 41 / 10%);
+    --trui-mix-hover: 6%;
+    --trui-mix-active: 12%;
+    --trui-mix-subtle: 10%;
+    --trui-mix-shade: black;
+  }
+
+  [data-trui-theme='dark'] {
+    color-scheme: dark;
+
+    --trui-palette-neutral-0: #14181c;
+    --trui-palette-neutral-50: #1c2126;
+    --trui-palette-neutral-100: #252b31;
+    --trui-palette-neutral-150: #232930;
+    --trui-palette-neutral-200: #2a3138;
+    --trui-palette-neutral-300: #323a42;
+    --trui-palette-neutral-500: #6b7682;
+    --trui-palette-neutral-600: #9aa5b0;
+    --trui-palette-neutral-900: #e6e9ec;
+
+    --trui-color-background: var(--trui-palette-neutral-0);
+    --trui-color-surface: var(--trui-palette-neutral-50);
+    --trui-color-surface-subtle: var(--trui-palette-neutral-100);
+    --trui-color-surface-raised: var(--trui-palette-neutral-150);
+    --trui-color-border: var(--trui-palette-neutral-300);
+    --trui-color-border-subtle: var(--trui-palette-neutral-200);
+    --trui-color-border-strong: var(--trui-palette-neutral-500);
+    --trui-color-text: var(--trui-palette-neutral-900);
+    --trui-color-text-secondary: var(--trui-palette-neutral-600);
+    --trui-color-text-disabled: var(--trui-palette-neutral-500);
+
+    --trui-color-accent: #7aa0ff;
+    --trui-color-on-accent: #0d1420;
+
+    --trui-color-error: #ff7b72;
+    --trui-color-on-error: #1a0605;
+    --trui-color-warning: #e3a043;
+    --trui-color-on-warning: #1a0f00;
+    --trui-color-success: #4cc27a;
+    --trui-color-on-success: #04160b;
+    --trui-color-information: #6cb2ff;
+    --trui-color-on-information: #04111f;
+
+    --trui-color-backdrop: rgb(0 0 0 / 55%);
+    --trui-shadow-s: 0 1px 2px rgb(0 0 0 / 40%);
+    --trui-shadow-m: 0 2px 8px rgb(0 0 0 / 45%), 0 1px 2px rgb(0 0 0 / 30%);
+    --trui-shadow-l: 0 8px 28px rgb(0 0 0 / 55%), 0 2px 6px rgb(0 0 0 / 35%);
+    --trui-mix-hover: 8%;
+    --trui-mix-active: 14%;
+    --trui-mix-subtle: 16%;
+    --trui-mix-shade: white;
+  }
+
+  /* Tokens derived from the ones above, so that changing the accent or a
+   * status color changes all its shades. Declared on every element that sets
+   * a theme so that they resolve against the theme of that element. */
+  :root,
+  [data-trui-theme] {
+    --trui-color-surface-hover: color-mix(in srgb, var(--trui-color-text) var(--trui-mix-hover), transparent);
+    --trui-color-surface-active: color-mix(in srgb, var(--trui-color-text) var(--trui-mix-active), transparent);
+    --trui-color-accent-hover: color-mix(in oklab, var(--trui-color-accent) 88%, var(--trui-mix-shade));
+    --trui-color-accent-active: color-mix(in oklab, var(--trui-color-accent) 76%, var(--trui-mix-shade));
+    --trui-color-accent-subtle: color-mix(
+      in srgb,
+      var(--trui-color-accent) var(--trui-mix-subtle),
+      var(--trui-color-surface)
+    );
+    --trui-color-accent-text: var(--trui-color-accent);
+    --trui-color-focus: var(--trui-color-accent);
+    --trui-color-selected: var(--trui-color-accent-subtle);
+    --trui-color-error-subtle: color-mix(in srgb, var(--trui-color-error) var(--trui-mix-subtle), var(--trui-color-surface));
+    --trui-color-warning-subtle: color-mix(
+      in srgb,
+      var(--trui-color-warning) var(--trui-mix-subtle),
+      var(--trui-color-surface)
+    );
+    --trui-color-success-subtle: color-mix(
+      in srgb,
+      var(--trui-color-success) var(--trui-mix-subtle),
+      var(--trui-color-surface)
+    );
+    --trui-color-information-subtle: color-mix(
+      in srgb,
+      var(--trui-color-information) var(--trui-mix-subtle),
+      var(--trui-color-surface)
+    );
+    --trui-color-danger-hover: color-mix(in oklab, var(--trui-color-error) 88%, var(--trui-mix-shade));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root,
+    [data-trui-theme] {
+      --trui-duration-fast: 0ms;
+      --trui-duration-normal: 0ms;
+    }
+  }
+}

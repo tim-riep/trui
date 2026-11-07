@@ -4,9 +4,18 @@
 
 ```ts
 
+import type { ButtonHTMLAttributes } from 'react';
+import { ChangeEvent } from 'react';
+import { CSSProperties } from 'react';
+import type { HTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { JSX } from 'react';
-import type { Ref } from 'react';
+import type { LabelHTMLAttributes } from 'react';
+import { ReactNode } from 'react';
+import { ReactPortal } from 'react';
+import { Ref } from 'react';
 import { RefObject } from 'react';
+import { SVGProps } from 'react';
 
 // @public
 export function addDays(value: DateString, days: number): DateString;
@@ -19,6 +28,38 @@ export function addMonths(value: DateString, months: number): DateString;
 
 // @public
 export type Align = 'start' | 'center' | 'end';
+
+// @public
+export const builtInTextPackages: Readonly<Record<string, TextPackage>>;
+
+// @public
+export function Button(input: ButtonProps): JSX.Element;
+
+// @public (undocumented)
+export interface ButtonBaseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'> {
+    icon?: IconDefinition | string;
+    iconEnd?: IconDefinition | string;
+    loading?: boolean;
+    pressed?: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLButtonElement>;
+    type?: 'button' | 'submit' | 'reset';
+    variant?: ButtonVariant;
+}
+
+// @public
+export type ButtonProps = ButtonBaseProps & ({
+    children: ReactNode;
+} | {
+    children?: undefined;
+    'aria-label': string;
+} | {
+    children?: undefined;
+    'aria-labelledby': string;
+});
+
+// @public
+export type ButtonVariant = 'primary' | 'secondary' | 'text' | 'danger';
 
 // @public
 export function checkLimits(value: DecimalString, options?: DecimalOptions): DecimalParseResult;
@@ -104,6 +145,14 @@ export type DecimalParseResult = {
 export type DecimalString = string;
 
 // @public
+export function defineIcon(name: string, shapes: readonly IconShape[], options?: {
+    mirrorInRtl?: boolean;
+}): IconDefinition;
+
+// @public
+export type Density = 'compact' | 'comfortable';
+
+// @public
 export type Direction = 'ltr' | 'rtl';
 
 // @public
@@ -166,6 +215,21 @@ export function formatDecimal(value: DecimalString, locale: string, options?: De
 export function formatDecimalForInput(value: DecimalString, locale: string): string;
 
 // @public
+export interface Formatters {
+    // (undocumented)
+    date(value: DateString, style?: 'short' | 'medium' | 'long' | 'full'): string;
+    // (undocumented)
+    decimal(value: string, options?: DecimalFormatOptions): string;
+    // (undocumented)
+    time(value: TimeString, seconds?: boolean): string;
+    // (undocumented)
+    timestamp(value: TimestampString, options?: {
+        dateStyle?: 'short' | 'medium' | 'long';
+        seconds?: boolean;
+    }): string;
+}
+
+// @public
 export function formatText(value: TextValue, locale: string, params?: TextParams): string;
 
 // @public
@@ -195,6 +259,52 @@ export interface HiddenValueProps {
 }
 
 // @public
+export function Icon(input: IconProps): JSX.Element;
+
+// @public (undocumented)
+export interface IconBaseProps extends Omit<SVGProps<SVGSVGElement>, 'name' | 'ref' | 'children'> {
+    label?: string;
+    // (undocumented)
+    ref?: Ref<SVGSVGElement>;
+    size?: IconSize;
+}
+
+// @public
+export interface IconDefinition {
+    readonly mirrorInRtl: boolean;
+    readonly name: string;
+    readonly shapes: readonly IconShape[];
+}
+
+// @public
+export type IconProps = IconBaseProps & ({
+    icon: IconDefinition;
+    name?: undefined;
+} | {
+    name: string;
+    icon?: undefined;
+});
+
+// @public
+export function IconProvider(input: IconProviderProps): JSX.Element;
+
+// @public
+export interface IconProviderProps {
+    // (undocumented)
+    children?: ReactNode;
+    icons: readonly IconDefinition[];
+}
+
+// @public
+export type IconShape = string | {
+    readonly d: string;
+    readonly fill: true;
+};
+
+// @public
+export type IconSize = 's' | 'm' | 'l' | 'xl';
+
+// @public
 export function isDate(value: string): boolean;
 
 // @public
@@ -208,6 +318,27 @@ export function isTime(value: string): boolean;
 
 // @public
 export function isTimestamp(value: string): boolean;
+
+// @public
+export function Label(input: LabelProps): JSX.Element;
+
+// @public
+export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+    disabled?: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLLabelElement>;
+    required?: boolean;
+    showColon?: boolean;
+    truncate?: boolean;
+}
+
+// @public (undocumented)
+export interface LocaleState {
+    // (undocumented)
+    dir: Direction;
+    locale: string;
+    timeZone: string;
+}
 
 // @public
 export function makeDate(year: number, month: number, day: number): DateString | null;
@@ -263,6 +394,11 @@ export interface PluralText {
     zero?: string;
 }
 
+// @public
+export function Portal(input: {
+    children: ReactNode;
+}): ReactPortal | null;
+
 // @public (undocumented)
 export interface Position {
     available: number;
@@ -312,6 +448,53 @@ export function subtractDecimal(a: DecimalString, b: DecimalString): DecimalStri
 export function tabbableElements(container: Element): HTMLElement[];
 
 // @public
+function Text_2(input: TextProps): JSX.Element;
+export { Text_2 as Text }
+
+// @public
+export function TextField(props: TextFieldProps): JSX.Element;
+
+// @public (undocumented)
+export interface TextFieldBaseProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'size' | 'prefix' | 'children' | 'className' | 'style'> {
+    className?: string;
+    endContent?: ReactNode;
+    ref?: Ref<HTMLInputElement>;
+    startContent?: ReactNode;
+    style?: CSSProperties;
+    type?: 'text' | 'email' | 'url' | 'tel' | 'password' | 'search';
+    valueState?: ValueState;
+    valueStateMessage?: ReactNode;
+}
+
+// @public (undocumented)
+export interface TextFieldNotNullable {
+    // (undocumented)
+    defaultValue?: string;
+    nullable?: false;
+    // (undocumented)
+    onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
+    // (undocumented)
+    value?: string;
+}
+
+// @public (undocumented)
+export interface TextFieldNullable {
+    // (undocumented)
+    defaultValue?: string | null;
+    nullable: true;
+    // (undocumented)
+    onChange?: (value: string | null, event: ChangeEvent<HTMLInputElement>) => void;
+    // (undocumented)
+    value?: string | null;
+}
+
+// @public
+export type TextFieldProps = TextFieldBaseProps & (TextFieldNotNullable | TextFieldNullable);
+
+// @public
+export type TextFunction = (key: TextKey, params?: TextParams) => string;
+
+// @public
 export type TextKey = keyof typeof en;
 
 // @public
@@ -323,7 +506,38 @@ export type TextPackage = {
 export type TextParams = Readonly<Record<string, string | number>>;
 
 // @public
+export interface TextProps extends HTMLAttributes<HTMLElement> {
+    as?: 'span' | 'p' | 'div' | 'strong' | 'em' | 'small';
+    maxLines?: number;
+    numeric?: boolean;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    size?: 'xs' | 's' | 'm' | 'l';
+    // (undocumented)
+    tone?: TextTone;
+    // (undocumented)
+    weight?: 'regular' | 'medium' | 'semibold' | 'bold';
+}
+
+// @public
+export type TextTone = 'default' | 'secondary' | 'accent' | 'error' | 'warning' | 'success' | 'information';
+
+// @public
 export type TextValue = string | PluralText;
+
+// @public
+export type Theme = 'light' | 'dark';
+
+// @public
+export type ThemeSetting = 'light' | 'dark' | 'auto';
+
+// @public (undocumented)
+export interface ThemeState {
+    // (undocumented)
+    setting: ThemeSetting;
+    // (undocumented)
+    theme: Theme;
+}
 
 // @public
 export type TimestampString = string;
@@ -354,16 +568,66 @@ export function toZoned(value: TimestampString, timeZone: string): {
 export function trimDecimal(value: DecimalString): DecimalString;
 
 // @public
+export function TruiProvider(props: TruiProviderProps): JSX.Element;
+
+// @public
+export interface TruiProviderProps {
+    // (undocumented)
+    children?: ReactNode;
+    // (undocumented)
+    className?: string;
+    density?: Density;
+    dir?: Direction;
+    icons?: readonly IconDefinition[];
+    locale?: string;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    // (undocumented)
+    style?: CSSProperties;
+    textPackages?: Readonly<Record<string, Partial<TextPackage>>>;
+    texts?: Partial<TextPackage>;
+    theme?: ThemeSetting;
+    timeZone?: string;
+}
+
+// @public
 export function useControllableState<T, A extends unknown[] = []>(value: T | undefined, defaultValue: T | (() => T), onChange?: (value: T, ...args: A) => void): [T, (next: T, ...args: A) => void];
+
+// @public
+export function useDensity(): Density;
 
 // @public
 export function useFocusTrap(ref: RefObject<HTMLElement | null>, active: boolean, restoreFocus?: boolean): void;
 
 // @public
+export function useFormat(): Formatters;
+
+// @public
 export function useFormReset(ref: RefObject<HTMLElement | null>, onReset: () => void): void;
 
 // @public
+export function useIcon(name: string): IconDefinition | undefined;
+
+// @public
+export function useLocale(): LocaleState;
+
+// @public
+export function useOverlayContainer(): HTMLElement | null;
+
+// @public
 export function uses12HourClock(locale: string): boolean;
+
+// @public
+export function useSystemTheme(): Theme;
+
+// @public
+export function useText(): TextFunction;
+
+// @public
+export function useTheme(): ThemeState;
+
+// @public
+export type ValueState = 'none' | 'error' | 'warning' | 'success' | 'information';
 
 // @public
 export function weekday(value: DateString): number;

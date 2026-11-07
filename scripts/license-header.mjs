@@ -34,8 +34,9 @@ export function headerFor(ext) {
   switch (ext) {
     case '.css':
       return `/*\n${headerLines.map((l) => (l ? ` * ${l}` : ' *')).join('\n')}\n */\n`;
-    case '.html':
     case '.mdx':
+      return `{/*\n${headerLines.map((l) => (l ? `  ${l}` : '')).join('\n')}\n*/}\n`;
+    case '.html':
       return `<!--\n${headerLines.map((l) => (l ? `  ${l}` : '')).join('\n')}\n-->\n`;
     default:
       return `${headerLines.map((l) => (l ? `// ${l}` : '//')).join('\n')}\n`;

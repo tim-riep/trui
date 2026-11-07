@@ -83,8 +83,10 @@ export { focusFirst, isTabbable, tabbableElements } from './focus/focusable';
 export { useFocusTrap } from './focus/use-focus-trap';
 export { HiddenValue, type HiddenValueProps } from './form/hidden-value';
 export { useFormReset } from './form/use-form-reset';
+export type { ValueState } from './form/value-state';
 export { type Direction, directionOf } from './i18n/direction';
 export { formatText, type TextParams } from './i18n/format-text';
+export { defineIcon, type IconDefinition, type IconShape } from './icons/define-icon';
 export {
   type Align,
   computePosition,
@@ -94,5 +96,31 @@ export {
   type Rect,
   type Side,
 } from './overlay/position';
+export type {
+  Density,
+  LocaleState,
+  Theme,
+  ThemeSetting,
+  ThemeState,
+} from './provider/contexts';
+export {
+  type Formatters,
+  type TextFunction,
+  useDensity,
+  useFormat,
+  useIcon,
+  useLocale,
+  useOverlayContainer,
+  useText,
+  useTheme,
+} from './provider/hooks';
+export { IconProvider, type IconProviderProps } from './provider/icon-provider';
+export { Portal } from './provider/portal';
+export {
+  builtInTextPackages,
+  TruiProvider,
+  type TruiProviderProps,
+  useSystemTheme,
+} from './provider/trui-provider';
 export { de } from './texts/de';
 export { en, type PluralText, type TextKey, type TextPackage, type TextValue } from './texts/en';

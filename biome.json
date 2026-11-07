@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/dist", "!**/storybook-static", "!**/*.css", "!**/etc/*.api.md"]
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/storybook-static",
+      "!**/*.css",
+      "!**/etc/*.api.md",
+      "!packages/trui/src/icons"
+    ]
   },
   "formatter": {
     "enabled": true,
