@@ -79,6 +79,18 @@ export {
   numberSymbols,
   parseLocalizedDecimal,
 } from './decimal/localized';
+export {
+  FeedbackContext,
+  type FeedbackState,
+  type FeedbackTone,
+  type MessageDialogEntry,
+  type MessageDialogOptions,
+  type ToastEntry,
+  type ToastOptions,
+  useFeedbackQueue,
+  useMessageDialog,
+  useToast,
+} from './feedback/feedback';
 export { focusFirst, isTabbable, tabbableElements } from './focus/focusable';
 export { useFocusTrap } from './focus/use-focus-trap';
 export { FieldContext, type FieldContextValue, useField } from './form/field-context';

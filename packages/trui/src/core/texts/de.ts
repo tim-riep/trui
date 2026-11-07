@@ -75,5 +75,13 @@ export const de: TextPackage = {
   'badge.overflow': '{max}+',
   'progress.value': '{value} Prozent',
   'link.external': 'öffnet in einem neuen Fenster',
+  'toast.region': 'Benachrichtigungen',
+  'toast.dismiss': 'Ausblenden',
+  'banner.close': 'Meldung schließen',
+  'messages.title': 'Meldungen',
+  'messages.all': 'Alle',
+  'messages.none': 'Keine Meldungen',
+  'messages.button': { one: '{count} Meldung', other: '{count} Meldungen' },
+  'menu.submenu': 'Untermenü',
   'list.itemCount': { one: '{count} Eintrag', other: '{count} Einträge' },
 };

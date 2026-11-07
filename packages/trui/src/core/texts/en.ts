@@ -77,6 +77,14 @@ export const en = {
   'badge.overflow': '{max}+',
   'progress.value': '{value} percent',
   'link.external': 'opens in a new window',
+  'toast.region': 'Notifications',
+  'toast.dismiss': 'Dismiss',
+  'banner.close': 'Close message',
+  'messages.title': 'Messages',
+  'messages.all': 'All',
+  'messages.none': 'No messages',
+  'messages.button': { one: '{count} message', other: '{count} messages' },
+  'menu.submenu': 'Submenu',
   'list.itemCount': { one: '{count} item', other: '{count} items' },
 } as const satisfies Record<string, TextValue>;
 

@@ -18,6 +18,9 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Overlays and feedback: `Popover`, `Menu` and `MenuButton` with submenus, `Banner`,
+  toasts and message dialogs through `useToast` and `useMessageDialog` shown by
+  `FeedbackHost`, `MessageDialog`, `MessageList` and `MessagesButton`.
 - Inputs `TextArea`, `NumberField` and `AmountField` (exact decimals), `DatePicker`,
   `TimePicker`, `DateTimePicker`, `Calendar`, `Checkbox`, `Switch`, `RadioGroup`, `Select`,
   `ComboBox` (fixed or loaded options), `MultiSelect`, `FileInput`, `LookupField` and

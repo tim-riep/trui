@@ -77,6 +77,21 @@ export interface BadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'child
 }
 
 // @public
+export function Banner(input: BannerProps): JSX.Element;
+
+// @public
+export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+    actions?: ReactNode;
+    announce?: 'polite' | 'assertive';
+    onClose?: () => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    title?: ReactNode;
+    // (undocumented)
+    tone?: FeedbackTone;
+}
+
+// @public
 export const builtInTextPackages: Readonly<Record<string, TextPackage>>;
 
 // @public
@@ -491,11 +506,50 @@ export const en: {
     readonly 'badge.overflow': "{max}+";
     readonly 'progress.value': "{value} percent";
     readonly 'link.external': "opens in a new window";
+    readonly 'toast.region': "Notifications";
+    readonly 'toast.dismiss': "Dismiss";
+    readonly 'banner.close': "Close message";
+    readonly 'messages.title': "Messages";
+    readonly 'messages.all': "All";
+    readonly 'messages.none': "No messages";
+    readonly 'messages.button': {
+        readonly one: "{count} message";
+        readonly other: "{count} messages";
+    };
+    readonly 'menu.submenu': "Submenu";
     readonly 'list.itemCount': {
         readonly one: "{count} item";
         readonly other: "{count} items";
     };
 };
+
+// @public (undocumented)
+export const FeedbackContext: Context<FeedbackState | null>;
+
+// @public
+export function FeedbackHost(): JSX.Element | null;
+
+// @public
+export interface FeedbackState {
+    // (undocumented)
+    closeDialog: (id: string, confirmed: boolean) => void;
+    // (undocumented)
+    dialogs: readonly MessageDialogEntry[];
+    // (undocumented)
+    dismissToast: (id: string) => void;
+    // (undocumented)
+    hasHost: () => boolean;
+    // (undocumented)
+    openDialog: (kind: 'alert' | 'confirm', options: MessageDialogOptions) => Promise<boolean>;
+    registerHost: () => () => void;
+    // (undocumented)
+    showToast: (options: ToastOptions) => string;
+    // (undocumented)
+    toasts: readonly ToastEntry[];
+}
+
+// @public
+export type FeedbackTone = 'information' | 'success' | 'warning' | 'error';
 
 // @public
 export type FetchLookupItems = (request: LookupRequest) => Promise<LookupPage>;
@@ -851,6 +905,126 @@ export interface LookupRequest {
 export function makeDate(year: number, month: number, day: number): DateString | null;
 
 // @public
+export function Menu(input: MenuProps): JSX.Element | null;
+
+// @public
+export function MenuButton(input: MenuButtonProps): JSX.Element;
+
+// @public
+export type MenuButtonProps = Omit<ButtonProps, 'onClick'> & {
+    items: readonly MenuItem[];
+    onAction: (key: string, item: MenuItem) => void;
+    showChevron?: boolean;
+};
+
+// @public
+export interface MenuItem {
+    danger?: boolean;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    icon?: IconDefinition;
+    items?: readonly MenuItem[];
+    key: string;
+    // (undocumented)
+    label: string;
+    separatorBefore?: boolean;
+}
+
+// @public
+export interface MenuProps {
+    // (undocumented)
+    'aria-label'?: string;
+    anchor: RefObject<HTMLElement | null>;
+    focusLast?: boolean;
+    // (undocumented)
+    items: readonly MenuItem[];
+    onAction: (key: string, item: MenuItem) => void;
+    onClose: () => void;
+    // (undocumented)
+    open: boolean;
+    // (undocumented)
+    placement?: Placement;
+}
+
+// @public
+export interface Message {
+    // (undocumented)
+    description?: ReactNode;
+    // (undocumented)
+    id: string;
+    target?: string;
+    // (undocumented)
+    title: ReactNode;
+    // (undocumented)
+    type: FeedbackTone;
+}
+
+// @public
+export function MessageDialog(input: MessageDialogProps): JSX.Element;
+
+// @public
+export interface MessageDialogEntry extends MessageDialogOptions {
+    // (undocumented)
+    id: string;
+    kind: 'alert' | 'confirm';
+    // (undocumented)
+    resolve: (confirmed: boolean) => void;
+}
+
+// @public
+export interface MessageDialogOptions {
+    cancelLabel?: string;
+    confirmLabel?: string;
+    danger?: boolean;
+    // (undocumented)
+    message: ReactNode;
+    // (undocumented)
+    title: ReactNode;
+    // (undocumented)
+    tone?: FeedbackTone;
+}
+
+// @public
+export interface MessageDialogProps {
+    // (undocumented)
+    cancelLabel?: string;
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    confirmLabel?: string;
+    danger?: boolean;
+    kind?: 'alert' | 'confirm';
+    onClose: (confirmed: boolean) => void;
+    // (undocumented)
+    open: boolean;
+    // (undocumented)
+    title: ReactNode;
+    // (undocumented)
+    tone?: FeedbackTone;
+}
+
+// @public
+export function MessageList(input: MessageListProps): JSX.Element;
+
+// @public
+export interface MessageListProps {
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    messages: readonly Message[];
+    onNavigate?: (message: Message) => void;
+}
+
+// @public
+export function MessagesButton(input: MessagesButtonProps): JSX.Element | null;
+
+// @public
+export interface MessagesButtonProps extends MessageListProps {
+    showEmpty?: boolean;
+}
+
+// @public
 export function monthNames(locale: string, width?: 'short' | 'long'): string[];
 
 // @public
@@ -1002,6 +1176,27 @@ export interface PluralText {
     two?: string;
     // (undocumented)
     zero?: string;
+}
+
+// @public
+export function Popover(input: PopoverProps): JSX.Element;
+
+// @public
+export interface PopoverProps {
+    'aria-label'?: string;
+    anchor: RefObject<HTMLElement | null>;
+    autoFocus?: boolean;
+    // (undocumented)
+    children: ReactNode;
+    // (undocumented)
+    className?: string;
+    footer?: ReactNode;
+    onClose: () => void;
+    // (undocumented)
+    open: boolean;
+    // (undocumented)
+    placement?: Placement;
+    title?: ReactNode;
 }
 
 // @public
@@ -1428,6 +1623,25 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 export type TitleSize = 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 // @public
+export interface ToastEntry extends ToastOptions {
+    // (undocumented)
+    id: string;
+}
+
+// @public
+export interface ToastOptions {
+    action?: {
+        label: string;
+        onAction: () => void;
+    };
+    duration?: number | null;
+    // (undocumented)
+    message: ReactNode;
+    // (undocumented)
+    tone?: FeedbackTone;
+}
+
+// @public
 export function today(timeZone: string, now?: number): DateString;
 
 // @public
@@ -1476,6 +1690,9 @@ export function useControllableState<T, A extends unknown[] = []>(value: T | und
 export function useDensity(): Density;
 
 // @public
+export function useFeedbackQueue(): FeedbackState | null;
+
+// @public
 export function useField(): FieldContextValue | null;
 
 // @public
@@ -1494,6 +1711,12 @@ export function useIcon(name: string): IconDefinition | undefined;
 export function useLocale(): LocaleState;
 
 // @public
+export function useMessageDialog(): {
+    confirm: (options: MessageDialogOptions) => Promise<boolean>;
+    alert: (options: MessageDialogOptions) => Promise<void>;
+};
+
+// @public
 export function useOverlayContainer(): HTMLElement | null;
 
 // @public
@@ -1507,6 +1730,12 @@ export function useText(): TextFunction;
 
 // @public
 export function useTheme(): ThemeState;
+
+// @public
+export function useToast(): {
+    show: (options: ToastOptions) => string;
+    dismiss: (id: string) => void;
+};
 
 // @public
 export type ValueState = 'none' | 'error' | 'warning' | 'success' | 'information';

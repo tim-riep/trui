@@ -1,0 +1,95 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@layer trui.components {
+  .trui-toast-region {
+    position: fixed;
+    inset-block-end: var(--trui-space-l);
+    inset-inline: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--trui-space-s);
+    align-items: center;
+    padding: 0 var(--trui-space-l);
+    pointer-events: none;
+  }
+
+  .trui-toast-region__list {
+    display: contents;
+  }
+
+  .trui-toast {
+    display: flex;
+    gap: var(--trui-space-s);
+    align-items: center;
+    width: min(calc(var(--trui-space-xxxl) * 10), 100%);
+    padding: var(--trui-space-xs) var(--trui-space-xs) var(--trui-space-xs) var(--trui-space-m);
+    color: var(--trui-color-text);
+    pointer-events: auto;
+    background: var(--trui-color-surface-raised);
+    border: var(--trui-border-width) solid var(--trui-color-border);
+    border-inline-start: var(--trui-border-width-strong) solid var(--trui-color-information);
+    border-radius: var(--trui-radius-m);
+    box-shadow: var(--trui-shadow-l);
+    animation: trui-toast-in var(--trui-duration-normal) var(--trui-easing);
+  }
+
+  @keyframes trui-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--trui-space-s));
+    }
+  }
+
+  .trui-toast__icon {
+    color: var(--trui-color-information);
+  }
+
+  .trui-toast--success {
+    border-inline-start-color: var(--trui-color-success);
+  }
+
+  .trui-toast--success .trui-toast__icon {
+    color: var(--trui-color-success);
+  }
+
+  .trui-toast--warning {
+    border-inline-start-color: var(--trui-color-warning);
+  }
+
+  .trui-toast--warning .trui-toast__icon {
+    color: var(--trui-color-warning);
+  }
+
+  .trui-toast--error {
+    border-inline-start-color: var(--trui-color-error);
+  }
+
+  .trui-toast--error .trui-toast__icon {
+    color: var(--trui-color-error);
+  }
+
+  .trui-toast__message {
+    flex: 1;
+    min-width: 0;
+    padding: var(--trui-space-xs) 0;
+  }
+
+  .trui-toast__close {
+    color: var(--trui-color-text-secondary);
+  }
+}

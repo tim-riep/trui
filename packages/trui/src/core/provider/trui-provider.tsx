@@ -22,6 +22,7 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
+import { FeedbackProvider } from '../feedback/feedback';
 import { type Direction, directionOf } from '../i18n/direction';
 import type { IconDefinition } from '../icons/define-icon';
 import { de } from '../texts/de';
@@ -181,7 +182,11 @@ export function TruiProvider(props: TruiProviderProps) {
                     lang={locale}
                     dir={dir}
                   >
-                    {props.children}
+                    {isNested ? (
+                      props.children
+                    ) : (
+                      <FeedbackProvider>{props.children}</FeedbackProvider>
+                    )}
                     <div ref={containerRef} className="trui-overlay-container" />
                   </div>
                 </OverlayContext.Provider>

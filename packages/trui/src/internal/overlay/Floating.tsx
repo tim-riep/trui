@@ -29,7 +29,7 @@ export interface FloatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   anchor: RefObject<HTMLElement | null>;
   open: boolean;
   /** Called on a pointer press outside of anchor and floating element. */
-  onDismiss?: () => void;
+  onDismiss?: (() => void) | undefined;
   placement?: Placement;
   /** Makes the floating element at least as wide as the anchor. */
   matchWidth?: boolean;
