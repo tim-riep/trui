@@ -85,6 +85,18 @@ export const en = {
   'messages.none': 'No messages',
   'messages.button': { one: '{count} message', other: '{count} messages' },
   'menu.submenu': 'Submenu',
+  'breadcrumbs.label': 'Breadcrumb',
+  'pageHeader.expand': 'Expand header',
+  'pageHeader.collapse': 'Collapse header',
+  'pageHeader.pin': 'Pin header',
+  'splitLayout.back': 'Back to the list',
+  'splitLayout.showList': 'Show list',
+  'splitLayout.hideList': 'Hide list',
+  'sideNavigation.label': 'Navigation',
+  'sideNavigation.expand': 'Expand navigation',
+  'sideNavigation.collapse': 'Collapse navigation',
+  'tabs.scrollStart': 'Earlier tabs',
+  'tabs.scrollEnd': 'Later tabs',
   'list.itemCount': { one: '{count} item', other: '{count} items' },
 } as const satisfies Record<string, TextValue>;
 

@@ -131,6 +131,7 @@ export const icons = [
       'M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1',
     ],
   },
+  { name: 'pin', category: 'actions', shapes: ['M9 4h6l-1 5 3 3v2H7v-2l3-3-1-5z', 'M12 14v6'] },
   {
     name: 'lock',
     category: 'actions',
@@ -243,6 +244,13 @@ export const icons = [
     name: 'list',
     category: 'navigation',
     shapes: ['M9 6h11', 'M9 12h11', 'M9 18h11', dot(5, 6), dot(5, 12), dot(5, 18)],
+    mirrorInRtl: true,
+  },
+
+  {
+    name: 'sidebar',
+    category: 'navigation',
+    shapes: ['M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z', 'M9 4v16'],
     mirrorInRtl: true,
   },
 

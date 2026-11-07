@@ -14,6 +14,7 @@ import { HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 import { JSX } from 'react';
 import type { LabelHTMLAttributes } from 'react';
+import { MouseEvent as MouseEvent_2 } from 'react';
 import type { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { ReactPortal } from 'react';
@@ -41,6 +42,27 @@ export function AmountField(input: AmountFieldProps): JSX.Element;
 export type AmountFieldProps = NumberFieldProps & {
     currency: string;
 };
+
+// @public
+export function AppHeader(input: AppHeaderProps): JSX.Element;
+
+// @public
+export interface AppHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    actions?: ReactNode;
+    center?: ReactNode;
+    logo?: ReactNode;
+    // (undocumented)
+    onUserMenuAction?: (key: string) => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    start?: ReactNode;
+    title: ReactNode;
+    user?: {
+        name: string;
+        picture?: string;
+    };
+    userMenu?: readonly MenuItem[];
+}
 
 // @public
 export function Avatar(input: AvatarProps): JSX.Element;
@@ -92,6 +114,29 @@ export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
 }
 
 // @public
+export interface BreadcrumbItem {
+    // (undocumented)
+    href?: string;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onPress?: () => void;
+    render?: (props: LinkRenderProps) => ReactElement;
+}
+
+// @public
+export function Breadcrumbs(input: BreadcrumbsProps): JSX.Element;
+
+// @public
+export interface BreadcrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+    items: readonly BreadcrumbItem[];
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+}
+
+// @public
 export const builtInTextPackages: Readonly<Record<string, TextPackage>>;
 
 // @public
@@ -136,6 +181,25 @@ export interface CalendarProps {
     onEscape?: () => void;
     onSelect: (date: DateString) => void;
     value: DateString | null;
+}
+
+// @public
+export function Card(input: CardProps): JSX.Element;
+
+// @public
+export interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    actions?: ReactNode;
+    avatar?: ReactNode;
+    footer?: ReactNode;
+    headingLevel?: 2 | 3 | 4 | 5 | 6;
+    href?: string;
+    onPress?: () => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    // (undocumented)
+    subtitle?: ReactNode;
+    // (undocumented)
+    title?: ReactNode;
 }
 
 // @public
@@ -517,6 +581,18 @@ export const en: {
         readonly other: "{count} messages";
     };
     readonly 'menu.submenu': "Submenu";
+    readonly 'breadcrumbs.label': "Breadcrumb";
+    readonly 'pageHeader.expand': "Expand header";
+    readonly 'pageHeader.collapse': "Collapse header";
+    readonly 'pageHeader.pin': "Pin header";
+    readonly 'splitLayout.back': "Back to the list";
+    readonly 'splitLayout.showList': "Show list";
+    readonly 'splitLayout.hideList': "Hide list";
+    readonly 'sideNavigation.label': "Navigation";
+    readonly 'sideNavigation.expand': "Expand navigation";
+    readonly 'sideNavigation.collapse': "Collapse navigation";
+    readonly 'tabs.scrollStart': "Earlier tabs";
+    readonly 'tabs.scrollEnd': "Later tabs";
     readonly 'list.itemCount': {
         readonly one: "{count} item";
         readonly other: "{count} items";
@@ -1075,6 +1151,21 @@ export interface MultiSelectNullable {
 export type MultiSelectProps = MultiSelectBaseProps & (MultiSelectNotNullable | MultiSelectNullable);
 
 // @public
+export interface NavigationItem {
+    badge?: number;
+    // (undocumented)
+    disabled?: boolean;
+    href?: string;
+    // (undocumented)
+    icon?: IconDefinition;
+    items?: readonly NavigationItem[];
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+}
+
+// @public
 export function negateDecimal(value: DecimalString): DecimalString;
 
 // @public
@@ -1149,6 +1240,54 @@ export function OverlayContainerProvider(input: {
     container: HTMLElement | null;
     children: ReactNode;
 }): JSX.Element;
+
+// @public
+export function Page(input: PageProps): JSX.Element;
+
+// @public
+export function PageHeader(input: PageHeaderProps): JSX.Element;
+
+// @public
+export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    actions?: ReactNode;
+    avatar?: ReactNode;
+    breadcrumbs?: ReactNode;
+    children?: ReactNode;
+    headingLevel?: 1 | 2 | 3;
+    pinnable?: boolean;
+    ref?: Ref<HTMLElement>;
+    status?: ReactNode;
+    subtitle?: ReactNode;
+    title: ReactNode;
+}
+
+// @public
+export interface PageProps extends HTMLAttributes<HTMLDivElement> {
+    background?: 'page' | 'surface';
+    footer?: ReactNode;
+    header?: ReactNode;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+}
+
+// @public
+export function Panel(input: PanelProps): JSX.Element;
+
+// @public
+export interface PanelProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+    collapsible?: boolean;
+    // (undocumented)
+    defaultExpanded?: boolean;
+    // (undocumented)
+    expanded?: boolean;
+    headerContent?: ReactNode;
+    headingLevel?: 2 | 3 | 4 | 5 | 6;
+    // (undocumented)
+    onExpandedChange?: (expanded: boolean) => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    title: ReactNode;
+}
 
 // @public
 export function parseLocalizedDate(input: string, locale: string, referenceDate: DateString): DateString | null;
@@ -1360,6 +1499,22 @@ export function shiftDecimal(value: DecimalString, places: number): DecimalStrin
 export type Side = 'top' | 'bottom' | 'start' | 'end';
 
 // @public
+export function SideNavigation(input: SideNavigationProps): JSX.Element;
+
+// @public
+export interface SideNavigationProps extends Omit<HTMLAttributes<HTMLElement>, 'onSelect'> {
+    collapsed?: boolean;
+    footerItems?: readonly NavigationItem[];
+    // (undocumented)
+    items: readonly NavigationItem[];
+    onCollapsedChange?: (collapsed: boolean) => void;
+    onSelect?: (key: string, item: NavigationItem, event: MouseEvent_2 | null) => void;
+    // (undocumented)
+    ref?: Ref<HTMLElement>;
+    selectedKey?: string;
+}
+
+// @public
 export function signDecimal(value: DecimalString): -1 | 0 | 1;
 
 // @public
@@ -1373,6 +1528,23 @@ export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'chi
     ref?: Ref<HTMLSpanElement>;
     // (undocumented)
     size?: 's' | 'm' | 'l';
+}
+
+// @public
+export function SplitLayout(input: SplitLayoutProps): JSX.Element;
+
+// @public
+export interface SplitLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    detail: ReactNode;
+    detailLabel?: string;
+    list: ReactNode;
+    listCollapsed?: boolean;
+    listLabel?: string;
+    listWidth?: string;
+    onBack?: () => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    showDetail?: boolean;
 }
 
 // @public
@@ -1400,6 +1572,43 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 
 // @public
 export function tabbableElements(container: Element): HTMLElement[];
+
+// @public
+export interface TabItem {
+    content?: ReactNode;
+    count?: number;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    icon?: IconDefinition;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+}
+
+// @public
+export function Tabs(input: TabsProps): JSX.Element;
+
+// @public
+export interface TabsProps {
+    'aria-label'?: string;
+    activation?: 'automatic' | 'manual';
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    defaultSelectedKey?: string;
+    // (undocumented)
+    items: readonly TabItem[];
+    keepMounted?: boolean;
+    // (undocumented)
+    onSelectionChange?: (key: string) => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    renderPanel?: (key: string) => ReactNode;
+    // (undocumented)
+    selectedKey?: string;
+}
 
 // @public
 export function Tag(input: TagProps): JSX.Element;
@@ -1646,6 +1855,37 @@ export function today(timeZone: string, now?: number): DateString;
 
 // @public
 export type Tone = 'neutral' | 'accent' | 'success' | 'warning' | 'error' | 'information';
+
+// @public
+export function Toolbar(input: ToolbarProps): JSX.Element;
+
+// @public
+export interface ToolbarItem {
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    icon?: IconDefinition;
+    iconOnly?: boolean;
+    // (undocumented)
+    key: string;
+    // (undocumented)
+    label: string;
+    menu?: readonly MenuItem[];
+    overflow?: 'auto' | 'never' | 'always';
+    // (undocumented)
+    variant?: ButtonVariant;
+}
+
+// @public
+export interface ToolbarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    'aria-label'?: string;
+    // (undocumented)
+    items: readonly ToolbarItem[];
+    onAction: (key: string) => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    start?: ReactNode;
+}
 
 // @public
 export function toScale(value: DecimalString, scale: number): DecimalString;

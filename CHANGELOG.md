@@ -18,6 +18,9 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set of 53 icons, one module each (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Layout and navigation: `Page` and `PageHeader` with a title row that stays while the
+  facts scroll away, `Breadcrumbs`, `Toolbar` with an overflow menu, `Panel`, `Card`,
+  `Tabs`, `SplitLayout`, `SideNavigation` and `AppHeader`; icons `pin` and `sidebar`.
 - Overlays and feedback: `Popover`, `Menu` and `MenuButton` with submenus, `Banner`,
   toasts and message dialogs through `useToast` and `useMessageDialog` shown by
   `FeedbackHost`, `MessageDialog`, `MessageList` and `MessagesButton`.

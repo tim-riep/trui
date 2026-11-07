@@ -1,0 +1,81 @@
+/*
+ * Copyright 2026 The TRUI Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@layer trui.components {
+  .trui-split {
+    --trui-split-list-width: 33%;
+
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    container: trui-split / inline-size;
+  }
+
+  .trui-split__list {
+    display: flex;
+    flex: 0 0 var(--trui-split-list-width);
+    flex-direction: column;
+    min-width: 0;
+    overflow: auto;
+    background: var(--trui-color-surface);
+    border-inline-end: var(--trui-border-width) solid var(--trui-color-border);
+  }
+
+  .trui-split__detail {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .trui-split__detail-content {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .trui-split__back {
+    display: none;
+    padding: var(--trui-space-xs) var(--trui-space-s);
+    border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
+  }
+
+  .trui-split--list-collapsed .trui-split__list {
+    display: none;
+  }
+
+  @container trui-split (width < 720px) {
+    .trui-split__list,
+    .trui-split__detail {
+      flex: 1 1 100%;
+      border: 0;
+    }
+
+    .trui-split--list .trui-split__detail,
+    .trui-split--detail .trui-split__list {
+      display: none;
+    }
+
+    .trui-split--detail .trui-split__list {
+      display: none;
+    }
+
+    .trui-split__back {
+      display: block;
+    }
+  }
+}

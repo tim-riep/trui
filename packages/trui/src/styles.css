@@ -55,3 +55,12 @@
 @import './components/message-dialog/MessageDialog.css';
 @import './components/feedback-host/FeedbackHost.css';
 @import './components/message-list/MessageList.css';
+@import './components/breadcrumbs/Breadcrumbs.css';
+@import './components/page/Page.css';
+@import './components/toolbar/Toolbar.css';
+@import './components/panel/Panel.css';
+@import './components/card/Card.css';
+@import './components/tabs/Tabs.css';
+@import './components/split-layout/SplitLayout.css';
+@import './components/side-navigation/SideNavigation.css';
+@import './components/app-header/AppHeader.css';

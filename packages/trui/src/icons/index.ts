@@ -52,12 +52,14 @@ import { moreHorizontalIcon } from './set/more-horizontal';
 import { moreVerticalIcon } from './set/more-vertical';
 import { notificationIcon } from './set/notification';
 import { personIcon } from './set/person';
+import { pinIcon } from './set/pin';
 import { printIcon } from './set/print';
 import { questionIcon } from './set/question';
 import { refreshIcon } from './set/refresh';
 import { saveIcon } from './set/save';
 import { searchIcon } from './set/search';
 import { settingsIcon } from './set/settings';
+import { sidebarIcon } from './set/sidebar';
 import { sortIcon } from './set/sort';
 import { sortAscendingIcon } from './set/sort-ascending';
 import { sortDescendingIcon } from './set/sort-descending';
@@ -106,12 +108,14 @@ export { moreHorizontalIcon } from './set/more-horizontal';
 export { moreVerticalIcon } from './set/more-vertical';
 export { notificationIcon } from './set/notification';
 export { personIcon } from './set/person';
+export { pinIcon } from './set/pin';
 export { printIcon } from './set/print';
 export { questionIcon } from './set/question';
 export { refreshIcon } from './set/refresh';
 export { saveIcon } from './set/save';
 export { searchIcon } from './set/search';
 export { settingsIcon } from './set/settings';
+export { sidebarIcon } from './set/sidebar';
 export { sortIcon } from './set/sort';
 export { sortAscendingIcon } from './set/sort-ascending';
 export { sortDescendingIcon } from './set/sort-descending';
@@ -124,10 +128,10 @@ export { visibleIcon } from './set/visible';
 export { warningIcon } from './set/warning';
 
 /** All icons of the set. Importing it puts every icon into the bundle. */
-export const allIcons: readonly IconDefinition[] = [addIcon, arrowLeftIcon, arrowRightIcon, attachmentIcon, calendarIcon, checkIcon, chevronDownIcon, chevronLeftIcon, chevronRightIcon, chevronUpIcon, clockIcon, closeIcon, copyIcon, deleteIcon, documentIcon, documentTextIcon, downloadIcon, editIcon, errorIcon, exportIcon, externalLinkIcon, filterIcon, folderIcon, gridIcon, hiddenIcon, homeIcon, importIcon, infoIcon, linkIcon, listIcon, lockIcon, menuIcon, minusIcon, moreHorizontalIcon, moreVerticalIcon, notificationIcon, personIcon, printIcon, questionIcon, refreshIcon, saveIcon, searchIcon, settingsIcon, sortIcon, sortAscendingIcon, sortDescendingIcon, starIcon, starFilledIcon, successIcon, unlockIcon, uploadIcon, visibleIcon, warningIcon];
+export const allIcons: readonly IconDefinition[] = [addIcon, arrowLeftIcon, arrowRightIcon, attachmentIcon, calendarIcon, checkIcon, chevronDownIcon, chevronLeftIcon, chevronRightIcon, chevronUpIcon, clockIcon, closeIcon, copyIcon, deleteIcon, documentIcon, documentTextIcon, downloadIcon, editIcon, errorIcon, exportIcon, externalLinkIcon, filterIcon, folderIcon, gridIcon, hiddenIcon, homeIcon, importIcon, infoIcon, linkIcon, listIcon, lockIcon, menuIcon, minusIcon, moreHorizontalIcon, moreVerticalIcon, notificationIcon, personIcon, pinIcon, printIcon, questionIcon, refreshIcon, saveIcon, searchIcon, settingsIcon, sidebarIcon, sortIcon, sortAscendingIcon, sortDescendingIcon, starIcon, starFilledIcon, successIcon, unlockIcon, uploadIcon, visibleIcon, warningIcon];
 
 /** Categories of the icon set with their labels. */
 export const iconCategories = {"actions":"Actions","status":"Status and messages","navigation":"Navigation","documents":"Documents and files","people":"People and organization","time":"Calendar and time","admin":"Settings and administration"} as const;
 
 /** The category of every icon of the set, by name. */
-export const iconCategoryByName: Readonly<Record<string, keyof typeof iconCategories>> = {"add":"actions","arrow-left":"navigation","arrow-right":"navigation","attachment":"documents","calendar":"time","check":"actions","chevron-down":"navigation","chevron-left":"navigation","chevron-right":"navigation","chevron-up":"navigation","clock":"time","close":"actions","copy":"actions","delete":"actions","document":"documents","document-text":"documents","download":"actions","edit":"actions","error":"status","export":"actions","external-link":"navigation","filter":"actions","folder":"documents","grid":"navigation","hidden":"actions","home":"navigation","import":"actions","info":"status","link":"actions","list":"navigation","lock":"actions","menu":"navigation","minus":"actions","more-horizontal":"actions","more-vertical":"actions","notification":"status","person":"people","print":"actions","question":"status","refresh":"actions","save":"actions","search":"actions","settings":"admin","sort":"actions","sort-ascending":"actions","sort-descending":"actions","star":"actions","star-filled":"actions","success":"status","unlock":"actions","upload":"actions","visible":"actions","warning":"status"};
+export const iconCategoryByName: Readonly<Record<string, keyof typeof iconCategories>> = {"add":"actions","arrow-left":"navigation","arrow-right":"navigation","attachment":"documents","calendar":"time","check":"actions","chevron-down":"navigation","chevron-left":"navigation","chevron-right":"navigation","chevron-up":"navigation","clock":"time","close":"actions","copy":"actions","delete":"actions","document":"documents","document-text":"documents","download":"actions","edit":"actions","error":"status","export":"actions","external-link":"navigation","filter":"actions","folder":"documents","grid":"navigation","hidden":"actions","home":"navigation","import":"actions","info":"status","link":"actions","list":"navigation","lock":"actions","menu":"navigation","minus":"actions","more-horizontal":"actions","more-vertical":"actions","notification":"status","person":"people","pin":"actions","print":"actions","question":"status","refresh":"actions","save":"actions","search":"actions","settings":"admin","sidebar":"navigation","sort":"actions","sort-ascending":"actions","sort-descending":"actions","star":"actions","star-filled":"actions","success":"status","unlock":"actions","upload":"actions","visible":"actions","warning":"status"};
