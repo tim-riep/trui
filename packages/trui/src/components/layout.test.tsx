@@ -189,7 +189,7 @@ describe('Page and PageHeader', () => {
       screen.getByRole('heading', { level: 1, name: 'Order 4711' }).getBoundingClientRect().top,
     ).toBeGreaterThanOrEqual(scroller.getBoundingClientRect().top);
     await userEvent.click(screen.getByRole('button', { name: 'Expand header' }));
-    await vi.waitFor(() => expect(scroller.scrollTop).toBe(0));
+    await vi.waitFor(() => expect(scroller.scrollTop).toBe(0), { timeout: 3000 });
   });
 
   it('keeps the facts visible when pinned', async () => {

@@ -57,12 +57,14 @@
     border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
   }
 
+  /* The facts below carry the line; the title row keeps its height in every
+   * state, so that collapsing never moves the content while it scrolls. */
   .trui-page-header--with-content {
-    border-bottom: 0;
+    border-bottom-color: transparent;
   }
 
   .trui-page-header--collapsed {
-    border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-bottom-color: var(--trui-color-border-subtle);
     box-shadow: var(--trui-shadow-s);
   }
 
@@ -95,10 +97,6 @@
     font-weight: var(--trui-font-weight-semibold);
     line-height: var(--trui-line-height-tight);
     overflow-wrap: anywhere;
-  }
-
-  .trui-page-header--collapsed .trui-page-header__title {
-    font-size: var(--trui-font-size-l);
   }
 
   .trui-page-header__subtitle {
