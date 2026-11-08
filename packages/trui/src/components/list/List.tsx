@@ -197,7 +197,6 @@ export function List({
         {items.map((item, index) => {
           const isSelected = selected.has(item.key);
           return (
-            // biome-ignore lint/a11y/useKeyWithClickEvents: the entry handles the keyboard
             <li
               key={item.key}
               ref={(el) => {

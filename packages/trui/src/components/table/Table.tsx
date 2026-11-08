@@ -579,7 +579,6 @@ export function Table<T>({
                       </span>
                     )}
                     {column.resizable !== false && (
-                      // biome-ignore lint/a11y/noStaticElementInteractions: resizing by keyboard is Alt+Arrow on the header cell
                       <div
                         className="trui-table__resize"
                         aria-hidden="true"
