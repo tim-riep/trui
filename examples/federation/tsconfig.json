@@ -3,29 +3,13 @@
   "compilerOptions": {
     "noEmit": true,
     "allowImportingTsExtensions": true,
-    "types": [
-      "node",
-      "vite/client"
-    ],
+    "types": ["node", "vite/client"],
     "paths": {
-      "@tim-riep/trui/icons/*": [
-        "../../packages/trui/src/icons/set/*.ts"
-      ],
-      "@tim-riep/trui/icons": [
-        "../../packages/trui/src/icons/index.ts"
-      ],
-      "@tim-riep/trui/core": [
-        "../../packages/trui/src/core/index.ts"
-      ],
-      "@tim-riep/trui": [
-        "../../packages/trui/src/index.ts"
-      ]
+      "@tim-riep/trui/icons/*": ["../../packages/trui/src/icons/set/*.ts"],
+      "@tim-riep/trui/icons": ["../../packages/trui/src/icons/index.ts"],
+      "@tim-riep/trui/core": ["../../packages/trui/src/core/index.ts"],
+      "@tim-riep/trui": ["../../packages/trui/src/index.ts"]
     }
   },
-  "include": [
-    "host/src",
-    "remote/src",
-    "*/rsbuild.config.ts",
-    "*.d.mts"
-  ]
+  "include": ["host/src", "remote/src", "*/rsbuild.config.ts", "*.d.mts"]
 }
