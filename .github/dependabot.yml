@@ -10,6 +10,10 @@ updates:
       # Updated by hand together with the image of the visual tests and new baselines.
       - dependency-name: playwright
       - dependency-name: "@playwright/test"
+      # TypeDoc and API Extractor need the compiler API of TypeScript 6; major
+      # updates wait until they support a newer version.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
     groups:
       storybook:
         patterns: ["storybook", "@storybook/*"]
