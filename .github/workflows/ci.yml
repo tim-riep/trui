@@ -23,7 +23,7 @@ jobs:
     name: Checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
@@ -69,7 +69,7 @@ jobs:
     name: Unit and story tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -87,7 +87,7 @@ jobs:
       matrix:
         browser: [chromium, firefox, webkit]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -108,7 +108,7 @@ jobs:
     name: Module federation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -121,9 +121,9 @@ jobs:
     name: Package TRUI in go-runtime
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check out go-runtime
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: tim-riep/go-runtime
           path: go-runtime
@@ -152,7 +152,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci
       - run: npm run catalog:build
       - run: npx playwright test -c playwright.visual.config.ts
