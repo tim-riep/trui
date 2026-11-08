@@ -68,7 +68,7 @@ async function waitFor(url: string): Promise<void> {
 
 beforeAll(async () => {
   if (!process.env.TRUI_SKIP_BUILD) {
-    execFileSync('npm', ['run', 'build:package'], { cwd: root, stdio: 'inherit' });
+    execFileSync('npm', ['run', 'build:package:catalog'], { cwd: root, stdio: 'inherit' });
   }
   if (!rt) {
     rt = join(work, 'rt');
@@ -137,6 +137,19 @@ describe('package TRUI in go-runtime', () => {
       expect(second.status).toBe(304);
       expect(await second.text()).toBe('');
     }
+  });
+
+  it('serves the catalog as second repository', async () => {
+    expect(run('http', 'list', 'TRUI')).toMatch(/\/trui\/catalog\s+active\s+yes/);
+    const index = await fetch(`${base}/trui/catalog/index.html`);
+    expect(index.status).toBe(200);
+    expect(index.headers.get('content-type')).toBe('text/html');
+    const iframe = await (await fetch(`${base}/trui/catalog/iframe.html`)).text();
+    const script = iframe.match(/src="\.\/([^"]+\.js)"/)?.[1];
+    expect(script).toBeDefined();
+    const response = await fetch(`${base}/trui/catalog/${script}`);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('text/javascript');
   });
 
   it('answers 404 for missing files', async () => {

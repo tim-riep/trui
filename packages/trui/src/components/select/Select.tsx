@@ -211,7 +211,7 @@ export function Select(props: SelectProps) {
         type="button"
         role="combobox"
         aria-expanded={popup.open}
-        aria-controls={popup.listboxId}
+        aria-controls={popup.open ? popup.listboxId : undefined}
         aria-haspopup="listbox"
         aria-activedescendant={popup.ownerProps['aria-activedescendant']}
         className="trui-select__button"

@@ -18,6 +18,10 @@ TRUI/
   schema/http-services/lib.json   serves the repository under /trui/lib/
 ```
 
+`npm run build:package:catalog` adds the built catalog as second asset repository
+`assets/catalog` with the node `schema/http-services/catalog.json`, served anonymously under
+`/trui/catalog/index.html`; the API reference is at `/trui/catalog/api/index.html`.
+
 Entry points keep fixed names, so that pages can reference them; all other files carry a
 content hash. Source maps lie next to the scripts. The script checks the rules of go-runtime
 for asset paths and validates the generated files against the JSON Schemas of go-runtime
@@ -66,7 +70,7 @@ set up before installing.
 
 ## Test
 
-`npm run test:package` builds the package, installs it into a fresh SQLite database with
+`npm run test:package` builds the package with the catalog, installs it into a fresh SQLite database with
 `rt install`, activates the node, starts `rt serve` and checks entry points, a hashed font and
 a hashed chunk for media type, `ETag` and 304 on `If-None-Match`, and loads the demo page in
 Chromium. It takes `rt` from `RT_BIN` or builds it from `GO_RUNTIME_DIR`.

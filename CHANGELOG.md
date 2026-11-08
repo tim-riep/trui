@@ -18,10 +18,17 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Icon set, one module per icon (`@tim-riep/trui/icons/<name>`), and
   `defineIcon` for own icons.
 - Components `Button`, `Icon`, `Label`, `Text` and `TextField`.
+- Examples in the catalog: a business page (list with filter bar, detail page with form)
+  and a home page in the shell that opens it; foundations pages for type, spacing and
+  density; the catalog can be part of the go-runtime package (`build:package:catalog`).
+- Visual regression tests of the catalog in both themes and densities, made in the
+  Playwright container.
 - Home page and shell: `Tile`, `MetricTile` (exact figures with scaling, trend and
   rating) and `ContentTile`, `TileGroup` and `TileGroups` with a jump bar, `ShellHeader`
   with search, notifications, area switch and user menu, `NotificationPanel`,
   `SettingsDialog` and `ShellLayout`; the icon set grows to 163 icons in eleven categories.
+- `ShellLayout` mounts the application when it is opened first.
+- Disabled tiles are always disabled buttons.
 - `ComboBox` takes `startContent` and can hide its list button (`showButton`).
 - Data: `Table` with sorting (exact for decimals), single and multiple selection with
   ranges, row actions, resizable columns, loading and empty states, rows given as array

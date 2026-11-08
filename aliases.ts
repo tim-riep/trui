@@ -18,6 +18,16 @@ import { fileURLToPath } from 'node:url';
 // catalog and examples that run without a build.
 export const sourceAliases = [
   {
+    find: /^@tim-riep\/trui\/icons\/(.+)$/,
+    replacement: fileURLToPath(
+      new URL('./packages/trui/src/icons/set/$1.ts', import.meta.url),
+    ).replace('%241', '$1'),
+  },
+  {
+    find: /^@tim-riep\/trui\/icons$/,
+    replacement: fileURLToPath(new URL('./packages/trui/src/icons/index.ts', import.meta.url)),
+  },
+  {
     find: /^@tim-riep\/trui\/core$/,
     replacement: fileURLToPath(new URL('./packages/trui/src/core/index.ts', import.meta.url)),
   },

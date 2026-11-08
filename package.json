@@ -33,12 +33,16 @@
     "build:browser": "npm -w @tim-riep/trui run build:browser",
     "build:package": "npm run build:browser && node scripts/build-package.mjs",
     "test:package": "vitest run -c vitest.e2e.config.ts --project package",
-    "test:federation": "vitest run -c vitest.e2e.config.ts --project federation"
+    "test:federation": "vitest run -c vitest.e2e.config.ts --project federation",
+    "test:visual": "npm run catalog:build && docker run --rm --ipc=host -v \"$PWD\":/work -w /work mcr.microsoft.com/playwright:v1.65.0-noble npx playwright test -c playwright.visual.config.ts",
+    "test:visual:update": "npm run catalog:build && docker run --rm --ipc=host -v \"$PWD\":/work -w /work mcr.microsoft.com/playwright:v1.65.0-noble npx playwright test -c playwright.visual.config.ts --update-snapshots",
+    "build:package:catalog": "npm run build:browser && npm run catalog:build && node scripts/build-package.mjs --with-catalog"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.6",
     "@microsoft/api-extractor": "7.60.1",
     "@module-federation/rsbuild-plugin": "2.9.3",
+    "@playwright/test": "1.65.0",
     "@rsbuild/core": "2.3.1",
     "@rsbuild/plugin-react": "2.1.1",
     "@storybook/addon-a11y": "10.6.6",

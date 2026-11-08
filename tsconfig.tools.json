@@ -3,12 +3,19 @@
   "compilerOptions": {
     "noEmit": true,
     "types": ["node", "vite/client"],
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@tim-riep/trui/icons/*": ["./packages/trui/src/icons/set/*.ts"],
+      "@tim-riep/trui/icons": ["./packages/trui/src/icons/index.ts"],
+      "@tim-riep/trui/core": ["./packages/trui/src/core/index.ts"],
+      "@tim-riep/trui": ["./packages/trui/src/index.ts"]
+    }
   },
   "include": [
     "aliases.ts",
     "vitest.config.ts",
     "vitest.e2e.config.ts",
+    "playwright.visual.config.ts",
     "tests/**/*.ts",
     "packages/trui/vite.config.ts",
     ".storybook/*.ts",

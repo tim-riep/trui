@@ -143,7 +143,7 @@ export function useListPopup({
     ownerProps: {
       role: 'combobox' as const,
       'aria-expanded': open,
-      'aria-controls': listboxId,
+      'aria-controls': open ? listboxId : undefined,
       'aria-haspopup': 'listbox' as const,
       'aria-activedescendant':
         open && activeIndex >= 0 ? optionId(listboxId, activeIndex) : undefined,

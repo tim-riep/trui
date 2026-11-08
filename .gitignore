@@ -4,7 +4,7 @@ storybook-static/
 coverage/
 test-results/
 playwright-report/
-.vitest-attachments/
+.vitest/
 *.tsbuildinfo
 .DS_Store
 __screenshots__/

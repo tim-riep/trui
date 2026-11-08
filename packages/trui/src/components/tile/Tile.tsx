@@ -135,7 +135,7 @@ function TileFrame({
       </a>
     );
   }
-  if (onPress || href !== undefined) {
+  if (onPress || href !== undefined || disabled) {
     return (
       <button
         ref={ref as Ref<HTMLButtonElement>}

@@ -20,6 +20,9 @@
 //     assets/lib/...                   packages/trui/dist-browser and package/index.html
 //     schema/http-services/lib.json    serves the repository anonymously under /trui/lib/
 //
+// With --with-catalog, the built catalog (dist/catalog, `npm run catalog:build`)
+// becomes the second asset repository `catalog`, served under /trui/catalog/.
+//
 // Checks the rules of go-runtime for asset paths and, if the schemas of
 // go-runtime are found (GO_RUNTIME_DIR or ../go-runtime), validates the
 // generated files against them. Run `npm run build:browser` first.
@@ -42,6 +45,14 @@ const browserBuild = join(root, 'packages/trui/dist-browser');
 const out = join(root, 'dist/package/TRUI');
 const repository = join(out, 'assets/lib');
 const version = JSON.parse(readFileSync(join(root, 'packages/trui/package.json'), 'utf8')).version;
+const withCatalog = process.argv.includes('--with-catalog');
+const catalogBuild = join(root, 'dist/catalog');
+const catalogRepository = join(out, 'assets/catalog');
+
+if (withCatalog && !existsSync(join(catalogBuild, 'index.html'))) {
+  console.error('The catalog build is missing; run npm run catalog:build first.');
+  process.exit(1);
+}
 
 if (!existsSync(join(browserBuild, 'trui.js'))) {
   console.error('The browser build is missing; run npm run build:browser first.');
@@ -59,6 +70,10 @@ const mediaTypes = {
   '.json': 'application/json',
   '.html': 'text/html',
   '.txt': 'text/plain',
+  '.png': 'image/png',
+  '.ico': 'image/vnd.microsoft.icon',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
 };
 
 // Files with a fixed name that applications reference; all others carry a hash.
@@ -95,6 +110,8 @@ const folders = {
 
 function listFiles(dir, base = dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+    // Hidden files such as .nojekyll are not assets.
+    if (e.name.startsWith('.')) return [];
     const full = join(dir, e.name);
     if (lstatSync(full).isSymbolicLink()) throw new Error(`symbolic link not allowed: ${full}`);
     return e.isDirectory() ? listFiles(full, base) : [relative(base, full).split('\\').join('/')];
@@ -151,30 +168,64 @@ const manifest = {
   requires: [{ id: 'TRBASE', version: '>=1.0.0' }],
 };
 
-const libService = {
-  path: 'lib',
-  texts: {
-    en: {
-      label: 'TRUI library files',
-      description: 'JavaScript, CSS and fonts of the TRUI components',
-    },
-    de: {
-      label: 'TRUI-Bibliotheksdateien',
-      description: 'JavaScript, CSS und Schriften der TRUI-Komponenten',
-    },
-  },
+const service = (path, texts) => ({
+  path,
+  texts,
   handlers: [
     {
       class: '/TRBASE/ASSET_HANDLER',
       parameters: [
         { name: 'package', value: 'TRUI' },
-        { name: 'repository', value: 'lib' },
+        { name: 'repository', value: path },
       ],
     },
   ],
   // The files hold no data worth protecting and the handler reads no tenant data.
   settings: { anonymous: true, anonymousTenant: null },
-};
+});
+
+const libService = service('lib', {
+  en: {
+    label: 'TRUI library files',
+    description: 'JavaScript, CSS and fonts of the TRUI components',
+  },
+  de: {
+    label: 'TRUI-Bibliotheksdateien',
+    description: 'JavaScript, CSS und Schriften der TRUI-Komponenten',
+  },
+});
+
+let catalogAssets = null;
+let catalogService = null;
+let catalogCount = 0;
+if (withCatalog) {
+  mkdirSync(catalogRepository, { recursive: true });
+  cpSync(catalogBuild, catalogRepository, {
+    recursive: true,
+    filter: (src) => !src.split('/').pop().startsWith('.'),
+  });
+  const catalogPaths = listFiles(catalogRepository).sort();
+  checkPaths(catalogPaths);
+  catalogCount = catalogPaths.length;
+  catalogAssets = {
+    description: { en: 'Catalog of the TRUI components', de: 'Katalog der TRUI-Komponenten' },
+    files: Object.fromEntries(
+      catalogPaths.map((p) => [
+        p,
+        p === 'index.html'
+          ? {
+              mimeType: mediaTypes['.html'],
+              description: { en: 'Start page of the catalog', de: 'Startseite des Katalogs' },
+            }
+          : { mimeType: mediaTypes[extname(p)] },
+      ]),
+    ),
+  };
+  catalogService = service('catalog', {
+    en: { label: 'TRUI catalog', description: 'Catalog of the TRUI components with examples' },
+    de: { label: 'TRUI-Katalog', description: 'Katalog der TRUI-Komponenten mit Beispielen' },
+  });
+}
 
 const write = (file, data) => {
   mkdirSync(resolve(file, '..'), { recursive: true });
@@ -183,6 +234,10 @@ const write = (file, data) => {
 write(join(out, 'manifest.json'), manifest);
 write(join(repository, 'asset.json'), assetJson);
 write(join(out, 'schema/http-services/lib.json'), libService);
+if (catalogAssets && catalogService) {
+  write(join(catalogRepository, 'asset.json'), catalogAssets);
+  write(join(out, 'schema/http-services/catalog.json'), catalogService);
+}
 
 // Validation against the schemas of go-runtime, where available.
 const runtimeDir = resolve(process.env.GO_RUNTIME_DIR ?? join(root, '../go-runtime'));
@@ -197,6 +252,12 @@ if (existsSync(schemaDir)) {
     ['manifest.schema.json', manifest, 'manifest.json'],
     ['asset.schema.json', assetJson, 'assets/lib/asset.json'],
     ['http-service.schema.json', libService, 'schema/http-services/lib.json'],
+    ...(catalogAssets && catalogService
+      ? [
+          ['asset.schema.json', catalogAssets, 'assets/catalog/asset.json'],
+          ['http-service.schema.json', catalogService, 'schema/http-services/catalog.json'],
+        ]
+      : []),
   ];
   for (const [schema, data, file] of checks) {
     const validate = ajv.getSchema(base + schema);
@@ -212,4 +273,7 @@ if (existsSync(schemaDir)) {
   console.log('go-runtime schemas not found; skipped schema validation');
 }
 
-console.log(`${relative(root, out)}: version ${version}, ${paths.length} files in assets/lib`);
+console.log(
+  `${relative(root, out)}: version ${version}, ${paths.length} files in assets/lib` +
+    (withCatalog ? `, ${catalogCount} files in assets/catalog` : ''),
+);

@@ -221,7 +221,10 @@ export interface ShellLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   app?: ReactNode;
   /** Navigation of the opened application, e.g. a `SideNavigation`. */
   navigation?: ReactNode;
-  /** Keeps the application mounted while the home page is shown, so its state survives. On by default. */
+  /**
+   * Keeps the application mounted while the home page is shown, once it was
+   * opened, so its state survives. On by default.
+   */
   keepAppMounted?: boolean;
   ref?: Ref<HTMLDivElement>;
 }
@@ -244,6 +247,9 @@ export function ShellLayout({
 }: ShellLayoutProps) {
   const t = useText();
   const mainId = useId();
+  // The application mounts when it is opened first and stays mounted then.
+  const [opened, setOpened] = useState(view === 'app');
+  if (view === 'app' && !opened) setOpened(true);
   return (
     <div ref={ref} className={cx('trui-shell', `trui-shell--${view}`, className)} {...rest}>
       <a href={`#${mainId}`} className="trui-shell__skip">
@@ -258,7 +264,7 @@ export function ShellLayout({
           <div className="trui-shell__home" hidden={view !== 'home'}>
             {view === 'home' && home}
           </div>
-          {(view === 'app' || keepAppMounted) && app !== undefined && (
+          {(view === 'app' || (keepAppMounted && opened)) && app !== undefined && (
             <div className="trui-shell__app" hidden={view !== 'app'}>
               {app}
             </div>

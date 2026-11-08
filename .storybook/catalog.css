@@ -81,3 +81,7 @@
   border: 1px solid var(--trui-color-border);
   border-radius: var(--trui-radius-s);
 }
+
+.catalog-canvas:has(.example-frame) {
+  padding: 0;
+}

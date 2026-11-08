@@ -23,7 +23,15 @@ npm run catalog     # the component catalog on http://localhost:6006
 npm run build:package    # the go-runtime package TRUI in dist/package/TRUI
 npm run test:package     # installs it with rt into a fresh database and serves it
 npm run test:federation  # host and remote of the module federation example
+npm run test:visual      # screenshots of the catalog in the Playwright container (needs Docker)
 ```
+
+`npm run test:visual:update` renews the screenshots in `tests/visual/baselines` after an
+intended change of the look. `npm run build:package:catalog` adds the built catalog to the
+package as second asset repository, served under `/trui/catalog/index.html`.
+
+The catalog (`npm run catalog`) has a page for every component and two examples: a business
+page with a list, filter bar and detail form, and a home page in the shell that opens it.
 
 See [docs/go-runtime-package.md](docs/go-runtime-package.md) and
 [docs/federation.md](docs/federation.md).

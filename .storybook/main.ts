@@ -19,6 +19,7 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   stories: [
     '../catalog/**/*.mdx',
+    '../catalog/**/*.stories.tsx',
     '../packages/trui/src/**/*.mdx',
     '../packages/trui/src/**/*.stories.tsx',
   ],

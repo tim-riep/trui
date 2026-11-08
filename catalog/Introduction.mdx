@@ -21,13 +21,63 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # TRUI
 
 TRUI is a library of React components for business applications: inputs, forms, tables,
-dialogs, page layouts and the building blocks of a home page with tiles. The components
-share one calm, dense appearance for people who work with data all day.
+dialogs, page layouts and the building blocks of a home page with tiles and a shell. The
+components share one calm, dense appearance for people who work with data all day.
+
+## Getting started
+
+```bash
+npm install @tim-riep/trui react react-dom
+```
+
+Load the stylesheet once and wrap the application in a provider:
+
+```tsx
+import '@tim-riep/trui/styles.css';
+import { Button, FeedbackHost, TextField, TruiProvider } from '@tim-riep/trui';
+import { addIcon } from '@tim-riep/trui/icons/add';
+
+export function App() {
+  return (
+    <TruiProvider theme="auto" density="compact" locale="de" timeZone="Europe/Berlin">
+      <TextField aria-label="Supplier" nullable />
+      <Button variant="primary" icon={addIcon}>Create</Button>
+      <FeedbackHost />
+    </TruiProvider>
+  );
+}
+```
+
+Every component can also be imported on its own, e.g. `@tim-riep/trui/button`, and every
+icon from `@tim-riep/trui/icons/<name>`, so that bundles contain only what is used.
+
+## Principles
 
 - **Theming** through design tokens as CSS custom properties, with a light and a dark theme
-  and two densities.
-- **Exact values**: decimals are canonical strings, `null` and `""` are different values.
-- **Localized** formatting and input through `Intl`, text packages in English and German,
-  right-to-left layout.
-- **Accessible**: keyboard operation, ARIA roles and visible focus, targeting WCAG 2.2 AA.
-- **Shareable** under module federation: all global state lives in React contexts.
+  (or the one of the system) and two densities: compact for desktops with much data,
+  comfortable for touch. Change `--trui-color-accent` to give an application its accent.
+- **Exact values:** decimals are canonical strings such as `"1234.50"`, never JavaScript
+  numbers. Dates are `YYYY-MM-DD`, times `HH:MM:SS`, points in time UTC timestamps.
+  `null` (no value) and `""` (empty text) are different values; inputs give `null` when
+  cleared only with `nullable`.
+- **Forms:** inputs work controlled and uncontrolled, submit their value in native forms,
+  take part in reset and validation, and work with form libraries through a controller.
+  Every input shows a value state (error, warning, success, information) with a message
+  that is announced.
+- **Localized** formatting and input through `Intl`, texts of the library in English and
+  German (exchangeable), right-to-left layout.
+- **Accessible:** keyboard operation as described on each page, ARIA roles and states,
+  visible focus; every example in this catalog is checked with axe in both themes and
+  densities.
+- **Shareable** under module federation: all global state lives in React contexts, so code
+  loaded at runtime takes over theme, language and texts of the application.
+
+## In this catalog
+
+- Every component has a page with a description, live examples, all props and callbacks,
+  the tokens it uses and its keyboard operation. Use the toolbar to switch theme, density
+  and language (Arabic shows right-to-left layout).
+- **Examples** show a business page (a list with a filter bar and a detail page with a
+  form) and a home page in the shell that opens it.
+- The <a href="./api/index.html" target="_blank" rel="noreferrer">API reference</a> is
+  generated from the code (in the built catalog).
