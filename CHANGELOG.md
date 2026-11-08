@@ -6,6 +6,10 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-08
+
+First version.
+
 ### Added
 
 - License documentation: `NOTICE` and `THIRD_PARTY_NOTICES.md` with the full texts of the
@@ -60,3 +64,6 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Module federation example with host and remote sharing React and the library.
 - Core utilities for exact decimals, dates, times and timestamps, localized input,
   form integration and positioning of floating elements.
+
+[Unreleased]: https://github.com/tim-riep/trui/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/tim-riep/trui/releases/tag/v0.1.0
