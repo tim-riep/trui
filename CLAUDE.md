@@ -21,6 +21,11 @@ These rules apply to every change in this repository.
 
 - Apache License 2.0. Every source file (TypeScript, JavaScript, CSS, HTML templates,
   scripts) starts with the license header; `npm run check:headers` verifies it.
+- Third-party code or assets that are distributed (bundled into a build or shipped as
+  file) are listed in `THIRD_PARTY_NOTICES.md` with their full license text and named in
+  `NOTICE`. Only permissive licenses are acceptable for distributed parts.
+- `npm run check:licenses` checks the licenses of all installed packages and that every
+  package bundled into the browser build is listed. Run it after adding a dependency.
 
 ## Architecture
 

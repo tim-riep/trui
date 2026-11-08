@@ -8,6 +8,12 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ### Added
 
+- License documentation: `NOTICE` and `THIRD_PARTY_NOTICES.md` with the full texts of the
+  distributed third-party licenses (Inter under OFL 1.1; React, React DOM, Scheduler and
+  Rolldown helpers under MIT), shipped with the npm package and the package TRUI;
+  `npm run check:licenses`.
+- GitHub Actions for checks, tests in three browsers, story tests with axe, the module
+  federation, package and visual tests, and releases from tags; Dependabot updates.
 - `TruiProvider` with theme (light, dark, system), density (compact, comfortable),
   locale with writing direction and time zone, text packages in English and German,
   icon registry and a container for overlays; nested providers inherit what they

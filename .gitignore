@@ -10,3 +10,6 @@ playwright-report/
 __screenshots__/
 .claude/
 dist-browser/
+packages/trui/LICENSE
+packages/trui/NOTICE
+packages/trui/THIRD_PARTY_NOTICES.md

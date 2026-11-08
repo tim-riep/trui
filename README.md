@@ -44,4 +44,23 @@ The term check reads its list from `~/.config/trui/banned-terms.txt` (or the fil
 
 ## License
 
-Apache License 2.0, see [LICENSE](LICENSE).
+TRUI is licensed under the Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+It distributes the Inter typeface under the SIL Open Font License 1.1, and the browser build
+and the go-runtime package also contain React, React DOM and Scheduler under the MIT
+License. [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) lists them with their full license
+texts; `npm run check:licenses` checks the licenses of all dependencies. The npm package and
+the package TRUI include these files.
+
+## Continuous integration
+
+GitHub Actions run on every push and pull request (`.github/workflows/ci.yml`): checks and
+license check, unit tests and story tests with axe, component tests in Chromium, Firefox and
+WebKit, the module federation test, the package test against go-runtime and the visual
+regression tests in the Playwright container. A tag `v<version>` builds the npm package and
+the go-runtime package TRUI and attaches them to a GitHub release
+(`.github/workflows/release.yml`).
+
+Secrets: `BANNED_TERMS` holds the list of banned terms (one per line) for the term check;
+without it the check is skipped with a warning. `GO_RUNTIME_TOKEN` gives read access to the
+go-runtime repository if it is private.

@@ -70,6 +70,7 @@ const mediaTypes = {
   '.json': 'application/json',
   '.html': 'text/html',
   '.txt': 'text/plain',
+  '.md': 'text/markdown',
   '.png': 'image/png',
   '.ico': 'image/vnd.microsoft.icon',
   '.woff': 'font/woff',
@@ -100,6 +101,12 @@ const entryPoints = {
     de: 'React-JSX-Laufzeit als ES-Modul',
   },
   'fonts/OFL.txt': { en: 'License of the Inter typeface', de: 'Lizenz der Schrift Inter' },
+  'LICENSE.txt': { en: 'License of TRUI (Apache 2.0)', de: 'Lizenz von TRUI (Apache 2.0)' },
+  'NOTICE.txt': { en: 'Notice of TRUI', de: 'Hinweise zu TRUI' },
+  'THIRD_PARTY_NOTICES.md': {
+    en: 'Licenses of the included third-party components',
+    de: 'Lizenzen der enthaltenen Fremdbestandteile',
+  },
 };
 
 const folders = {

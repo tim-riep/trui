@@ -2,3 +2,13 @@ TRUI
 Copyright 2026 The TRUI Authors
 
 This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes third-party components under their own licenses:
+- the Inter typeface, Copyright 2016 The Inter Project Authors, under the SIL Open Font
+  License 1.1 (in the stylesheet's fonts);
+- React, React DOM and Scheduler, Copyright (c) Meta Platforms, Inc. and affiliates, under
+  the MIT License (in the browser build and the package TRUI only);
+- runtime helpers of Rolldown, Copyright (c) 2024-present VoidZero Inc. & Contributors,
+  under the MIT License (in the browser build and the package TRUI only).
+
+See THIRD_PARTY_NOTICES.md for details and the full license texts.

@@ -22,7 +22,7 @@
     "check:headers": "node scripts/check-headers.mjs",
     "check:terms": "node scripts/check-terms.mjs --all",
     "check:structure": "node scripts/check-structure.mjs",
-    "check": "npm run typecheck && npm run lint && npm run check:headers && npm run check:terms && npm run check:structure && npm run check:icons && npm run check:api",
+    "check": "npm run typecheck && npm run lint && npm run check:headers && npm run check:terms && npm run check:structure && npm run check:icons && npm run check:licenses && npm run check:api",
     "catalog": "storybook dev -p 6006",
     "catalog:build": "storybook build -o dist/catalog && npm run docs:api",
     "prepare": "git config core.hooksPath .githooks || true",
@@ -36,7 +36,8 @@
     "test:federation": "vitest run -c vitest.e2e.config.ts --project federation",
     "test:visual": "npm run catalog:build && docker run --rm --ipc=host -v \"$PWD\":/work -w /work mcr.microsoft.com/playwright:v1.65.0-noble npx playwright test -c playwright.visual.config.ts",
     "test:visual:update": "npm run catalog:build && docker run --rm --ipc=host -v \"$PWD\":/work -w /work mcr.microsoft.com/playwright:v1.65.0-noble npx playwright test -c playwright.visual.config.ts --update-snapshots",
-    "build:package:catalog": "npm run build:browser && npm run catalog:build && node scripts/build-package.mjs --with-catalog"
+    "build:package:catalog": "npm run build:browser && npm run catalog:build && node scripts/build-package.mjs --with-catalog",
+    "check:licenses": "node scripts/check-licenses.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.6",

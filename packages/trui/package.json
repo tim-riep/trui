@@ -10,7 +10,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "exports": {
     ".": {
@@ -45,6 +46,12 @@
     "api": "api-extractor run",
     "api:update": "api-extractor run --local",
     "docs": "typedoc",
-    "build:browser": "NODE_ENV=production vite build -c vite.browser.config.ts && node ../../scripts/build-css.mjs --out dist-browser --hash"
+    "build:browser": "NODE_ENV=production vite build -c vite.browser.config.ts && node ../../scripts/build-css.mjs --out dist-browser --hash && node ../../scripts/copy-legal.mjs dist-browser --txt",
+    "prepack": "node ../../scripts/copy-legal.mjs ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tim-riep/trui.git",
+    "directory": "packages/trui"
   }
 }

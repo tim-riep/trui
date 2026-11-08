@@ -1,0 +1,164 @@
+# Checks and tests of every push and pull request.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "24"
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Types
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: License headers
+        run: npm run check:headers
+      - name: Structure
+        run: npm run check:structure
+      - name: Generated icons
+        run: npm run check:icons
+      - name: API report
+        run: npm run check:api
+      - name: Browser build
+        run: npm run build:browser
+      - name: Licenses
+        run: npm run check:licenses
+      - name: Banned terms in files and commit messages
+        env:
+          BANNED_TERMS: ${{ secrets.BANNED_TERMS }}
+          RANGE: ${{ github.event_name == 'pull_request' && format('{0}..{1}', github.event.pull_request.base.sha, github.event.pull_request.head.sha) || format('{0}..{1}', github.event.before, github.sha) }}
+        run: |
+          if [ -z "$BANNED_TERMS" ]; then
+            echo "::warning::The secret BANNED_TERMS is not set; the term check was skipped."
+            exit 0
+          fi
+          printf '%s\n' "$BANNED_TERMS" > "$RUNNER_TEMP/banned-terms.txt"
+          export TRUI_BANNED_TERMS="$RUNNER_TEMP/banned-terms.txt"
+          npm run check:terms
+          # A new branch has no previous commit; then only the last commit is checked.
+          case "$RANGE" in
+            0000000000000000000000000000000000000000..*) node scripts/check-terms.mjs --commits -1 ;;
+            *) node scripts/check-terms.mjs --commits "$RANGE" ;;
+          esac
+
+  unit-and-stories:
+    name: Unit and story tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Unit tests and every story with axe in both themes and densities
+        run: npx vitest run --project unit --project 'stories-*'
+
+  components:
+    name: Components in ${{ matrix.browser }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - run: npx vitest run --project browser
+        env:
+          TRUI_BROWSERS: ${{ matrix.browser }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failure-screenshots-${{ matrix.browser }}
+          path: .vitest/attachments
+          if-no-files-found: ignore
+
+  federation:
+    name: Module federation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:federation
+
+  package:
+    name: Package TRUI in go-runtime
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out go-runtime
+        uses: actions/checkout@v4
+        with:
+          repository: tim-riep/go-runtime
+          path: go-runtime
+          token: ${{ secrets.GO_RUNTIME_TOKEN || github.token }}
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go-runtime/go.mod
+          cache-dependency-path: go-runtime/go.sum
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Build, install with rt, serve and check the package
+        run: npm run test:package
+        env:
+          GO_RUNTIME_DIR: ${{ github.workspace }}/go-runtime
+
+  visual:
+    name: Visual regression
+    runs-on: ubuntu-latest
+    # The baselines were made in this image; other environments render differently.
+    # Its version must match @playwright/test in package.json.
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm run catalog:build
+      - run: npx playwright test -c playwright.visual.config.ts
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-differences
+          path: test-results
+          if-no-files-found: ignore

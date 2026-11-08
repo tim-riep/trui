@@ -1,0 +1,54 @@
+# Builds a release from a tag v<version>: the npm package and the go-runtime
+# package TRUI with the catalog, attached to a GitHub release. Publishing to
+# npm is left to a deliberate manual step.
+
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: The tag matches the version of the library
+        run: |
+          version=$(node -p "require('./packages/trui/package.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match version $version"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Checks
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run check:headers
+          npm run check:api
+      - name: npm package
+        run: |
+          mkdir -p release
+          npm pack -w @tim-riep/trui --pack-destination release
+      - name: go-runtime package TRUI with the catalog
+        run: |
+          npm run build:package:catalog
+          node scripts/check-licenses.mjs
+          (cd dist/package && zip -qr "../../release/TRUI-$VERSION.zip" TRUI)
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" release/* \
+            --title "TRUI $VERSION" \
+            --notes "See CHANGELOG.md. Attached: the npm package and the go-runtime package TRUI (install with rt install after unpacking)."

@@ -20,8 +20,10 @@
 //   node scripts/check-terms.mjs --all            all files of the repository
 //   node scripts/check-terms.mjs --staged         files staged for commit
 //   node scripts/check-terms.mjs --message <file> a commit message
+//   node scripts/check-terms.mjs --commits <range> the messages of a range of commits
 //   node scripts/check-terms.mjs <file>...        the given files
 
+import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
@@ -63,9 +65,11 @@ function check(name, text) {
 const args = process.argv.slice(2);
 let targets = [];
 let message = null;
+let commits = null;
 if (args[0] === '--all') targets = repoFiles();
 else if (args[0] === '--staged') targets = stagedFiles();
 else if (args[0] === '--message') message = args[1];
+else if (args[0] === '--commits') commits = args[1];
 else targets = args;
 
 const hits = [];
@@ -88,6 +92,14 @@ if (message) {
     .filter((l) => !l.startsWith('#'))
     .join('\n');
   hits.push(...check('commit message', text));
+}
+
+if (commits) {
+  const log = execFileSync('git', ['log', '--format=%H%n%B%x00', commits], { encoding: 'utf8' });
+  for (const entry of log.split('\0')) {
+    const [hash, ...body] = entry.trim().split('\n');
+    if (hash) hits.push(...check(`commit ${hash.slice(0, 7)}`, body.join('\n')));
+  }
 }
 
 if (hits.length > 0) {
