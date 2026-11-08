@@ -128,7 +128,7 @@ jobs:
           repository: tim-riep/go-runtime
           path: go-runtime
           token: ${{ secrets.GO_RUNTIME_TOKEN || github.token }}
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         with:
           go-version-file: go-runtime/go.mod
           cache-dependency-path: go-runtime/go.sum
