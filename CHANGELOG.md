@@ -6,6 +6,8 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-14
+
 ### Added
 
 - `CommandPalette`: a search for commands and places of an application, opened with
@@ -49,15 +51,10 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ### Fixed
 
-- A `Toolbar` in the actions of a `PageHeader` shows its actions as buttons; it had moved
-  all of them into its overflow menu because it got no width.
-
-## [0.1.1] - 2026-11-14
-
-### Fixed
-
 - `Dialog` and the dialogs built on it, such as the dialog of `LookupField`, are visible in
   Safari: their frame had a height of 0 there, so only the backdrop showed.
+- A `Toolbar` in the actions of a `PageHeader` shows its actions as buttons; it had moved
+  all of them into its overflow menu because it got no width.
 
 ## [0.1.0] - 2026-11-08
 
@@ -118,6 +115,6 @@ First version.
 - Core utilities for exact decimals, dates, times and timestamps, localized input,
   form integration and positioning of floating elements.
 
-[Unreleased]: https://github.com/tim-riep/trui/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/tim-riep/trui/compare/v0.1.0...v0.1.1
+[Unreleased]: https://github.com/tim-riep/trui/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/tim-riep/trui/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/tim-riep/trui/releases/tag/v0.1.0

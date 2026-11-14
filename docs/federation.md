@@ -30,9 +30,9 @@ const shared = {
   'react-dom': { singleton: true, requiredVersion: '^19.0.0' },
   'react/jsx-runtime': { singleton: true, requiredVersion: '^19.0.0' },
   'react-dom/client': { singleton: true, requiredVersion: '^19.0.0' },
-  '@tim-riep/trui': { singleton: true, requiredVersion: '^0.1.0' },
-  '@tim-riep/trui/core': { singleton: true, requiredVersion: '^0.1.0' },
-  '@tim-riep/trui/icons': { singleton: true, requiredVersion: '^0.1.0' },
+  '@tim-riep/trui': { singleton: true, requiredVersion: '^0.2.0' },
+  '@tim-riep/trui/core': { singleton: true, requiredVersion: '^0.2.0' },
+  '@tim-riep/trui/icons': { singleton: true, requiredVersion: '^0.2.0' },
 };
 
 // Host

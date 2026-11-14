@@ -16,7 +16,7 @@
 // takes part must share at least react, react-dom and @tim-riep/trui/core, so
 // that there is one React and one set of TRUI contexts.
 
-const trui = '^0.1.0';
+const trui = '^0.2.0';
 const react = '^19.0.0';
 
 export const shared = {
