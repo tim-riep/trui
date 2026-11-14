@@ -131,6 +131,24 @@ describe('Tiles', () => {
     );
     expect(screen.getByRole('button').textContent).toContain('falling, critical');
   });
+
+  it('show a trend text and draw earlier values without announcing the line', () => {
+    const { container } = render(
+      <MetricTile
+        title="Open orders"
+        value="1250.00"
+        trend="up"
+        trendLabel="+12 % on last month"
+        history={['900.00', '1100.00', '1250.00']}
+      />,
+    );
+    expect(screen.getByText('+12 % on last month')).toBeTruthy();
+    const line = container.querySelector('.trui-metric-tile__sparkline')!;
+    expect(line.getAttribute('aria-hidden')).toBe('true');
+    expect(line.querySelector('polyline')!.getAttribute('points')).toBe(
+      '0.00,28.00 50.00,13.14 100.00,2.00',
+    );
+  });
 });
 
 describe('Tile groups', () => {

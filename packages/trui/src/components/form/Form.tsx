@@ -28,6 +28,9 @@ import { Label } from '../label/Label';
 /** Where labels go: above the fields, beside them, or beside them when there is room. */
 export type LabelPosition = 'auto' | 'top' | 'side';
 
+/** How groups look: plain on the background, or each on a card. */
+export type FormGroupAppearance = 'plain' | 'card';
+
 /** Props of {@link Form}. */
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
@@ -35,7 +38,15 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
    * narrow: one below 600 pixels, two below 1024, three below 1440. 2 by default.
    */
   columns?: 1 | 2 | 3 | 4;
+  /** Where labels go; above the fields by default. */
   labelPosition?: LabelPosition;
+  /** How groups look; `card` puts each group on a card. `plain` by default. */
+  groupAppearance?: FormGroupAppearance;
+  /**
+   * Buttons of the form, e.g. save and reset. They stay in view at the bottom
+   * while the form scrolls.
+   */
+  actions?: ReactNode;
   ref?: Ref<HTMLFormElement>;
 }
 
@@ -45,7 +56,9 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
  */
 export function Form({
   columns = 2,
-  labelPosition = 'auto',
+  labelPosition = 'top',
+  groupAppearance = 'plain',
+  actions,
   className,
   children,
   ref,
@@ -58,12 +71,14 @@ export function Form({
         'trui-form',
         `trui-form--columns-${columns}`,
         `trui-form--labels-${labelPosition}`,
+        `trui-form--groups-${groupAppearance}`,
         className,
       )}
       {...rest}
     >
       {/* The form is the container whose width sets the columns of this grid. */}
       <div className="trui-form__grid">{children}</div>
+      {actions !== undefined && <div className="trui-form__actions">{actions}</div>}
     </form>
   );
 }

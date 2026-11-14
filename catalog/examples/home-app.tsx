@@ -142,6 +142,8 @@ export function HomeApp({ now = Date.now() }: { now?: number }) {
                       value="1250480.75"
                       unit="EUR"
                       trend="up"
+                      trendLabel="+12 % on last month"
+                      history={['910000', '980000', '1040000', '1010000', '1120000', '1250480.75']}
                       tone="good"
                       footer="Updated 5 minutes ago"
                       onPress={openOrders}
@@ -150,6 +152,7 @@ export function HomeApp({ now = Date.now() }: { now?: number }) {
                       title="Overdue deliveries"
                       value="17"
                       trend="down"
+                      trendLabel="3 fewer than last week"
                       tone="critical"
                       onPress={openOrders}
                     />
@@ -185,6 +188,7 @@ export function HomeApp({ now = Date.now() }: { now?: number }) {
                       value="8410200.00"
                       unit="EUR"
                       trend="flat"
+                      history={['8200000', '8650000', '8100000', '8500000', '8380000', '8410200']}
                       onPress={openOrders}
                     />
                     <Tile

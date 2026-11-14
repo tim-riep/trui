@@ -80,7 +80,7 @@
   }
 
   .trui-page-header__heading {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
   }
 
@@ -111,6 +111,19 @@
     flex-wrap: wrap;
     gap: var(--trui-space-xs);
     align-items: center;
+  }
+
+  /* The actions take the room the heading leaves, so that a toolbar in them
+   * shows its actions as buttons and moves only what does not fit into its
+   * overflow menu. */
+  .trui-page-header__actions {
+    flex: 1 1 0;
+    justify-content: flex-end;
+    min-width: 33%;
+  }
+
+  .trui-page-header__actions > .trui-toolbar {
+    flex: 1;
   }
 
   .trui-page-header__controls {

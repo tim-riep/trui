@@ -19,7 +19,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--trui-space-xs);
+    gap: var(--trui-space-s);
     min-width: 0;
     height: 100%;
     padding: var(--trui-space-l);
@@ -111,6 +111,8 @@
     --trui-icon-size: var(--trui-icon-size-l);
 
     box-sizing: content-box;
+    flex: none;
+    align-self: flex-start;
     padding: var(--trui-space-s);
     color: var(--trui-color-accent-text);
     background: var(--trui-color-accent-subtle);
@@ -180,18 +182,22 @@
 
   .trui-metric-tile {
     --trui-metric-color: var(--trui-color-text);
+    --trui-metric-sparkline: var(--trui-color-accent);
   }
 
   .trui-metric-tile--good {
     --trui-metric-color: var(--trui-color-success);
+    --trui-metric-sparkline: var(--trui-color-success);
   }
 
   .trui-metric-tile--critical {
     --trui-metric-color: var(--trui-color-warning);
+    --trui-metric-sparkline: var(--trui-color-warning);
   }
 
   .trui-metric-tile--bad {
     --trui-metric-color: var(--trui-color-error);
+    --trui-metric-sparkline: var(--trui-color-error);
   }
 
   .trui-metric-tile__figure {
@@ -217,5 +223,41 @@
 
   .trui-metric-tile__trend {
     align-self: center;
+  }
+
+  .trui-metric-tile__trend-label {
+    flex-basis: 100%;
+    font-size: var(--trui-font-size-xs);
+    font-weight: var(--trui-font-weight-medium);
+  }
+
+  .trui-metric-tile .trui-tile__body {
+    flex-direction: column;
+    gap: var(--trui-space-s);
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+
+  .trui-metric-tile__sparkline {
+    display: block;
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 0;
+    max-height: var(--trui-space-xxxl);
+    overflow: visible;
+  }
+
+  .trui-metric-tile__sparkline-line {
+    fill: none;
+    stroke: var(--trui-metric-sparkline);
+    stroke-width: var(--trui-border-width-strong);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .trui-metric-tile__sparkline-area {
+    fill: color-mix(in srgb, var(--trui-metric-sparkline) 12%, transparent);
+    stroke: none;
   }
 }

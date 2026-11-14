@@ -8,6 +8,10 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ### Added
 
+- `MetricTile` takes `trendLabel`, a short text next to the trend, and `history`, earlier
+  values drawn as a line above the figure.
+- `Form` takes `actions`, buttons that stay in view at the bottom while the form scrolls,
+  and `groupAppearance="card"`, which puts each group on a card.
 - Tokens `--trui-duration-slow`, `--trui-easing-exit`, `--trui-lift`, `--trui-enter-scale`,
   `--trui-focus-halo-width`, `--trui-shadow-focus` and `--trui-letter-spacing-heading`.
 
@@ -20,6 +24,14 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - Dialogs, popovers and toasts fade and scale in; dialogs blur the page behind them.
   All motion is off with `prefers-reduced-motion`.
 - Breadcrumb links are underlined only on hover.
+- `Form` puts labels above the fields by default; `labelPosition="auto"` keeps the former
+  behavior of labels beside the fields when a group is wide enough.
+- The icon of a `Tile` stands above its title.
+
+### Fixed
+
+- A `Toolbar` in the actions of a `PageHeader` shows its actions as buttons; it had moved
+  all of them into its overflow menu because it got no width.
 
 ## [0.1.1] - 2026-11-14
 

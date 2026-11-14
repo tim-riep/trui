@@ -17,6 +17,7 @@ export {
   FormField,
   type FormFieldProps,
   FormGroup,
+  type FormGroupAppearance,
   type FormGroupProps,
   type FormProps,
   type LabelPosition,

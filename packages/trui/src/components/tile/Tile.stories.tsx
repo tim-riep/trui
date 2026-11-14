@@ -24,7 +24,8 @@ import { ContentTile, MetricTile, Tile } from './Tile';
 /**
  * Tiles of a home page. `Tile` opens an application and shows a title,
  * subtitle, icon, footer and a count; `MetricTile` shows a key figure as
- * exact decimal with unit, scaling, trend and rating; `ContentTile` holds
+ * exact decimal with unit, scaling, trend, a trend text, a line of earlier
+ * values and rating; `ContentTile` holds
  * free content. Tiles take one or two cells and can be loading, failed or
  * disabled.
  *
@@ -64,6 +65,8 @@ export const Kinds: StoryObj = {
         value="1250480.75"
         unit="EUR"
         trend="up"
+        trendLabel="+12 % on last month"
+        history={['910000', '980000', '1040000', '1010000', '1120000', '1250480.75']}
         tone="good"
         footer="Updated 5 minutes ago"
         onPress={() => undefined}
@@ -72,6 +75,7 @@ export const Kinds: StoryObj = {
         title="Overdue deliveries"
         value="17"
         trend="down"
+        trendLabel="3 fewer than last week"
         tone="critical"
         onPress={() => undefined}
       />

@@ -28,10 +28,13 @@ import { Form, FormField, FormGroup } from './Form';
 /**
  * A native form with groups in responsive columns. `FormField` connects its
  * label with the input inside it, marks it as required and adds the hint as
- * description; no ids need to be wired by hand. Labels stand beside the fields
- * when a group is wide enough, otherwise above them.
+ * description; no ids need to be wired by hand. Labels stand above the fields;
+ * `labelPosition="auto"` puts them beside the fields when a group is wide
+ * enough. `groupAppearance="card"` puts each group on a card, and `actions`
+ * keeps the buttons in view at the bottom while the form scrolls.
  *
- * **Tokens:** `--trui-space-m` … `--trui-space-xxl`, `--trui-font-size-m`.
+ * **Tokens:** `--trui-space-m` … `--trui-space-xxl`, `--trui-font-size-m`,
+ * `--trui-radius-l`, `--trui-shadow-s`, `--trui-shadow-m`.
  */
 const meta = {
   title: 'Forms/Form',
@@ -43,7 +46,19 @@ type Story = StoryObj<typeof meta>;
 
 export const PurchaseOrder: Story = {
   render: () => (
-    <Form columns={2} onSubmit={(e) => e.preventDefault()}>
+    <Form
+      columns={2}
+      groupAppearance="card"
+      onSubmit={(e) => e.preventDefault()}
+      actions={
+        <>
+          <Button type="submit" variant="primary">
+            Save
+          </Button>
+          <Button type="reset">Reset</Button>
+        </>
+      }
+    >
       <FormGroup title="Supplier">
         <FormField label="Supplier" required>
           <LookupField name="supplier" fetchItems={searchSuppliers} />
@@ -81,12 +96,6 @@ export const PurchaseOrder: Story = {
         <FormField label="Confirmation">
           <Checkbox name="confirmed">Send an order confirmation</Checkbox>
         </FormField>
-        <div className="catalog-row">
-          <Button type="submit" variant="primary">
-            Save
-          </Button>
-          <Button type="reset">Reset</Button>
-        </div>
       </FormGroup>
     </Form>
   ),

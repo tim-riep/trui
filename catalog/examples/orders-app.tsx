@@ -397,7 +397,7 @@ function OrderDetail({
             The supplier of this order is blocked for new orders.
           </Banner>
         )}
-        <Form columns={2} onSubmit={(e) => e.preventDefault()}>
+        <Form columns={2} groupAppearance="card" onSubmit={(e) => e.preventDefault()}>
           <FormGroup title="Supplier">
             <FormField label="Supplier" required inputId="order-supplier">
               <LookupField

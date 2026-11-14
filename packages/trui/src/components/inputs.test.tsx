@@ -483,6 +483,28 @@ describe('Form', () => {
     expect(screen.getByRole('region', { name: 'Supplier' })).toBeTruthy();
   });
 
+  it('puts labels above the fields and its actions inside the form', async () => {
+    const onSubmit = vi.fn((e: { preventDefault(): void }) => e.preventDefault());
+    const { container } = render(
+      <Form
+        onSubmit={onSubmit}
+        groupAppearance="card"
+        actions={<button type="submit">Save</button>}
+      >
+        <FormGroup title="Supplier">
+          <FormField label="Name">
+            <TextField />
+          </FormField>
+        </FormGroup>
+      </Form>,
+    );
+    const form = container.querySelector('form')!;
+    expect(form.classList.contains('trui-form--labels-top')).toBe(true);
+    expect(form.classList.contains('trui-form--groups-card')).toBe(true);
+    await userEvent.click(within(form).getByRole('button', { name: 'Save' }));
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
   it('works with React Hook Form through Controller for exact numbers', async () => {
     const onSubmit = vi.fn();
     render(<Order onSubmit={onSubmit} />);

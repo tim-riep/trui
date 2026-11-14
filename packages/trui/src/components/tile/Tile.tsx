@@ -103,6 +103,7 @@ function TileFrame({
       </>
     ) : (
       <>
+        {body === undefined && icon && <Icon icon={icon} size="xl" className="trui-tile__icon" />}
         <span className="trui-tile__header">
           <span className="trui-tile__title">{title}</span>
           {subtitle !== undefined && <span className="trui-tile__subtitle">{subtitle}</span>}
@@ -115,7 +116,7 @@ function TileFrame({
               {t('tile.failed')}
             </span>
           ) : (
-            (body ?? (icon && <Icon icon={icon} size="xl" className="trui-tile__icon" />))
+            body
           )}
         </span>
         {description !== undefined && <span className="trui-visually-hidden">{description}</span>}
@@ -183,8 +184,12 @@ export interface MetricTileProps extends TileBaseProps {
   /** Fraction digits of the shown figure; 1 when scaled, else those of the value. */
   fractionDigits?: number;
   trend?: 'up' | 'down' | 'flat';
+  /** Short text next to the trend, e.g. `+12 % on last month`. */
+  trendLabel?: string;
   /** Rating of the figure, shown by color: neutral, good, critical, bad. */
   tone?: 'neutral' | 'good' | 'critical' | 'bad';
+  /** Earlier values as exact decimals, oldest first, drawn as a line above the figure. */
+  history?: readonly DecimalString[];
 }
 
 const magnitudes = { thousand: 3, million: 6, billion: 9 } as const;
@@ -200,7 +205,9 @@ export function MetricTile({
   scale = 'auto',
   fractionDigits,
   trend,
+  trendLabel,
   tone = 'neutral',
+  history,
   ...rest
 }: MetricTileProps) {
   const t = useText();
@@ -252,19 +259,52 @@ export function MetricTile({
       )}
       {...(description ? { description } : {})}
       body={
-        <span className="trui-metric-tile__figure">
-          <span className="trui-metric-tile__value">{formatDecimal(shown, locale)}</span>
-          {(suffix || unit) && (
-            <span className="trui-metric-tile__unit">
-              {suffix}
-              {suffix && unit ? ' ' : ''}
-              {unit}
-            </span>
-          )}
-          {trendIcon && <Icon icon={trendIcon} size="l" className="trui-metric-tile__trend" />}
-        </span>
+        <>
+          {history && history.length > 1 && <Sparkline values={history} />}
+          <span className="trui-metric-tile__figure">
+            <span className="trui-metric-tile__value">{formatDecimal(shown, locale)}</span>
+            {(suffix || unit) && (
+              <span className="trui-metric-tile__unit">
+                {suffix}
+                {suffix && unit ? ' ' : ''}
+                {unit}
+              </span>
+            )}
+            {trendIcon && <Icon icon={trendIcon} size="l" className="trui-metric-tile__trend" />}
+            {trendLabel !== undefined && (
+              <span className="trui-metric-tile__trend-label">{trendLabel}</span>
+            )}
+          </span>
+        </>
       }
     />
+  );
+}
+
+/**
+ * The course of earlier values as a line with a soft area below. The values
+ * become numbers here only to place points; they are never shown or computed
+ * with.
+ */
+function Sparkline({ values }: { values: readonly DecimalString[] }) {
+  const points = values.map(Number);
+  const min = Math.min(...points);
+  const range = Math.max(...points) - min || 1;
+  const step = 100 / (points.length - 1);
+  const line = points
+    .map((v, i) => `${(i * step).toFixed(2)},${(28 - ((v - min) / range) * 26).toFixed(2)}`)
+    .join(' ');
+  return (
+    <svg
+      className="trui-metric-tile__sparkline"
+      viewBox="0 0 100 30"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <polygon className="trui-metric-tile__sparkline-area" points={`0,30 ${line} 100,30`} />
+      <polyline className="trui-metric-tile__sparkline-line" points={line} />
+    </svg>
   );
 }
 

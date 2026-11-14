@@ -54,6 +54,34 @@
     container: trui-form-group / inline-size;
   }
 
+  .trui-form--groups-card .trui-form-group {
+    padding: var(--trui-space-l) var(--trui-space-xl) var(--trui-space-xl);
+    background: var(--trui-color-surface);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-radius: var(--trui-radius-l);
+    box-shadow: var(--trui-shadow-s);
+  }
+
+  /* The buttons float at the bottom of the scrolling area while the form is
+   * longer than the view. */
+  .trui-form__actions {
+    position: sticky;
+    bottom: var(--trui-space-m);
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--trui-space-s);
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    padding: var(--trui-space-s);
+    margin-top: var(--trui-space-xl);
+    background: var(--trui-color-surface);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-radius: var(--trui-radius-l);
+    box-shadow: var(--trui-shadow-m);
+  }
+
   .trui-form-group__title {
     margin: 0 0 var(--trui-space-m);
     font-size: var(--trui-font-size-m);

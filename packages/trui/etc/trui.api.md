@@ -797,6 +797,9 @@ export interface FormFieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 export function FormGroup(input: FormGroupProps): JSX.Element;
 
 // @public
+export type FormGroupAppearance = 'plain' | 'card';
+
+// @public
 export interface FormGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
     headingLevel?: 2 | 3 | 4 | 5 | 6;
     // (undocumented)
@@ -807,8 +810,9 @@ export interface FormGroupProps extends Omit<HTMLAttributes<HTMLElement>, 'title
 
 // @public
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+    actions?: ReactNode;
     columns?: 1 | 2 | 3 | 4;
-    // (undocumented)
+    groupAppearance?: FormGroupAppearance;
     labelPosition?: LabelPosition;
     // (undocumented)
     ref?: Ref<HTMLFormElement>;
@@ -1223,10 +1227,12 @@ export function MetricTile(input: MetricTileProps): JSX.Element;
 // @public
 export interface MetricTileProps extends TileBaseProps {
     fractionDigits?: number;
+    history?: readonly DecimalString[];
     scale?: MetricScale;
     tone?: 'neutral' | 'good' | 'critical' | 'bad';
     // (undocumented)
     trend?: 'up' | 'down' | 'flat';
+    trendLabel?: string;
     unit?: string;
     value: DecimalString;
 }
