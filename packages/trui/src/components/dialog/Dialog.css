@@ -57,11 +57,26 @@
     }
   }
 
+  /*
+   * The frame takes the height of its content up to the height of the
+   * dialog. Only a dialog with a fixed height lets it fill that height:
+   * Safari resolves a percentage against the height of a dialog sized by its
+   * content as 0, which hides the dialog.
+   */
   .trui-dialog__frame {
     display: flex;
     flex-direction: column;
     max-height: inherit;
+  }
+
+  .trui-dialog--fullscreen .trui-dialog__frame {
     height: 100%;
+  }
+
+  @media (width < 600px) {
+    .trui-dialog__frame {
+      height: 100%;
+    }
   }
 
   .trui-dialog__header {

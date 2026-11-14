@@ -6,6 +6,13 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-14
+
+### Fixed
+
+- `Dialog` and the dialogs built on it, such as the dialog of `LookupField`, are visible in
+  Safari: their frame had a height of 0 there, so only the backdrop showed.
+
 ## [0.1.0] - 2026-11-08
 
 First version.
@@ -65,5 +72,6 @@ First version.
 - Core utilities for exact decimals, dates, times and timestamps, localized input,
   form integration and positioning of floating elements.
 
-[Unreleased]: https://github.com/tim-riep/trui/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/tim-riep/trui/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/tim-riep/trui/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/tim-riep/trui/releases/tag/v0.1.0
