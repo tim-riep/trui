@@ -184,6 +184,7 @@ export function Select(props: SelectProps) {
             />
           )}
           <Floating
+            sheet
             anchor={controlRef}
             open={popup.open}
             onDismiss={() => popup.setOpen(false)}

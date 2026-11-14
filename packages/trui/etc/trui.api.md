@@ -180,6 +180,7 @@ export interface CalendarProps {
     min?: DateString | undefined;
     onEscape?: () => void;
     onSelect: (date: DateString) => void;
+    showToday?: boolean;
     value: DateString | null;
 }
 
@@ -231,6 +232,30 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 export function checkLimits(value: DecimalString, options?: DecimalOptions): DecimalParseResult;
 
 // @public
+export interface ChoosableColumn {
+    // (undocumented)
+    header: string;
+    // (undocumented)
+    key: string;
+}
+
+// @public
+export function ColumnChooser(input: ColumnChooserProps): JSX.Element;
+
+// @public
+export interface ColumnChooserProps {
+    // (undocumented)
+    className?: string;
+    columns: readonly ChoosableColumn[];
+    hiddenColumns: ReadonlySet<string>;
+    iconOnly?: boolean;
+    // (undocumented)
+    onHiddenColumnsChange: (hiddenColumns: ReadonlySet<string>) => void;
+    // (undocumented)
+    ref?: Ref<HTMLButtonElement>;
+}
+
+// @public
 export function ComboBox(props: ComboBoxProps): JSX.Element;
 
 // @public (undocumented)
@@ -278,6 +303,43 @@ export interface ComboBoxNullable {
 
 // @public
 export type ComboBoxProps = ComboBoxBaseProps & (ComboBoxNotNullable | ComboBoxNullable);
+
+// @public
+export interface Command {
+    description?: string;
+    // (undocumented)
+    disabled?: boolean;
+    group?: string;
+    // (undocumented)
+    icon?: IconDefinition;
+    // (undocumented)
+    key: string;
+    keywords?: readonly string[];
+    // (undocumented)
+    label: string;
+    shortcut?: string;
+}
+
+// @public
+export function CommandPalette(input: CommandPaletteProps): JSX.Element;
+
+// @public
+export interface CommandPaletteProps {
+    // (undocumented)
+    className?: string;
+    // (undocumented)
+    commands: readonly Command[];
+    // (undocumented)
+    defaultOpen?: boolean;
+    globalShortcut?: boolean;
+    onCommand: (key: string, command: Command) => void;
+    // (undocumented)
+    onOpenChange?: (open: boolean) => void;
+    // (undocumented)
+    open?: boolean;
+    // (undocumented)
+    placeholder?: string;
+}
 
 // @public
 export function compareCanonical(a: string, b: string): -1 | 0 | 1;
@@ -509,6 +571,19 @@ export type Direction = 'ltr' | 'rtl';
 export function directionOf(locale: string): Direction;
 
 // @public
+export function EmptyState(input: EmptyStateProps): JSX.Element;
+
+// @public
+export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+    actions?: ReactNode;
+    description?: ReactNode;
+    icon?: IconDefinition;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
+    title: ReactNode;
+}
+
+// @public
 export const en: {
     readonly 'common.cancel': "Cancel";
     readonly 'common.close': "Close";
@@ -531,6 +606,10 @@ export const en: {
     readonly 'input.tooManyIntegerDigits': "Enter at most {digits} digits before the decimal separator";
     readonly 'input.tooManyFractionDigits': "Enter at most {digits} digits after the decimal separator";
     readonly 'input.invalidDate': "Enter a valid date";
+    readonly 'input.dateToday': "today";
+    readonly 'input.dateTomorrow': "tomorrow";
+    readonly 'input.dateYesterday': "yesterday";
+    readonly 'input.dateUnits': "dwmy";
     readonly 'input.invalidTime': "Enter a valid time";
     readonly 'input.belowMinimum': "Enter a value of at least {min}";
     readonly 'input.aboveMaximum': "Enter a value of at most {max}";
@@ -586,6 +665,20 @@ export const en: {
     readonly 'link.external': "opens in a new window";
     readonly 'toast.region': "Notifications";
     readonly 'toast.dismiss': "Dismiss";
+    readonly 'unsaved.title': "Discard changes?";
+    readonly 'unsaved.message': "Your changes have not been saved and will be lost.";
+    readonly 'unsaved.discard': "Discard";
+    readonly 'unsaved.keep': "Keep editing";
+    readonly 'filter.active': "Active filters";
+    readonly 'command.title': "Commands";
+    readonly 'command.placeholder': "Type a command or search…";
+    readonly 'command.noResults': "No matching commands";
+    readonly 'command.count': {
+        readonly one: "{count} command";
+        readonly other: "{count} commands";
+    };
+    readonly 'filter.remove': "Remove filter {label}";
+    readonly 'filter.clearAll': "Clear all";
     readonly 'banner.close': "Close message";
     readonly 'messages.title': "Messages";
     readonly 'messages.all': "All";
@@ -608,6 +701,7 @@ export const en: {
     readonly 'tabs.scrollStart': "Earlier tabs";
     readonly 'tabs.scrollEnd': "Later tabs";
     readonly 'table.selectAll': "Select all rows";
+    readonly 'table.columns': "Columns";
     readonly 'table.selectRow': "Select row";
     readonly 'table.rowActions': "Actions";
     readonly 'table.resizeColumn': "Resize column {column}";
@@ -728,6 +822,26 @@ export interface FileInputProps extends Omit<InputHTMLAttributes<HTMLInputElemen
     valueState?: ValueState;
     // (undocumented)
     valueStateMessage?: ReactNode;
+}
+
+// @public
+export interface FilterChip {
+    // (undocumented)
+    key: string;
+    label: string;
+}
+
+// @public
+export function FilterChips(input: FilterChipsProps): JSX.Element | null;
+
+// @public
+export interface FilterChipsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    endContent?: ReactNode;
+    items: readonly FilterChip[];
+    onClearAll?: () => void;
+    onRemove: (key: string) => void;
+    // (undocumented)
+    ref?: Ref<HTMLDivElement>;
 }
 
 // @public
@@ -1477,6 +1591,9 @@ export function parseLocalizedDecimal(input: string, locale: string, options?: D
 export function parseLocalizedTime(input: string, locale: string): TimeString | null;
 
 // @public
+export function parseRelativeDate(input: string, words: RelativeDateWords, referenceDate: DateString): DateString | null;
+
+// @public
 export type Placement = Side | `${Side}-${Exclude<Align, 'center'>}`;
 
 // @public
@@ -1617,6 +1734,17 @@ export interface Rect {
     x: number;
     // (undocumented)
     y: number;
+}
+
+// @public
+export interface RelativeDateWords {
+    // (undocumented)
+    today: string;
+    // (undocumented)
+    tomorrow: string;
+    units: string;
+    // (undocumented)
+    yesterday: string;
 }
 
 // @public
@@ -1903,6 +2031,7 @@ export interface TableProps<T> {
     defaultSort?: TableSort | null;
     getRowKey: (row: T) => string;
     height?: number | string;
+    hiddenColumns?: ReadonlySet<string>;
     loading?: boolean;
     loadPage?: (request: TablePageRequest) => Promise<TablePage<T>>;
     manualSort?: boolean;
@@ -2391,6 +2520,11 @@ export function useTheme(): ThemeState;
 export function useToast(): {
     show: (options: ToastOptions) => string;
     dismiss: (id: string) => void;
+};
+
+// @public
+export function useUnsavedChanges(dirty: boolean): {
+    confirmLeave: () => Promise<boolean>;
 };
 
 // @public

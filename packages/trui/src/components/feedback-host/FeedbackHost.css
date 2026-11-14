@@ -33,6 +33,8 @@
   }
 
   .trui-toast {
+    position: relative;
+    overflow: hidden;
     display: flex;
     gap: var(--trui-space-s);
     align-items: center;
@@ -91,5 +93,36 @@
 
   .trui-toast__close {
     color: var(--trui-color-text-secondary);
+  }
+
+  /* A line along the bottom that runs down until the toast disappears; it
+   * stops while the toast is paused. */
+  .trui-toast__timer {
+    position: absolute;
+    inset: auto 0 0;
+    height: var(--trui-border-width-strong);
+    background: color-mix(in srgb, var(--trui-color-text-secondary) 40%, transparent);
+    transform-origin: left;
+    animation: trui-toast-timer var(--trui-toast-duration) linear forwards;
+  }
+
+  .trui-toast__timer:dir(rtl) {
+    transform-origin: right;
+  }
+
+  .trui-toast--paused .trui-toast__timer {
+    animation-play-state: paused;
+  }
+
+  @keyframes trui-toast-timer {
+    to {
+      transform: scaleX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trui-toast__timer {
+      display: none;
+    }
   }
 }

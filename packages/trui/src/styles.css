@@ -48,6 +48,7 @@
 @import './components/file-input/FileInput.css';
 @import './components/lookup-field/LookupField.css';
 @import './components/dialog/Dialog.css';
+@import './components/command-palette/CommandPalette.css';
 @import './components/form/Form.css';
 @import './components/popover/Popover.css';
 @import './components/menu/Menu.css';
@@ -64,7 +65,10 @@
 @import './components/split-layout/SplitLayout.css';
 @import './components/side-navigation/SideNavigation.css';
 @import './components/app-header/AppHeader.css';
+@import './components/empty-state/EmptyState.css';
 @import './components/table/Table.css';
+@import './components/column-chooser/ColumnChooser.css';
+@import './components/filter-chips/FilterChips.css';
 @import './components/list/List.css';
 @import './components/tile/Tile.css';
 @import './components/tile-group/TileGroup.css';

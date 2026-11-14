@@ -86,4 +86,12 @@
     cursor: default;
     background: transparent;
   }
+
+  .trui-calendar__footer {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--trui-space-xs);
+    margin-top: var(--trui-space-xs);
+    border-top: var(--trui-border-width) solid var(--trui-color-border-subtle);
+  }
 }

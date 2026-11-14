@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { render, screen } from '@testing-library/react';
-import { TruiProvider } from '@tim-riep/trui/core';
+import { addDays, TruiProvider, today } from '@tim-riep/trui/core';
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
@@ -39,6 +39,19 @@ function Controlled({ locale, initial = null }: { locale: string; initial?: stri
 const output = () => screen.getByRole('status').textContent;
 
 describe('DatePicker', () => {
+  it('reads dates relative to today and picks today in the calendar', async () => {
+    render(<Controlled locale="de" />);
+    const now = today('Europe/Berlin');
+    await userEvent.type(input(), '+3{Enter}');
+    expect(output()).toBe(addDays(now, 3));
+    await userEvent.clear(input());
+    await userEvent.type(input(), 'morgen{Enter}');
+    expect(output()).toBe(addDays(now, 1));
+    await userEvent.click(screen.getByRole('button', { name: 'Kalender öffnen' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Heute' }));
+    expect(output()).toBe(now);
+  });
+
   it('reads dates typed in the format of the locale', async () => {
     render(<Controlled locale="de" />);
     expect(input().placeholder).toBe('TT.MM.JJJJ');

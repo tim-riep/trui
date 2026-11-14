@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import { render, screen, within } from '@testing-library/react';
-import { TruiProvider, useMessageDialog, useToast } from '@tim-riep/trui/core';
+import { TruiProvider, useMessageDialog, useToast, useUnsavedChanges } from '@tim-riep/trui/core';
 import axe from 'axe-core';
 import { useRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import '../styles.css';
 import { Banner } from './banner/Banner';
 import { Button } from './button/Button';
@@ -119,6 +119,18 @@ function NoHost() {
   return <Button onClick={() => toast.show({ message: 'x' })}>show</Button>;
 }
 
+function UnsavedDemo({ onLeave }: { onLeave: (left: boolean) => void }) {
+  const [dirty, setDirty] = useState(false);
+  const { confirmLeave } = useUnsavedChanges(dirty);
+  return (
+    <>
+      <Button onClick={() => setDirty(true)}>change</Button>
+      <Button onClick={async () => onLeave(await confirmLeave())}>leave</Button>
+      <FeedbackHost />
+    </>
+  );
+}
+
 describe('Popover', () => {
   it('moves focus in, closes with Escape and returns focus', async () => {
     render(<PopoverDemo />);
@@ -135,6 +147,27 @@ describe('Popover', () => {
 });
 
 describe('Menu', () => {
+  it('shows as a sheet along the bottom edge on small screens', async () => {
+    await page.viewport(375, 700);
+    try {
+      render(
+        <MenuButton items={items} onAction={() => undefined}>
+          Actions
+        </MenuButton>,
+      );
+      await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+      const menu = await screen.findByRole('menu');
+      const floating = menu.closest<HTMLElement>('.trui-floating')!;
+      expect('sheet' in floating.dataset).toBe(true);
+      await expect.poll(() => Math.round(floating.getBoundingClientRect().bottom)).toBe(700);
+      // Full width of the view, apart from a scrollbar of the page.
+      await expect.poll(() => Math.round(floating.getBoundingClientRect().left)).toBe(0);
+      expect(floating.getBoundingClientRect().width).toBeGreaterThan(355);
+    } finally {
+      await page.viewport(414, 896);
+    }
+  });
+
   it('is operated by keyboard, skips disabled entries and opens submenus', async () => {
     const onAction = vi.fn();
     render(
@@ -238,6 +271,43 @@ describe('Toasts and message dialogs', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Undo' }));
     expect(onAnswer).toHaveBeenCalledWith(false);
     expect(screen.queryByText('Removed')).toBeNull();
+  });
+
+  it('shows the time left and stops it while hovered', async () => {
+    render(
+      <TruiProvider>
+        <FeedbackDemo onAnswer={() => undefined} />
+      </TruiProvider>,
+    );
+    await userEvent.click(screen.getByText('toast'));
+    const toast = screen.getByText('Saved').closest<HTMLElement>('.trui-toast')!;
+    const timer = toast.querySelector<HTMLElement>('.trui-toast__timer')!;
+    expect(timer.style.getPropertyValue('--trui-toast-duration')).toBe('1500ms');
+    await userEvent.hover(toast);
+    expect(toast.classList.contains('trui-toast--paused')).toBe(true);
+    await userEvent.unhover(toast);
+    expect(toast.classList.contains('trui-toast--paused')).toBe(false);
+  });
+
+  it('asks before leaving unsaved changes', async () => {
+    const onLeave = vi.fn();
+    render(
+      <TruiProvider>
+        <UnsavedDemo onLeave={onLeave} />
+      </TruiProvider>,
+    );
+    await userEvent.click(screen.getByText('leave'));
+    expect(onLeave).toHaveBeenLastCalledWith(true);
+    await userEvent.click(screen.getByText('change'));
+    await userEvent.click(screen.getByText('leave'));
+    const dialog = await screen.findByRole('alertdialog', { name: /Discard changes\?/ });
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Keep editing' }));
+    await expect.poll(() => onLeave.mock.calls.length).toBe(2);
+    expect(onLeave).toHaveBeenLastCalledWith(false);
+    await userEvent.click(screen.getByText('leave'));
+    await userEvent.click(await screen.findByRole('button', { name: 'Discard' }));
+    await expect.poll(() => onLeave.mock.calls.length).toBe(3);
+    expect(onLeave).toHaveBeenLastCalledWith(true);
   });
 
   it('resolves a confirmation with the answer and starts on the safe button', async () => {

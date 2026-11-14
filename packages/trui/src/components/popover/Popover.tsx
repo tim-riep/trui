@@ -63,6 +63,7 @@ export function Popover({
   }, [open, autoFocus]);
   return (
     <Floating
+      sheet
       anchor={anchor}
       open={open}
       onDismiss={onClose}

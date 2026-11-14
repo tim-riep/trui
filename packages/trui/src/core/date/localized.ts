@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import {
+  addDays,
+  addMonths,
   type DateString,
   dateParts,
   dateToUtcDate,
@@ -160,6 +162,41 @@ export function parseLocalizedDate(
   const year = values.year === undefined ? reference.year : expandYear(values.year, reference.year);
   if (!values.day || !values.month || values.day.length > 2 || values.month.length > 2) return null;
   return makeDate(year, month, day);
+}
+
+/** Words of a language for dates relative to today. */
+export interface RelativeDateWords {
+  today: string;
+  tomorrow: string;
+  yesterday: string;
+  /** Letters for day, week, month and year in this order, e.g. `dwmy`. */
+  units: string;
+}
+
+/**
+ * Reads a date relative to `referenceDate`: the words for today, tomorrow and
+ * yesterday, or a signed count with an optional unit, e.g. `+3` (days), `-1w`
+ * or `+2m`. Case does not matter. Returns `null` for any other input.
+ */
+export function parseRelativeDate(
+  input: string,
+  words: RelativeDateWords,
+  referenceDate: DateString,
+): DateString | null {
+  const text = input.trim().toLocaleLowerCase();
+  if (text === '') return null;
+  if (text === words.today.toLocaleLowerCase()) return referenceDate;
+  if (text === words.tomorrow.toLocaleLowerCase()) return addDays(referenceDate, 1);
+  if (text === words.yesterday.toLocaleLowerCase()) return addDays(referenceDate, -1);
+  const match = /^([+-])\s*(\d{1,4})\s*(\p{L})?$/u.exec(text);
+  if (!match) return null;
+  const count = Number(match[2]) * (match[1] === '-' ? -1 : 1);
+  const unit = match[3] === undefined ? 0 : words.units.toLocaleLowerCase().indexOf(match[3]);
+  if (unit === 0) return addDays(referenceDate, count);
+  if (unit === 1) return addDays(referenceDate, count * 7);
+  if (unit === 2) return addMonths(referenceDate, count);
+  if (unit === 3) return addMonths(referenceDate, count * 12);
+  return null;
 }
 
 /** Tells whether `locale` shows times with a 12-hour clock. */

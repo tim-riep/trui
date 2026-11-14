@@ -208,6 +208,7 @@ export function TimePicker(props: TimePickerProps) {
         <>
           <HiddenValue name={name} value={current} form={form} disabled={field.disabled} />
           <Floating
+            sheet
             anchor={controlRef}
             open={popup.open}
             onDismiss={() => popup.setOpen(false)}

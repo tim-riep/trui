@@ -19,6 +19,7 @@ import {
   formatDateForInput,
   HiddenValue,
   parseLocalizedDate,
+  parseRelativeDate,
   today,
   useControllableState,
   useFormReset,
@@ -95,7 +96,9 @@ export type DatePickerProps = DatePickerBaseProps & (DatePickerNotNullable | Dat
 /**
  * An input for a calendar date. The value is `YYYY-MM-DD`; the field shows and
  * reads dates in the format of the locale, and accepts short forms such as
- * `7.11.` or `071126`. The calendar button opens a month to pick from.
+ * `7.11.` or `071126` and dates relative to today: the words for today,
+ * tomorrow and yesterday, or `+3`, `-1w`, `+2m`, `+1y` (in German `+1j`).
+ * The calendar button opens a month to pick from, with a button for today.
  *
  * Keyboard: Alt+Arrow Down or F4 opens the calendar; in the calendar, arrow
  * keys move, Enter picks, Escape closes.
@@ -147,7 +150,19 @@ export function DatePicker(props: DatePickerProps) {
     empty,
     format: (v) => formatDateForInput(v, locale),
     parse: (s) => {
-      const date = parseLocalizedDate(s, locale, today(timeZone));
+      const reference = today(timeZone);
+      const date =
+        parseLocalizedDate(s, locale, reference) ??
+        parseRelativeDate(
+          s,
+          {
+            today: t('input.dateToday'),
+            tomorrow: t('input.dateTomorrow'),
+            yesterday: t('input.dateYesterday'),
+            units: t('input.dateUnits'),
+          },
+          reference,
+        );
       return date === null ? { error: t('input.invalidDate') } : { value: date };
     },
     rangeError: (v) =>
@@ -202,6 +217,7 @@ export function DatePicker(props: DatePickerProps) {
         <>
           <HiddenValue name={name} value={current} form={form} disabled={field.disabled} />
           <Floating
+            sheet
             anchor={controlRef}
             open={open}
             onDismiss={() => close(false)}
@@ -214,6 +230,7 @@ export function DatePicker(props: DatePickerProps) {
               value={current || null}
               min={min}
               max={max}
+              showToday
               autoFocus
               onEscape={() => close(true)}
               onSelect={(date) => {

@@ -8,6 +8,23 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ### Added
 
+- `CommandPalette`: a search for commands and places of an application, opened with
+  Ctrl+K or Command+K, with groups, keywords, shortcuts and disabled commands.
+- `ColumnChooser` and the `hiddenColumns` prop of `Table` to show and hide columns.
+- `FilterChips`: the active filters of a list or table, each removable, and a button that
+  removes all of them.
+- `EmptyState`: tells that there is nothing to show and offers the next step. `Table`
+  shows it when it has no rows and no `renderEmpty`.
+- `useUnsavedChanges` in the core: asks before the page is closed while there are unsaved
+  changes, and asks in a message dialog before the application leaves the view.
+- `DatePicker` reads dates relative to today: the words for today, tomorrow and yesterday
+  of the language, and `+3`, `-1w`, `+2m`, `+1y`; its calendar has a button for today
+  (`showToday` of `Calendar`). The core exports `parseRelativeDate`.
+- Toasts show a line that runs down until they disappear and stops while they are paused.
+- On screens narrower than 600 pixels, the lists of `Select`, the calendars of
+  `DatePicker`, the lists of `TimePicker`, menus and popovers slide up from the bottom
+  edge as a sheet.
+- Sortable table columns show a faint sort icon on hover and focus.
 - `MetricTile` takes `trendLabel`, a short text next to the trend, and `history`, earlier
   values drawn as a line above the figure.
 - `Form` takes `actions`, buttons that stay in view at the bottom while the form scrolls,
@@ -27,6 +44,8 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 - `Form` puts labels above the fields by default; `labelPosition="auto"` keeps the former
   behavior of labels beside the fields when a group is wide enough.
 - The icon of a `Tile` stands above its title.
+- A toast with an action stays 8 seconds by default instead of 5, so that there is time
+  to undo.
 
 ### Fixed
 

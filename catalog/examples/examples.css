@@ -35,6 +35,10 @@
   border-radius: var(--trui-radius-m);
 }
 
+.example-filter > .trui-button {
+  justify-self: end;
+}
+
 .example-filter .trui-field__message:empty {
   display: none;
 }

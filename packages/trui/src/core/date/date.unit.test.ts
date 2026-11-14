@@ -32,6 +32,7 @@ import {
   formatDateForInput,
   parseLocalizedDate,
   parseLocalizedTime,
+  parseRelativeDate,
 } from './localized';
 
 describe('canonical values', () => {
@@ -111,5 +112,20 @@ describe('localized dates', () => {
   it('knows the first day of the week', () => {
     expect(firstDayOfWeek('de-DE')).toBe(1);
     expect(firstDayOfWeek('en-US')).toBe(7);
+  });
+
+  it('reads dates relative to today', () => {
+    const words = { today: 'heute', tomorrow: 'morgen', yesterday: 'gestern', units: 'twmj' };
+    const read = (input: string) => parseRelativeDate(input, words, '2026-01-31');
+    expect(read('Heute')).toBe('2026-01-31');
+    expect(read('morgen')).toBe('2026-02-01');
+    expect(read('gestern')).toBe('2026-01-30');
+    expect(read('+3')).toBe('2026-02-03');
+    expect(read('-1w')).toBe('2026-01-24');
+    expect(read('+1m')).toBe('2026-02-28');
+    expect(read('+ 2 J')).toBe('2028-01-31');
+    expect(read('+1x')).toBeNull();
+    expect(read('3')).toBeNull();
+    expect(read('')).toBeNull();
   });
 });

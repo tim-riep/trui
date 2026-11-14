@@ -17,6 +17,8 @@ import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../styles.css';
+import { ColumnChooser } from './column-chooser/ColumnChooser';
+import { FilterChips } from './filter-chips/FilterChips';
 import { List } from './list/List';
 import { NumberField } from './number-field/NumberField';
 import { Table } from './table/Table';
@@ -290,6 +292,71 @@ describe('Table', () => {
     await userEvent.keyboard('{Escape}');
     expect(document.activeElement).toBe(cell);
     expect(input).toHaveProperty('value', '12');
+  });
+});
+
+function ChooserDemo() {
+  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());
+  return (
+    <>
+      <ColumnChooser columns={columns} hiddenColumns={hidden} onHiddenColumnsChange={setHidden} />
+      <Table
+        aria-label="Rows"
+        columns={columns}
+        rows={rows}
+        getRowKey={(r) => r.id}
+        hiddenColumns={hidden}
+      />
+    </>
+  );
+}
+
+describe('Column chooser', () => {
+  it('hides and shows columns of a table but keeps the last one', async () => {
+    render(<ChooserDemo />);
+    await userEvent.click(screen.getByRole('button', { name: 'Columns' }));
+    const list = await screen.findByRole('dialog', { name: 'Columns' });
+    await userEvent.click(within(list).getByRole('checkbox', { name: 'Amount' }));
+    expect(screen.queryByRole('columnheader', { name: /Amount/ })).toBeNull();
+    expect(within(list).getByRole<HTMLInputElement>('checkbox', { name: 'Name' }).disabled).toBe(
+      true,
+    );
+    await userEvent.click(within(list).getByRole('checkbox', { name: 'Amount' }));
+    expect(screen.getByRole('columnheader', { name: /Amount/ })).toBeTruthy();
+    await userEvent.keyboard('{Escape}');
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Columns' }));
+  });
+
+  it('shows an empty state in a table without rows', () => {
+    render(<Table aria-label="Rows" columns={columns} rows={[]} getRowKey={(r) => r.id} />);
+    expect(screen.getByText('No data').closest('.trui-empty-state')).toBeTruthy();
+  });
+});
+
+describe('Filter chips', () => {
+  it('remove one filter or all of them', async () => {
+    const onRemove = vi.fn();
+    const onClearAll = vi.fn();
+    render(
+      <FilterChips
+        items={[
+          { key: 'status', label: 'Status: Open' },
+          { key: 'city', label: 'City: Lyon' },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />,
+    );
+    expect(screen.getByRole('list', { name: 'Active filters' })).toBeTruthy();
+    await userEvent.click(screen.getByRole('button', { name: 'Remove filter City: Lyon' }));
+    expect(onRemove).toHaveBeenCalledWith('city');
+    await userEvent.click(screen.getByRole('button', { name: 'Clear all' }));
+    expect(onClearAll).toHaveBeenCalled();
+  });
+
+  it('show nothing without filters', () => {
+    const { container } = render(<FilterChips items={[]} onRemove={() => undefined} />);
+    expect(container.firstChild).toBeNull();
   });
 });
 

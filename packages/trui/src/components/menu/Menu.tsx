@@ -162,6 +162,7 @@ function MenuList({
 
   return (
     <Floating
+      sheet
       anchor={anchor}
       open
       onDismiss={closeLevel ? undefined : () => closeAll(false)}

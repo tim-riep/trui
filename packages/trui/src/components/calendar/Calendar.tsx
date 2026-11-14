@@ -47,6 +47,8 @@ export interface CalendarProps {
   autoFocus?: boolean;
   /** Called on Escape, e.g. to close the popup the calendar is in. */
   onEscape?: () => void;
+  /** Shows a button below the month that picks today. */
+  showToday?: boolean;
   className?: string;
 }
 
@@ -64,6 +66,7 @@ export function Calendar({
   max,
   autoFocus = false,
   onEscape,
+  showToday = false,
   className,
 }: CalendarProps) {
   const t = useText();
@@ -210,6 +213,20 @@ export function Calendar({
           ))}
         </tbody>
       </table>
+      {showToday && (
+        <div className="trui-calendar__footer">
+          <Button
+            variant="text"
+            disabled={outOfRange(now)}
+            onClick={() => {
+              setFocused(now);
+              onSelect(now);
+            }}
+          >
+            {t('calendar.today')}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

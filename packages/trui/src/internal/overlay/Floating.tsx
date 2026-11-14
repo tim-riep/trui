@@ -35,6 +35,12 @@ export interface FloatingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   matchWidth?: boolean;
   /** Limits the height to the room on its side, for scrolling lists. */
   limitHeight?: boolean;
+  /**
+   * On small screens, shows the element as a sheet along the bottom edge
+   * instead of next to the anchor. For lists to pick from, not for
+   * suggestions while typing, which the on-screen keyboard would cover.
+   */
+  sheet?: boolean;
   floatingRef?: RefObject<HTMLDivElement | null>;
   children: ReactNode;
 }
@@ -51,6 +57,7 @@ export function Floating({
   placement = 'bottom-start',
   matchWidth = false,
   limitHeight = true,
+  sheet = false,
   floatingRef,
   className,
   style,
@@ -68,7 +75,17 @@ export function Floating({
     const anchorEl = anchor.current;
     if (!open || !el || !anchorEl) return;
     if (!el.matches(':popover-open')) el.showPopover();
+    const small = window.matchMedia('(width < 600px)');
     const update = () => {
+      if (sheet && small.matches) {
+        el.dataset.sheet = '';
+        el.style.left = '';
+        el.style.top = '';
+        el.style.minWidth = '';
+        el.style.maxHeight = '';
+        return;
+      }
+      delete el.dataset.sheet;
       const a = anchorEl.getBoundingClientRect();
       if (matchWidth) el.style.minWidth = `${a.width}px`;
       el.style.maxHeight = '';
@@ -107,13 +124,22 @@ export function Floating({
       window.removeEventListener('resize', update);
       if (el.matches(':popover-open')) el.hidePopover();
     };
-  }, [open, anchor, ref, placement, matchWidth, limitHeight, dir]);
+  }, [open, anchor, ref, placement, matchWidth, limitHeight, sheet, dir]);
 
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target as Node;
-      if (ref.current?.contains(target) || anchor.current?.contains(target)) return;
+      const el = ref.current;
+      // A press on the backdrop of a sheet targets the sheet itself.
+      if (el && target === el && 'sheet' in el.dataset) {
+        const r = el.getBoundingClientRect();
+        if (event.clientY < r.top) {
+          dismiss.current?.();
+          return;
+        }
+      }
+      if (el?.contains(target) || anchor.current?.contains(target)) return;
       dismiss.current?.();
     };
     document.addEventListener('pointerdown', onPointerDown, true);

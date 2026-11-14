@@ -63,6 +63,17 @@
     color: var(--trui-color-text);
   }
 
+  /* Sortable columns show a faint sort icon on hover and focus. */
+  .trui-table__sort-hint {
+    opacity: 0;
+    transition: opacity var(--trui-duration-fast) var(--trui-easing);
+  }
+
+  .trui-table__header--sortable:hover .trui-table__sort-hint,
+  .trui-table__header--sortable:focus-visible .trui-table__sort-hint {
+    opacity: 0.6;
+  }
+
   .trui-table__header-content {
     display: inline-flex;
     gap: var(--trui-space-xxs);
@@ -183,9 +194,10 @@
   }
 
   .trui-table__empty {
-    padding: var(--trui-space-xxl) var(--trui-space-l);
+    padding: 0;
     color: var(--trui-color-text-secondary);
     text-align: center;
+    white-space: normal;
   }
 
   .trui-table__busy {

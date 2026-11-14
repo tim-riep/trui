@@ -18,6 +18,8 @@
 
 import {
   Button,
+  type Command,
+  CommandPalette,
   ContentTile,
   MetricTile,
   type NavigationItem,
@@ -49,6 +51,53 @@ import { useState } from 'react';
 import { makeNotifications, suppliers } from '../data/sample';
 import { OrdersApp } from './orders-app';
 
+const commands: Command[] = [
+  {
+    key: 'orders',
+    label: 'Purchase orders',
+    description: 'Create and manage',
+    icon: cartIcon,
+    group: 'Applications',
+    keywords: ['po', 'buy'],
+  },
+  {
+    key: 'suppliers',
+    label: 'Suppliers',
+    description: 'Master data',
+    icon: supplierIcon,
+    group: 'Applications',
+  },
+  {
+    key: 'invoices',
+    label: 'Supplier invoices',
+    description: 'Check and post',
+    icon: invoiceIcon,
+    group: 'Applications',
+  },
+  {
+    key: 'payments',
+    label: 'Payments',
+    description: 'Payment runs',
+    icon: paymentIcon,
+    group: 'Applications',
+  },
+  {
+    key: 'stock',
+    label: 'Stock',
+    icon: warehouseIcon,
+    group: 'Applications',
+    keywords: ['inventory'],
+  },
+  {
+    key: 'create-order',
+    label: 'Create purchase order',
+    icon: purchaseOrderIcon,
+    group: 'Actions',
+    shortcut: 'Alt+N',
+  },
+  { key: 'settings', label: 'Settings', icon: settingsIcon, group: 'Actions' },
+];
+
 const navigation: NavigationItem[] = [
   { key: 'orders', label: 'Purchase orders', icon: purchaseOrderIcon },
   { key: 'suppliers', label: 'Suppliers', icon: supplierIcon },
@@ -73,7 +122,7 @@ export function HomeApp({ now = Date.now() }: { now?: number }) {
             {...(view === 'app' ? { onBack: () => setView('home') } : {})}
             onHome={() => setView('home')}
             search={{
-              placeholder: 'Search suppliers and orders',
+              placeholder: 'Search suppliers and orders (Ctrl+K for commands)',
               onSearch: () => openOrders(),
               loadSuggestions: async (q) =>
                 suppliers
@@ -251,6 +300,10 @@ export function HomeApp({ now = Date.now() }: { now?: number }) {
           />
         }
         app={<OrdersApp />}
+      />
+      <CommandPalette
+        commands={commands}
+        onCommand={(key) => (key === 'settings' ? setSettingsOpen(true) : openOrders())}
       />
       <SettingsDialog
         open={settingsOpen}

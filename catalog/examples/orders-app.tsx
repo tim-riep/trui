@@ -21,7 +21,10 @@ import {
   Banner,
   Breadcrumbs,
   Button,
+  ColumnChooser,
   DatePicker,
+  EmptyState,
+  FilterChips,
   Form,
   FormField,
   FormGroup,
@@ -42,7 +45,7 @@ import {
   TextField,
   Toolbar,
 } from '@tim-riep/trui';
-import { useFormat, useMessageDialog, useToast } from '@tim-riep/trui/core';
+import { useFormat, useMessageDialog, useToast, useUnsavedChanges } from '@tim-riep/trui/core';
 import { addIcon } from '@tim-riep/trui/icons/add';
 import { deleteIcon } from '@tim-riep/trui/icons/delete';
 import { exportIcon } from '@tim-riep/trui/icons/export';
@@ -88,6 +91,26 @@ function OrderList({
     suppliers: [],
   });
   const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());
+  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set(['city']));
+  const clearFilter = () => setFilter({ query: '', status: null, from: null, suppliers: [] });
+  const chips = [
+    ...(filter.query.trim() ? [{ key: 'query', label: `Search: ${filter.query.trim()}` }] : []),
+    ...(filter.status !== null
+      ? [{ key: 'status', label: `Status: ${statusLabel(filter.status as Order['status'])}` }]
+      : []),
+    ...(filter.from !== null ? [{ key: 'from', label: `From ${format.date(filter.from)}` }] : []),
+    ...filter.suppliers.map((name) => ({ key: `supplier:${name}`, label: name })),
+  ];
+  const removeChip = (key: string) => {
+    if (key === 'query') setFilter({ ...filter, query: '' });
+    else if (key === 'status') setFilter({ ...filter, status: null });
+    else if (key === 'from') setFilter({ ...filter, from: null });
+    else
+      setFilter({
+        ...filter,
+        suppliers: filter.suppliers.filter((n) => `supplier:${n}` !== key),
+      });
+  };
   const supplierNames = useMemo(
     () =>
       [...new Set(orders.map((o) => o.supplier))]
@@ -204,13 +227,13 @@ function OrderList({
             value={filter.suppliers}
             onChange={(list) => setFilter({ ...filter, suppliers: list })}
           />
-          <Button
-            variant="text"
-            onClick={() => setFilter({ query: '', status: null, from: null, suppliers: [] })}
-          >
-            Clear filters
-          </Button>
+          <ColumnChooser
+            columns={columns}
+            hiddenColumns={hidden}
+            onHiddenColumnsChange={setHidden}
+          />
         </search>
+        <FilterChips items={chips} onRemove={removeChip} onClearAll={clearFilter} />
         <Table
           aria-label="Purchase orders"
           columns={columns}
@@ -225,7 +248,15 @@ function OrderList({
             { key: 'delete', label: 'Delete', danger: true },
           ]}
           onRowAction={(key, o) => (key === 'open' ? onOpen(o) : onDelete([o.id]))}
-          renderEmpty={() => 'No orders match the filter.'}
+          hiddenColumns={hidden}
+          renderEmpty={() => (
+            <EmptyState
+              icon={searchIcon}
+              title="No orders match the filter"
+              description="Remove a filter or search for another order."
+              actions={<Button onClick={clearFilter}>Clear filters</Button>}
+            />
+          )}
           height={460}
         />
       </div>
@@ -258,7 +289,7 @@ function OrderDetail({
   const toast = useToast();
   const messages = useMessageDialog();
   const supplier = suppliers.find((s) => s.label === order.supplier);
-  const [draft, setDraft] = useState<Draft>({
+  const [saved, setSaved] = useState<Draft>(() => ({
     supplierId: supplier?.value ?? null,
     contact: '',
     country: 'DE',
@@ -266,7 +297,13 @@ function OrderDetail({
     amount: order.amount,
     shipping: 'standard',
     note: null,
-  });
+  }));
+  const [draft, setDraft] = useState<Draft>(saved);
+  const dirty = (Object.keys(draft) as (keyof Draft)[]).some((k) => draft[k] !== saved[k]);
+  const { confirmLeave } = useUnsavedChanges(dirty);
+  const leave = async () => {
+    if (await confirmLeave()) onBack();
+  };
   const [checked, setChecked] = useState(false);
   const set = <K extends keyof Draft>(key: K, value: Draft[K]) =>
     setDraft({ ...draft, [key]: value });
@@ -319,6 +356,7 @@ function OrderDetail({
     setChecked(true);
     if (errors.length > 0) return;
     onSave({ ...order, date: draft.date!, amount: draft.amount! });
+    setSaved(draft);
     toast.show({ message: `Purchase order ${order.id} saved`, tone: 'success' });
   };
   const remove = async () => {
@@ -342,7 +380,7 @@ function OrderDetail({
           breadcrumbs={
             <Breadcrumbs
               items={[
-                { key: 'list', label: 'Purchase orders', onPress: onBack },
+                { key: 'list', label: 'Purchase orders', onPress: leave },
                 { key: 'order', label: order.id },
               ]}
             />
@@ -387,7 +425,7 @@ function OrderDetail({
           <Button variant="primary" onClick={save}>
             Save
           </Button>
-          <Button onClick={onBack}>Cancel</Button>
+          <Button onClick={leave}>Cancel</Button>
         </>
       }
     >

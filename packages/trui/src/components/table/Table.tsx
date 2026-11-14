@@ -27,9 +27,11 @@ import {
   useState,
 } from 'react';
 import { moreVerticalIcon } from '../../icons/set/more-vertical';
+import { sortIcon } from '../../icons/set/sort';
 import { sortAscendingIcon } from '../../icons/set/sort-ascending';
 import { sortDescendingIcon } from '../../icons/set/sort-descending';
 import { cx } from '../../internal/class-names';
+import { EmptyState } from '../empty-state/EmptyState';
 import { Icon } from '../icon/Icon';
 import type { MenuItem } from '../menu/Menu';
 import { MenuButton } from '../menu/MenuButton';
@@ -72,6 +74,8 @@ export interface TableProps<T> {
   loading?: boolean;
   /** Content without rows; "No data" by default. */
   renderEmpty?: () => ReactNode;
+  /** Keys of columns that are not shown, e.g. from a column chooser. */
+  hiddenColumns?: ReadonlySet<string>;
   /** Called when the user changes the width of a column. */
   onColumnResize?: (key: string, width: number) => void;
   /** Height of the table, e.g. `400` or `'100%'`. It needs a height to scroll and render only visible rows. */
@@ -128,6 +132,7 @@ export function Table<T>({
   onRowAction,
   loading = false,
   renderEmpty,
+  hiddenColumns,
   onColumnResize,
   height,
   className,
@@ -170,7 +175,7 @@ export function Table<T>({
           },
         ]
       : []),
-    ...columns,
+    ...(hiddenColumns ? columns.filter((c) => !hiddenColumns.has(c.key)) : columns),
     ...(rowActions
       ? [
           {
@@ -570,11 +575,15 @@ export function Table<T>({
                     ) : (
                       <span className="trui-table__header-content">
                         <span className="trui-table__header-text">{column.header}</span>
-                        {sorted && (
+                        {sorted ? (
                           <Icon
                             icon={sorted === 'ascending' ? sortAscendingIcon : sortDescendingIcon}
                             size="s"
                           />
+                        ) : (
+                          column.sortable && (
+                            <Icon icon={sortIcon} size="s" className="trui-table__sort-hint" />
+                          )
                         )}
                       </span>
                     )}
@@ -600,7 +609,7 @@ export function Table<T>({
                   className="trui-table__empty"
                   data-cell={cellId({ row: 0, col: 0 })}
                 >
-                  {renderEmpty?.() ?? t('common.noData')}
+                  {renderEmpty?.() ?? <EmptyState title={t('common.noData')} />}
                 </td>
               </tr>
             ) : (

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { type ToastEntry, useFeedbackQueue, useText } from '@tim-riep/trui/core';
-import { useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { closeIcon } from '../../icons/set/close';
 import { cx } from '../../internal/class-names';
 import { toneIcons } from '../banner/Banner';
@@ -24,7 +24,15 @@ import { MessageDialog } from '../message-dialog/MessageDialog';
 function Toast({ toast, onDismiss }: { toast: ToastEntry; onDismiss: () => void }) {
   const t = useText();
   const tone = toast.tone ?? 'information';
-  const duration = toast.duration === undefined ? (tone === 'error' ? null : 5000) : toast.duration;
+  // A toast with an action stays longer, so that there is time to undo.
+  const duration =
+    toast.duration === undefined
+      ? tone === 'error'
+        ? null
+        : toast.action
+          ? 8000
+          : 5000
+      : toast.duration;
   const [paused, setPaused] = useState(false);
   const remaining = useRef(duration ?? 0);
   const dismiss = useRef(onDismiss);
@@ -43,7 +51,7 @@ function Toast({ toast, onDismiss }: { toast: ToastEntry; onDismiss: () => void 
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: pauses the timer while pointer or focus is inside; no action
     <div
-      className={cx('trui-toast', `trui-toast--${tone}`)}
+      className={cx('trui-toast', `trui-toast--${tone}`, paused && 'trui-toast--paused')}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -75,6 +83,13 @@ function Toast({ toast, onDismiss }: { toast: ToastEntry; onDismiss: () => void 
         className="trui-toast__close"
         onClick={onDismiss}
       />
+      {duration !== null && (
+        <span
+          className="trui-toast__timer"
+          style={{ '--trui-toast-duration': `${duration}ms` } as CSSProperties}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }

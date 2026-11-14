@@ -32,7 +32,10 @@ export interface ToastOptions {
   tone?: FeedbackTone;
   /** One action, e.g. "Undo". */
   action?: { label: string; onAction: () => void };
-  /** Milliseconds until it disappears; `null` keeps it until dismissed. 5000 by default, errors stay. */
+  /**
+   * Milliseconds until it disappears; `null` keeps it until dismissed. 5000 by
+   * default, 8000 with an action; errors stay.
+   */
   duration?: number | null;
 }
 

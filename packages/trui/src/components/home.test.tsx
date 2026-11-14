@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../styles.css';
+import { type Command, CommandPalette } from './command-palette/CommandPalette';
 import { type Notification, NotificationPanel } from './notification-panel/NotificationPanel';
 import { SettingsDialog } from './shell/SettingsDialog';
 import { ShellHeader, ShellLayout } from './shell/Shell';
@@ -293,5 +294,59 @@ describe('Shell', () => {
     expect(within(dialog).getByRole('region', { name: 'Notifications' }).textContent).toContain(
       'Email options',
     );
+  });
+});
+
+const commands: Command[] = [
+  { key: 'orders', label: 'Purchase orders', group: 'Applications', keywords: ['buy'] },
+  { key: 'suppliers', label: 'Suppliers', description: 'Master data', group: 'Applications' },
+  { key: 'invoices', label: 'Supplier invoices', group: 'Applications' },
+  { key: 'locked', label: 'Locked settings', group: 'Actions', disabled: true },
+];
+
+describe('CommandPalette', () => {
+  it('opens with Ctrl+K, filters, moves by keyboard and runs a command', async () => {
+    const onCommand = vi.fn();
+    render(
+      <>
+        <button type="button">before</button>
+        <CommandPalette commands={commands} onCommand={onCommand} />
+      </>,
+    );
+    const before = screen.getByRole('button', { name: 'before' });
+    before.focus();
+    await userEvent.keyboard('{Control>}k{/Control}');
+    const input = await screen.findByRole('combobox', { name: 'Commands' });
+    await expect.poll(() => document.activeElement).toBe(input);
+    expect(screen.getAllByRole('option')).toHaveLength(4);
+    expect(screen.getByRole('group', { name: 'Actions' })).toBeTruthy();
+    await userEvent.keyboard('sup');
+    const options = screen.getAllByRole('option');
+    expect(options.map((o) => o.textContent)).toEqual([
+      'SuppliersMaster data',
+      'Supplier invoices',
+    ]);
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[0]!.id);
+    await userEvent.keyboard('{ArrowDown}');
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[1]!.id);
+    await userEvent.keyboard('{Enter}');
+    expect(onCommand).toHaveBeenCalledWith('invoices', commands[2]);
+    expect(screen.queryByRole('combobox')).toBeNull();
+    expect(document.activeElement).toBe(before);
+  });
+
+  it('finds commands by keyword, skips disabled ones and says when nothing matches', async () => {
+    const onCommand = vi.fn();
+    render(<CommandPalette commands={commands} onCommand={onCommand} defaultOpen />);
+    const input = await screen.findByRole('combobox');
+    await userEvent.type(input, 'buy');
+    expect(screen.getAllByRole('option').map((o) => o.textContent)).toEqual(['Purchase orders']);
+    await userEvent.clear(input);
+    await userEvent.type(input, 'locked{Enter}');
+    expect(onCommand).not.toHaveBeenCalled();
+    await userEvent.type(input, 'xyz');
+    expect(screen.getByText('No matching commands')).toBeTruthy();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('combobox')).toBeNull();
   });
 });

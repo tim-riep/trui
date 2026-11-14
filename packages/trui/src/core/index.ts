@@ -50,6 +50,8 @@ export {
   monthNames,
   parseLocalizedDate,
   parseLocalizedTime,
+  parseRelativeDate,
+  type RelativeDateWords,
   uses12HourClock,
   weekdayNames,
 } from './date/localized';
@@ -91,6 +93,7 @@ export {
   useMessageDialog,
   useToast,
 } from './feedback/feedback';
+export { useUnsavedChanges } from './feedback/unsaved-changes';
 export { focusFirst, isTabbable, tabbableElements } from './focus/focusable';
 export { useFocusTrap } from './focus/use-focus-trap';
 export { FieldContext, type FieldContextValue, useField } from './form/field-context';
