@@ -19,6 +19,7 @@
     background: var(--trui-color-surface);
     border: var(--trui-border-width) solid var(--trui-color-border-subtle);
     border-radius: var(--trui-radius-l);
+    box-shadow: var(--trui-shadow-s);
   }
 
   .trui-panel__header {

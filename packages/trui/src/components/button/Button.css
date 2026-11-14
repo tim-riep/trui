@@ -17,16 +17,17 @@
 @layer trui.components {
   .trui-button {
     --trui-button-background: var(--trui-color-surface);
-    --trui-button-color: var(--trui-color-accent-text);
-    --trui-button-border: var(--trui-color-border-strong);
+    --trui-button-color: var(--trui-color-text);
+    --trui-button-border: var(--trui-color-border);
+    --trui-button-shadow: var(--trui-shadow-s);
     --trui-button-background-hover: color-mix(
       in srgb,
-      var(--trui-color-accent) var(--trui-mix-hover),
+      var(--trui-color-text) var(--trui-mix-hover),
       var(--trui-color-surface)
     );
     --trui-button-background-active: color-mix(
       in srgb,
-      var(--trui-color-accent) var(--trui-mix-active),
+      var(--trui-color-text) var(--trui-mix-active),
       var(--trui-color-surface)
     );
 
@@ -49,9 +50,12 @@
     background: var(--trui-button-background);
     border: var(--trui-border-width) solid var(--trui-button-border);
     border-radius: var(--trui-radius-m);
+    box-shadow: var(--trui-button-shadow);
     transition:
       background-color var(--trui-duration-fast) var(--trui-easing),
-      border-color var(--trui-duration-fast) var(--trui-easing);
+      border-color var(--trui-duration-fast) var(--trui-easing),
+      box-shadow var(--trui-duration-fast) var(--trui-easing),
+      transform var(--trui-duration-fast) var(--trui-easing);
   }
 
   .trui-button:hover:not(:disabled) {
@@ -61,6 +65,10 @@
   .trui-button:active:not(:disabled),
   .trui-button[aria-pressed='true'] {
     background: var(--trui-button-background-active);
+  }
+
+  .trui-button:active:not(:disabled) {
+    transform: scale(0.98);
   }
 
   .trui-button--primary {
@@ -73,7 +81,19 @@
 
   .trui-button--text {
     --trui-button-background: transparent;
+    --trui-button-color: var(--trui-color-accent-text);
     --trui-button-border: transparent;
+    --trui-button-shadow: none;
+    --trui-button-background-hover: color-mix(
+      in srgb,
+      var(--trui-color-accent) var(--trui-mix-hover),
+      transparent
+    );
+    --trui-button-background-active: color-mix(
+      in srgb,
+      var(--trui-color-accent) var(--trui-mix-active),
+      transparent
+    );
   }
 
   .trui-button--danger {
@@ -93,7 +113,8 @@
     color: var(--trui-color-text-disabled);
     cursor: default;
     background: var(--trui-color-surface-subtle);
-    border-color: var(--trui-color-border);
+    border-color: var(--trui-color-border-subtle);
+    box-shadow: none;
   }
 
   .trui-button--text:disabled {

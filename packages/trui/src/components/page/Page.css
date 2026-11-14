@@ -44,8 +44,8 @@
     justify-content: flex-end;
     padding: var(--trui-space-s) var(--trui-space-xl);
     background: var(--trui-color-surface);
-    border-top: var(--trui-border-width) solid var(--trui-color-border);
-    box-shadow: var(--trui-shadow-s);
+    border-top: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    box-shadow: var(--trui-shadow-m);
   }
 
   .trui-page-header {
@@ -93,9 +93,10 @@
 
   .trui-page-header__title {
     margin: 0;
-    font-size: var(--trui-font-size-xl);
+    font-size: var(--trui-font-size-xxl);
     font-weight: var(--trui-font-weight-semibold);
     line-height: var(--trui-line-height-tight);
+    letter-spacing: var(--trui-letter-spacing-heading);
     overflow-wrap: anywhere;
   }
 

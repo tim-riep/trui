@@ -26,9 +26,15 @@
     box-shadow: var(--trui-shadow-s);
   }
 
+  .trui-card--interactive {
+    transition:
+      box-shadow var(--trui-duration-normal) var(--trui-easing),
+      transform var(--trui-duration-normal) var(--trui-easing);
+  }
+
   .trui-card--interactive:hover {
-    border-color: var(--trui-color-border);
     box-shadow: var(--trui-shadow-m);
+    transform: translateY(var(--trui-lift));
   }
 
   .trui-card--interactive:has(.trui-card__target:focus-visible) {
@@ -40,7 +46,7 @@
     display: flex;
     gap: var(--trui-space-m);
     align-items: center;
-    padding: var(--trui-space-m) var(--trui-space-l) 0;
+    padding: var(--trui-space-l) var(--trui-space-l) 0;
   }
 
   .trui-card__heading {
@@ -90,7 +96,7 @@
 
   .trui-card__content {
     flex: 1;
-    padding: var(--trui-space-m) var(--trui-space-l);
+    padding: var(--trui-space-m) var(--trui-space-l) var(--trui-space-l);
   }
 
   .trui-card__footer {

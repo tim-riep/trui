@@ -17,7 +17,7 @@
 @layer trui.components {
   .trui-menu {
     min-width: calc(var(--trui-space-xxxl) * 3.5);
-    padding: var(--trui-space-xs) 0;
+    padding: var(--trui-space-xs);
   }
 
   .trui-menu__group {
@@ -33,6 +33,7 @@
     min-height: var(--trui-row-height);
     padding: 0 var(--trui-control-padding-inline);
     cursor: pointer;
+    border-radius: var(--trui-radius-s);
     outline: none;
   }
 

@@ -16,7 +16,7 @@
 
 @layer trui.components {
   .trui-listbox {
-    padding: var(--trui-space-xs) 0;
+    padding: var(--trui-space-xs);
     margin: 0;
     list-style: none;
     outline: none;
@@ -29,6 +29,7 @@
     min-height: var(--trui-row-height);
     padding: var(--trui-space-xs) var(--trui-control-padding-inline);
     cursor: pointer;
+    border-radius: var(--trui-radius-s);
   }
 
   .trui-listbox__option--active {

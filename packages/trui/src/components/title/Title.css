@@ -20,6 +20,7 @@
     font-weight: var(--trui-font-weight-semibold);
     line-height: var(--trui-line-height-tight);
     color: var(--trui-color-text);
+    letter-spacing: var(--trui-letter-spacing-heading);
     overflow-wrap: anywhere;
   }
 

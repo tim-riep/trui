@@ -33,8 +33,19 @@
     color: var(--trui-color-text-secondary);
   }
 
+  /* The trail is navigation by its structure, so its links need no underline
+   * until they are hovered. */
   .trui-breadcrumbs__item .trui-link {
     color: var(--trui-color-text-secondary);
+    text-decoration-color: transparent;
+    transition:
+      color var(--trui-duration-fast) var(--trui-easing),
+      text-decoration-color var(--trui-duration-fast) var(--trui-easing);
+  }
+
+  .trui-breadcrumbs__item .trui-link:hover {
+    color: var(--trui-color-text);
+    text-decoration-color: currentcolor;
   }
 
   .trui-breadcrumbs__current {

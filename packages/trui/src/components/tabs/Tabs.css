@@ -18,7 +18,7 @@
   .trui-tabs__bar {
     display: flex;
     align-items: stretch;
-    border-bottom: var(--trui-border-width) solid var(--trui-color-border);
+    border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
   }
 
   .trui-tabs__list {
@@ -46,6 +46,9 @@
     border: 0;
     border-radius: var(--trui-radius-s) var(--trui-radius-s) 0 0;
     outline-offset: calc(var(--trui-focus-width) * -1);
+    transition:
+      color var(--trui-duration-fast) var(--trui-easing),
+      background-color var(--trui-duration-fast) var(--trui-easing);
   }
 
   .trui-tabs__tab:hover {

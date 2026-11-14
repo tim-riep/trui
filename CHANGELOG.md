@@ -6,6 +6,21 @@ All notable changes to `@tim-riep/trui` are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Tokens `--trui-duration-slow`, `--trui-easing-exit`, `--trui-lift`, `--trui-enter-scale`,
+  `--trui-focus-halo-width`, `--trui-shadow-focus` and `--trui-letter-spacing-heading`.
+
+### Changed
+
+- Refreshed look: larger radii, softer layered shadows, cooler neutrals and an indigo
+  accent. Secondary buttons are white with a fine border; fields show a soft halo on
+  focus; cards, tiles, panels and tables lift slightly on hover; options and menu items
+  are rounded; tile icons sit on a tinted square; page titles are larger.
+- Dialogs, popovers and toasts fade and scale in; dialogs blur the page behind them.
+  All motion is off with `prefers-reduced-motion`.
+- Breadcrumb links are underlined only on hover.
+
 ## [0.1.1] - 2026-11-14
 
 ### Fixed

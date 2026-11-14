@@ -41,17 +41,17 @@
     color: var(--trui-color-text);
     pointer-events: auto;
     background: var(--trui-color-surface-raised);
-    border: var(--trui-border-width) solid var(--trui-color-border);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
     border-inline-start: var(--trui-border-width-strong) solid var(--trui-color-information);
-    border-radius: var(--trui-radius-m);
+    border-radius: var(--trui-radius-l);
     box-shadow: var(--trui-shadow-l);
-    animation: trui-toast-in var(--trui-duration-normal) var(--trui-easing);
+    animation: trui-toast-in var(--trui-duration-slow) var(--trui-easing);
   }
 
   @keyframes trui-toast-in {
     from {
       opacity: 0;
-      transform: translateY(var(--trui-space-s));
+      transform: translateY(var(--trui-space-l)) scale(var(--trui-enter-scale));
     }
   }
 

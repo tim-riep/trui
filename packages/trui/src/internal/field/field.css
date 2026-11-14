@@ -40,7 +40,10 @@
     background: var(--trui-color-surface);
     border: var(--trui-border-width) solid var(--trui-field-border);
     border-radius: var(--trui-radius-s);
-    transition: border-color var(--trui-duration-fast) var(--trui-easing);
+    box-shadow: var(--trui-shadow-s);
+    transition:
+      border-color var(--trui-duration-fast) var(--trui-easing),
+      box-shadow var(--trui-duration-fast) var(--trui-easing);
   }
 
   .trui-field__control:hover {
@@ -48,8 +51,10 @@
   }
 
   .trui-field__control:focus-within {
+    border-color: var(--trui-color-focus);
     outline: var(--trui-focus-width) solid var(--trui-color-focus);
     outline-offset: calc(var(--trui-focus-width) * -1 + var(--trui-border-width) * -1);
+    box-shadow: var(--trui-shadow-focus);
   }
 
   .trui-field__input {
@@ -101,6 +106,13 @@
     box-shadow: inset 0 calc(var(--trui-border-width) * -1) 0 var(--trui-field-border);
   }
 
+  .trui-field--error .trui-field__control:focus-within,
+  .trui-field--warning .trui-field__control:focus-within,
+  .trui-field--success .trui-field__control:focus-within,
+  .trui-field--information .trui-field__control:focus-within {
+    box-shadow: var(--trui-shadow-focus);
+  }
+
   .trui-field--error .trui-field__control:hover,
   .trui-field--warning .trui-field__control:hover,
   .trui-field--success .trui-field__control:hover,
@@ -112,6 +124,7 @@
     cursor: default;
     background: var(--trui-color-surface-subtle);
     border-color: var(--trui-color-border);
+    box-shadow: none;
   }
 
   .trui-field--disabled .trui-field__control {
@@ -154,6 +167,10 @@
 
 @layer trui.components {
   .trui-field__button.trui-button {
+    --trui-button-shadow: none;
+    --trui-button-border: transparent;
+    --trui-button-background: transparent;
+
     min-width: 0;
     width: calc(var(--trui-control-height) - 2 * var(--trui-space-xs));
     height: calc(var(--trui-control-height) - 2 * var(--trui-space-xs));

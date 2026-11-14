@@ -22,7 +22,8 @@
     min-height: 0;
     background: var(--trui-color-surface);
     border: var(--trui-border-width) solid var(--trui-color-border-subtle);
-    border-radius: var(--trui-radius-m);
+    border-radius: var(--trui-radius-l);
+    box-shadow: var(--trui-shadow-s);
   }
 
   .trui-table__scroller {
@@ -50,8 +51,8 @@
     color: var(--trui-color-text-secondary);
     text-align: start;
     white-space: nowrap;
-    background: var(--trui-color-surface-subtle);
-    border-bottom: var(--trui-border-width) solid var(--trui-color-border);
+    background: color-mix(in srgb, var(--trui-color-surface-subtle) 60%, var(--trui-color-surface));
+    border-bottom: var(--trui-border-width) solid var(--trui-color-border-subtle);
   }
 
   .trui-table__header--sortable {
@@ -139,6 +140,10 @@
     background: var(--trui-color-surface-hover);
   }
 
+  .trui-table__row:last-child .trui-table__cell {
+    border-bottom: 0;
+  }
+
   .trui-table__row--selected .trui-table__cell,
   .trui-table__row--selected:hover .trui-table__cell {
     background: var(--trui-color-selected);
@@ -163,6 +168,13 @@
     height: var(--trui-space-s);
     background: var(--trui-color-surface-subtle);
     border-radius: var(--trui-radius-s);
+    animation: trui-table-pulse calc(var(--trui-duration-normal) * 6) ease-in-out infinite;
+  }
+
+  @keyframes trui-table-pulse {
+    50% {
+      opacity: 0.5;
+    }
   }
 
   .trui-table__spacer td {

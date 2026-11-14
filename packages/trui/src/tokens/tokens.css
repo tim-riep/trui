@@ -65,6 +65,7 @@
     --trui-font-weight-bold: 700;
     --trui-line-height-tight: 1.25;
     --trui-line-height-normal: 1.45;
+    --trui-letter-spacing-heading: -0.012em;
 
     /* Spacing */
     --trui-space-xxs: 2px;
@@ -77,15 +78,16 @@
     --trui-space-xxxl: 48px;
 
     /* Shapes */
-    --trui-radius-s: 4px;
-    --trui-radius-m: 6px;
-    --trui-radius-l: 8px;
-    --trui-radius-xl: 12px;
+    --trui-radius-s: 6px;
+    --trui-radius-m: 8px;
+    --trui-radius-l: 12px;
+    --trui-radius-xl: 16px;
     --trui-radius-round: 9999px;
     --trui-border-width: 1px;
     --trui-border-width-strong: 2px;
     --trui-focus-width: 2px;
     --trui-focus-offset: 2px;
+    --trui-focus-halo-width: 3px;
 
     /* Icons */
     --trui-icon-size-s: 16px;
@@ -97,7 +99,11 @@
     /* Motion */
     --trui-duration-fast: 100ms;
     --trui-duration-normal: 200ms;
+    --trui-duration-slow: 280ms;
     --trui-easing: cubic-bezier(0.2, 0, 0, 1);
+    --trui-easing-exit: cubic-bezier(0.3, 0, 1, 1);
+    --trui-lift: -1px;
+    --trui-enter-scale: 0.97;
 
     /* Density: compact by default */
     --trui-control-height: 28px;
@@ -126,13 +132,13 @@
     color-scheme: light;
 
     --trui-palette-neutral-0: #fff;
-    --trui-palette-neutral-50: #f5f6f7;
-    --trui-palette-neutral-100: #eef0f2;
-    --trui-palette-neutral-200: #e2e5e9;
-    --trui-palette-neutral-300: #d5d9de;
-    --trui-palette-neutral-500: #7d8791;
-    --trui-palette-neutral-600: #56606b;
-    --trui-palette-neutral-900: #1d2329;
+    --trui-palette-neutral-50: #f6f7f9;
+    --trui-palette-neutral-100: #eff1f4;
+    --trui-palette-neutral-200: #e6e9ee;
+    --trui-palette-neutral-300: #d3d8df;
+    --trui-palette-neutral-500: #7a8491;
+    --trui-palette-neutral-600: #525d6a;
+    --trui-palette-neutral-900: #151a21;
 
     --trui-color-background: var(--trui-palette-neutral-50);
     --trui-color-surface: var(--trui-palette-neutral-0);
@@ -145,7 +151,7 @@
     --trui-color-text-secondary: var(--trui-palette-neutral-600);
     --trui-color-text-disabled: var(--trui-palette-neutral-500);
 
-    --trui-color-accent: #2f5fd0;
+    --trui-color-accent: #4f46e5;
     --trui-color-on-accent: #fff;
 
     --trui-color-error: #c0352b;
@@ -158,18 +164,18 @@
     --trui-color-on-information: #fff;
 
     /* Hues without meaning, e.g. for avatars and charts. */
-    --trui-color-decorative-1: #2f5fd0;
+    --trui-color-decorative-1: #4f46e5;
     --trui-color-decorative-2: #1f7a3a;
     --trui-color-decorative-3: #9a5200;
     --trui-color-decorative-4: #8e3fb8;
     --trui-color-decorative-5: #0f7c86;
     --trui-color-decorative-6: #b5375e;
 
-    --trui-color-backdrop: rgb(29 35 41 / 40%);
-    --trui-shadow-s: 0 1px 2px rgb(29 35 41 / 12%);
-    --trui-shadow-m: 0 2px 8px rgb(29 35 41 / 14%), 0 1px 2px rgb(29 35 41 / 8%);
-    --trui-shadow-l: 0 8px 28px rgb(29 35 41 / 18%), 0 2px 6px rgb(29 35 41 / 10%);
-    --trui-mix-hover: 6%;
+    --trui-color-backdrop: rgb(15 20 30 / 36%);
+    --trui-shadow-s: 0 1px 2px rgb(16 24 40 / 5%), 0 1px 3px rgb(16 24 40 / 7%);
+    --trui-shadow-m: 0 4px 12px -2px rgb(16 24 40 / 10%), 0 2px 4px -2px rgb(16 24 40 / 6%);
+    --trui-shadow-l: 0 24px 48px -12px rgb(16 24 40 / 22%), 0 8px 16px -8px rgb(16 24 40 / 10%);
+    --trui-mix-hover: 5%;
     --trui-mix-active: 12%;
     --trui-mix-subtle: 10%;
     --trui-mix-shade: black;
@@ -178,15 +184,15 @@
   [data-trui-theme='dark'] {
     color-scheme: dark;
 
-    --trui-palette-neutral-0: #14181c;
-    --trui-palette-neutral-50: #1c2126;
-    --trui-palette-neutral-100: #252b31;
-    --trui-palette-neutral-150: #232930;
-    --trui-palette-neutral-200: #2a3138;
-    --trui-palette-neutral-300: #323a42;
+    --trui-palette-neutral-0: #0f1216;
+    --trui-palette-neutral-50: #171b20;
+    --trui-palette-neutral-100: #20252b;
+    --trui-palette-neutral-150: #1d2228;
+    --trui-palette-neutral-200: #262c33;
+    --trui-palette-neutral-300: #313840;
     --trui-palette-neutral-500: #6b7682;
-    --trui-palette-neutral-600: #9aa5b0;
-    --trui-palette-neutral-900: #e6e9ec;
+    --trui-palette-neutral-600: #9ca6b1;
+    --trui-palette-neutral-900: #e8ebef;
 
     --trui-color-background: var(--trui-palette-neutral-0);
     --trui-color-surface: var(--trui-palette-neutral-50);
@@ -199,7 +205,7 @@
     --trui-color-text-secondary: var(--trui-palette-neutral-600);
     --trui-color-text-disabled: var(--trui-palette-neutral-500);
 
-    --trui-color-accent: #7aa0ff;
+    --trui-color-accent: #9198ff;
     --trui-color-on-accent: #0d1420;
 
     --trui-color-error: #ff7b72;
@@ -211,7 +217,7 @@
     --trui-color-information: #6cb2ff;
     --trui-color-on-information: #04111f;
 
-    --trui-color-decorative-1: #7aa0ff;
+    --trui-color-decorative-1: #9198ff;
     --trui-color-decorative-2: #4cc27a;
     --trui-color-decorative-3: #e3a043;
     --trui-color-decorative-4: #c78bf0;
@@ -219,9 +225,9 @@
     --trui-color-decorative-6: #f08aa8;
 
     --trui-color-backdrop: rgb(0 0 0 / 55%);
-    --trui-shadow-s: 0 1px 2px rgb(0 0 0 / 40%);
-    --trui-shadow-m: 0 2px 8px rgb(0 0 0 / 45%), 0 1px 2px rgb(0 0 0 / 30%);
-    --trui-shadow-l: 0 8px 28px rgb(0 0 0 / 55%), 0 2px 6px rgb(0 0 0 / 35%);
+    --trui-shadow-s: 0 1px 2px rgb(0 0 0 / 30%), 0 0 0 1px rgb(255 255 255 / 3%);
+    --trui-shadow-m: 0 6px 16px -4px rgb(0 0 0 / 50%), 0 0 0 1px rgb(255 255 255 / 4%);
+    --trui-shadow-l: 0 24px 48px -12px rgb(0 0 0 / 65%), 0 0 0 1px rgb(255 255 255 / 5%);
     --trui-mix-hover: 8%;
     --trui-mix-active: 14%;
     --trui-mix-subtle: 16%;
@@ -244,6 +250,8 @@
     );
     --trui-color-accent-text: var(--trui-color-accent);
     --trui-color-focus: var(--trui-color-accent);
+    --trui-shadow-focus: 0 0 0 var(--trui-focus-halo-width)
+      color-mix(in srgb, var(--trui-color-focus) 25%, transparent);
     --trui-color-selected: var(--trui-color-accent-subtle);
     --trui-color-error-subtle: color-mix(in srgb, var(--trui-color-error) var(--trui-mix-subtle), var(--trui-color-surface));
     --trui-color-warning-subtle: color-mix(
@@ -299,6 +307,7 @@
     [data-trui-theme] {
       --trui-duration-fast: 0ms;
       --trui-duration-normal: 0ms;
+      --trui-duration-slow: 0ms;
     }
   }
 }

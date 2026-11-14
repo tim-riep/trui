@@ -28,8 +28,25 @@
     line-height: var(--trui-line-height-normal);
     color: var(--trui-color-text);
     background: var(--trui-color-surface-raised);
-    border: var(--trui-border-width) solid var(--trui-color-border);
-    border-radius: var(--trui-radius-m);
-    box-shadow: var(--trui-shadow-m);
+    border: var(--trui-border-width) solid var(--trui-color-border-subtle);
+    border-radius: var(--trui-radius-l);
+    box-shadow: var(--trui-shadow-l);
+    transition:
+      opacity var(--trui-duration-normal) var(--trui-easing),
+      transform var(--trui-duration-normal) var(--trui-easing),
+      overlay var(--trui-duration-normal) allow-discrete,
+      display var(--trui-duration-normal) allow-discrete;
+  }
+
+  .trui-floating[popover]:not(:popover-open) {
+    opacity: 0;
+    transform: scale(var(--trui-enter-scale));
+  }
+
+  @starting-style {
+    .trui-floating[popover]:popover-open {
+      opacity: 0;
+      transform: scale(var(--trui-enter-scale));
+    }
   }
 }
